@@ -1,1 +1,526 @@
-12321312312312121212
+<!DOCTYPE html>
+<html lang="zh-CN">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>创意作品集 | 首页</title>
+  <!-- Tailwind CSS v3 -->
+  <script src="https://cdn.tailwindcss.com"></script>
+  <!-- Font Awesome -->
+  <link href="https://cdn.jsdelivr.net/npm/font-awesome@4.7.0/css/font-awesome.min.css" rel="stylesheet">
+  <!-- AOS - Animate On Scroll -->
+  <link href="https://cdn.jsdelivr.net/npm/aos@2.3.4/dist/aos.css" rel="stylesheet">
+  <script src="https://cdn.jsdelivr.net/npm/aos@2.3.4/dist/aos.js"></script>
+  
+  <script>
+    tailwind.config = {
+      theme: {
+        extend: {
+          colors: {
+            primary: '#16a34a', // 绿色作为主色调
+            dark: '#0f0f0f',    // 深黑色背景
+            'dark-light': '#1a1a1a', // 稍亮的黑色
+            'text-light': '#a0a0a0', // 浅色文本
+          },
+          fontFamily: {
+            sans: ['Inter', 'system-ui', 'sans-serif'],
+          },
+          animation: {
+            'pulse-slow': 'pulse 3s cubic-bezier(0.4, 0, 0.6, 1) infinite',
+          }
+        }
+      }
+    }
+  </script>
+  <style type="text/tailwindcss">
+    @layer utilities {
+      .text-shadow {
+        text-shadow: 0 2px 4px rgba(0,0,0,0.5);
+      }
+      .hover-scale {
+        @apply transition-transform duration-300 hover:scale-105;
+      }
+      .card-hover {
+        @apply transition-all duration-300 hover:shadow-lg hover:shadow-primary/20;
+      }
+      .glass-effect {
+        @apply bg-white/5 backdrop-blur-md border border-white/10;
+      }
+    }
+    
+    /* 自定义滚动条 */
+    ::-webkit-scrollbar {
+      width: 8px;
+    }
+    ::-webkit-scrollbar-track {
+      background: #0f0f0f;
+    }
+    ::-webkit-scrollbar-thumb {
+      background: #333;
+      border-radius: 4px;
+    }
+    ::-webkit-scrollbar-thumb:hover {
+      background: #555;
+    }
+    
+    /* 视频播放按钮动画 */
+    .play-button {
+      animation: pulse 2s infinite;
+    }
+    @keyframes pulse {
+      0% {
+        box-shadow: 0 0 0 0 rgba(22, 163, 74, 0.4);
+      }
+      70% {
+        box-shadow: 0 0 0 15px rgba(22, 163, 74, 0);
+      }
+      100% {
+        box-shadow: 0 0 0 0 rgba(22, 163, 74, 0);
+      }
+    }
+  </style>
+</head>
+<body class="bg-dark text-white font-sans">
+  <!-- 导航栏 -->
+  <header class="fixed top-0 left-0 right-0 z-50 glass-effect">
+    <div class="container mx-auto px-4 py-4 flex justify-between items-center">
+      <!-- Logo -->
+      <a href="#" class="text-xl font-bold flex items-center">
+        <span class="text-primary mr-1">V</span>
+        <span>创意工作室</span>
+      </a>
+      
+      <!-- 桌面导航菜单 -->
+      <nav class="hidden md:flex space-x-8">
+        <a href="#" class="text-primary hover:text-primary/80 transition-colors">首页</a>
+        <a href="#projects" class="text-text-light hover:text-white transition-colors">作品集</a>
+        <a href="#about" class="text-text-light hover:text-white transition-colors">关于我</a>
+        <a href="#contact" class="text-text-light hover:text-white transition-colors">联系方式</a>
+      </nav>
+      
+      <!-- 右侧工具栏 -->
+      <div class="flex items-center space-x-4">
+        <button class="text-text-light hover:text-white transition-colors">
+          <i class="fa fa-search"></i>
+        </button>
+        <button class="text-text-light hover:text-white transition-colors">
+          <i class="fa fa-user"></i>
+        </button>
+        <button class="text-text-light hover:text-white transition-colors">
+          <i class="fa fa-bars md:hidden"></i>
+        </button>
+      </div>
+    </div>
+  </header>
+
+  <!-- 主要内容 -->
+  <main class="pt-16">
+    <!-- 英雄区域 -->
+    <section class="relative h-screen flex items-center justify-center overflow-hidden">
+      <!-- 背景视频/图片 -->
+      <div class="absolute inset-0 z-0">
+        <img src="https://p3-flow-imagex-sign.byteimg.com/tos-cn-i-a9rns2rl98/rc/pc/super_tool/926f2980a9204493ba93f461dc2bf18c~tplv-a9rns2rl98-image.image?rcl=20251202210838A7080ED6C9CCE446C4C3&rk3s=8e244e95&rrcfp=f06b921b&x-expires=1767272947&x-signature=8MhhBHyC3gncrul2s81eSvHruok%3D" 
+             alt="背景" 
+             class="w-full h-full object-cover opacity-60">
+        <div class="absolute inset-0 bg-gradient-to-b from-dark/70 to-dark"></div>
+      </div>
+      
+      <!-- 英雄内容 -->
+      <div class="container mx-auto px-4 z-10 text-center" data-aos="fade-up" data-aos-duration="1000">
+        <h1 class="text-4xl md:text-6xl font-bold mb-4 text-shadow">创意无限 · 设计无界</h1>
+        <p class="text-xl md:text-2xl text-text-light mb-8 max-w-3xl mx-auto">
+          专注于创造有影响力的数字体验，将创意转化为视觉盛宴
+        </p>
+        <button id="contactButton" class="bg-primary hover:bg-primary/90 text-white font-medium py-3 px-8 rounded-full transition-all duration-300 hover:shadow-lg hover:shadow-primary/30">
+          交个朋友
+        </button>
+      </div>
+    </section>
+
+    <!-- 视频介绍区域 -->
+    <section class="py-20 bg-dark">
+      <div class="container mx-auto px-4">
+        <div class="max-w-4xl mx-auto rounded-xl overflow-hidden shadow-2xl relative" data-aos="fade-up">
+          <!-- 视频缩略图 -->
+          <div class="relative group cursor-pointer" id="videoThumbnail">
+            <img src="https://p3-flow-imagex-sign.byteimg.com/tos-cn-i-a9rns2rl98/rc/pc/super_tool/926f2980a9204493ba93f461dc2bf18c~tplv-a9rns2rl98-image.image?rcl=20251202210838A7080ED6C9CCE446C4C3&rk3s=8e244e95&rrcfp=f06b921b&x-expires=1767272947&x-signature=8MhhBHyC3gncrul2s81eSvHruok%3D" 
+                 alt="视频缩略图" 
+                 class="w-full h-auto">
+            <div class="absolute inset-0 bg-dark/40 flex items-center justify-center">
+              <div class="w-20 h-20 rounded-full bg-primary/80 flex items-center justify-center play-button group-hover:scale-110 transition-transform duration-300">
+                <i class="fa fa-play text-white text-2xl ml-1"></i>
+              </div>
+            </div>
+          </div>
+          
+          <!-- 视频播放器 (默认隐藏) -->
+          <div id="videoPlayer" class="hidden relative">
+            <div class="aspect-w-16 aspect-h-9 bg-black">
+              <div class="flex items-center justify-center h-full">
+                <p class="text-text-light">视频播放区域</p>
+              </div>
+            </div>
+            <button id="closeVideo" class="absolute top-4 right-4 w-10 h-10 rounded-full bg-dark/80 flex items-center justify-center text-white hover:bg-dark transition-colors">
+              <i class="fa fa-times"></i>
+            </button>
+          </div>
+        </div>
+      </div>
+    </section>
+
+    <!-- 作品集展示区域 -->
+    <section id="projects" class="py-20 bg-dark-light">
+      <div class="container mx-auto px-4">
+        <h2 class="text-3xl md:text-4xl font-bold mb-12 text-center" data-aos="fade-up">精选作品</h2>
+        
+        <div class="grid grid-cols-1 md:grid-cols-2 gap-8">
+          <!-- 作品卡片 1 -->
+          <div class="bg-dark rounded-xl overflow-hidden card-hover" data-aos="fade-up" data-aos-delay="100">
+            <img src="https://p3-flow-imagex-sign.byteimg.com/tos-cn-i-a9rns2rl98/rc/pc/super_tool/0fd7d5f086264fe599d02a0278810214~tplv-a9rns2rl98-image.image?rcl=20251202210838A7080ED6C9CCE446C4C3&rk3s=8e244e95&rrcfp=f06b921b&x-expires=1767272959&x-signature=h1nQODrEZvErxvxtT6B1XZdwcJA%3D" 
+                 alt="网站设计" 
+                 class="w-full h-64 object-cover">
+            <div class="p-6">
+              <h3 class="text-xl font-bold mb-2">极简网站设计</h3>
+              <p class="text-text-light mb-4">为创意机构打造的现代化网站界面，注重用户体验与视觉美感</p>
+              <div class="flex flex-wrap gap-2">
+                <span class="px-3 py-1 bg-dark-light rounded-full text-xs text-text-light">UI设计</span>
+                <span class="px-3 py-1 bg-dark-light rounded-full text-xs text-text-light">网站开发</span>
+              </div>
+            </div>
+          </div>
+          
+          <!-- 作品卡片 2 -->
+          <div class="bg-dark rounded-xl overflow-hidden card-hover" data-aos="fade-up" data-aos-delay="200">
+            <img src="https://p3-flow-imagex-sign.byteimg.com/tos-cn-i-a9rns2rl98/rc/pc/super_tool/f90fd3e0e9e74c1ea3fdeff551c5e180~tplv-a9rns2rl98-image.image?rcl=20251202210838A7080ED6C9CCE446C4C3&rk3s=8e244e95&rrcfp=f06b921b&x-expires=1767272960&x-signature=4Uq0sptUP1D6leZ9mb4K2AXr%2B8Q%3D" 
+                 alt="移动应用设计" 
+                 class="w-full h-64 object-cover">
+            <div class="p-6">
+              <h3 class="text-xl font-bold mb-2">聊天应用界面</h3>
+              <p class="text-text-light mb-4">简洁高效的移动聊天应用界面，以绿色为主色调，提供流畅的用户体验</p>
+              <div class="flex flex-wrap gap-2">
+                <span class="px-3 py-1 bg-dark-light rounded-full text-xs text-text-light">移动UI</span>
+                <span class="px-3 py-1 bg-dark-light rounded-full text-xs text-text-light">用户体验</span>
+              </div>
+            </div>
+          </div>
+          
+          <!-- 作品卡片 3 -->
+          <div class="bg-dark rounded-xl overflow-hidden card-hover" data-aos="fade-up" data-aos-delay="300">
+            <img src="https://p3-flow-imagex-sign.byteimg.com/tos-cn-i-a9rns2rl98/rc/pc/super_tool/a84e20a5e651465db9f42c651070d15c~tplv-a9rns2rl98-image.image?rcl=20251202210838A7080ED6C9CCE446C4C3&rk3s=8e244e95&rrcfp=f06b921b&x-expires=1767272961&x-signature=hp1SKDqahYP5TkFfMfNMmu910Gg%3D" 
+                 alt="数据分析仪表盘" 
+                 class="w-full h-64 object-cover">
+            <div class="p-6">
+              <h3 class="text-xl font-bold mb-2">数据分析仪表盘</h3>
+              <p class="text-text-light mb-4">为企业打造的数据分析平台，提供直观的数据可视化和强大的分析功能</p>
+              <div class="flex flex-wrap gap-2">
+                <span class="px-3 py-1 bg-dark-light rounded-full text-xs text-text-light">数据可视化</span>
+                <span class="px-3 py-1 bg-dark-light rounded-full text-xs text-text-light">仪表盘</span>
+              </div>
+            </div>
+          </div>
+          
+          <!-- 作品卡片 4 -->
+          <div class="bg-dark rounded-xl overflow-hidden card-hover" data-aos="fade-up" data-aos-delay="400">
+            <img src="https://p9-flow-imagex-sign.byteimg.com/tos-cn-i-a9rns2rl98/rc/pc/super_tool/71d1166f7910464296cb7388bc8153a1~tplv-a9rns2rl98-image.image?rcl=20251202210838A7080ED6C9CCE446C4C3&rk3s=8e244e95&rrcfp=f06b921b&x-expires=1767272965&x-signature=rPTE4V6B3Lv9sIfyo758bDKXQVA%3D" 
+                 alt="品牌标识设计" 
+                 class="w-full h-64 object-cover">
+            <div class="p-6">
+              <h3 class="text-xl font-bold mb-2">品牌标识设计</h3>
+              <p class="text-text-light mb-4">为初创企业设计的现代简约品牌标识，包含完整的色彩系统和应用规范</p>
+              <div class="flex flex-wrap gap-2">
+                <span class="px-3 py-1 bg-dark-light rounded-full text-xs text-text-light">品牌设计</span>
+                <span class="px-3 py-1 bg-dark-light rounded-full text-xs text-text-light">标识设计</span>
+              </div>
+            </div>
+          </div>
+        </div>
+      </div>
+    </section>
+
+    <!-- 关于我区域 -->
+    <section id="about" class="py-20 bg-dark">
+      <div class="container mx-auto px-4">
+        <div class="max-w-4xl mx-auto">
+          <h2 class="text-3xl md:text-4xl font-bold mb-12 text-center" data-aos="fade-up">关于我</h2>
+          
+          <div class="grid grid-cols-1 md:grid-cols-2 gap-12 items-center">
+            <div data-aos="fade-right">
+              <h3 class="text-2xl font-bold mb-4">创意设计师 & 开发者</h3>
+              <p class="text-text-light mb-6">
+                我是一名充满激情的创意设计师和开发者，专注于创造有影响力的数字体验。
+                我的工作涵盖UI/UX设计、网站开发、移动应用界面设计以及品牌标识设计。
+              </p>
+              <p class="text-text-light mb-6">
+                我相信好的设计不仅仅是美观，更应该解决问题并提供卓越的用户体验。
+                我热衷于将创意理念转化为视觉上令人惊叹且功能强大的数字产品。
+              </p>
+              <div class="flex space-x-4">
+                <a href="#" class="w-10 h-10 rounded-full bg-dark-light flex items-center justify-center text-text-light hover:bg-primary hover:text-white transition-colors">
+                  <i class="fa fa-behance"></i>
+                </a>
+                <a href="#" class="w-10 h-10 rounded-full bg-dark-light flex items-center justify-center text-text-light hover:bg-primary hover:text-white transition-colors">
+                  <i class="fa fa-dribbble"></i>
+                </a>
+                <a href="#" class="w-10 h-10 rounded-full bg-dark-light flex items-center justify-center text-text-light hover:bg-primary hover:text-white transition-colors">
+                  <i class="fa fa-linkedin"></i>
+                </a>
+                <a href="#" class="w-10 h-10 rounded-full bg-dark-light flex items-center justify-center text-text-light hover:bg-primary hover:text-white transition-colors">
+                  <i class="fa fa-github"></i>
+                </a>
+              </div>
+            </div>
+            
+            <div class="relative" data-aos="fade-left">
+              <div class="w-full h-80 rounded-xl overflow-hidden">
+                <img src="https://p3-flow-imagex-sign.byteimg.com/tos-cn-i-a9rns2rl98/rc/pc/super_tool/926f2980a9204493ba93f461dc2bf18c~tplv-a9rns2rl98-image.image?rcl=20251202210838A7080ED6C9CCE446C4C3&rk3s=8e244e95&rrcfp=f06b921b&x-expires=1767272947&x-signature=8MhhBHyC3gncrul2s81eSvHruok%3D" 
+                     alt="个人照片" 
+                     class="w-full h-full object-cover">
+              </div>
+              <div class="absolute -bottom-6 -left-6 w-40 h-40 bg-primary/20 rounded-xl -z-10"></div>
+              <div class="absolute -top-6 -right-6 w-40 h-40 bg-primary/10 rounded-xl -z-10"></div>
+            </div>
+          </div>
+        </div>
+      </div>
+    </section>
+
+    <!-- 联系方式区域 -->
+    <section id="contact" class="py-20 bg-dark-light">
+      <div class="container mx-auto px-4">
+        <h2 class="text-3xl md:text-4xl font-bold mb-12 text-center" data-aos="fade-up">联系我</h2>
+        
+        <div class="max-w-4xl mx-auto">
+          <div class="bg-dark rounded-xl p-8 shadow-xl" data-aos="fade-up">
+            <form id="contactForm" class="space-y-6">
+              <div class="grid grid-cols-1 md:grid-cols-2 gap-6">
+                <div>
+                  <label for="name" class="block text-sm font-medium text-text-light mb-2">姓名</label>
+                  <input type="text" id="name" name="name" class="w-full px-4 py-3 bg-dark-light border border-gray-800 rounded-lg focus:outline-none focus:ring-2 focus:ring-primary/50 text-white">
+                </div>
+                <div>
+                  <label for="email" class="block text-sm font-medium text-text-light mb-2">邮箱</label>
+                  <input type="email" id="email" name="email" class="w-full px-4 py-3 bg-dark-light border border-gray-800 rounded-lg focus:outline-none focus:ring-2 focus:ring-primary/50 text-white">
+                </div>
+              </div>
+              
+              <div>
+                <label for="subject" class="block text-sm font-medium text-text-light mb-2">主题</label>
+                <input type="text" id="subject" name="subject" class="w-full px-4 py-3 bg-dark-light border border-gray-800 rounded-lg focus:outline-none focus:ring-2 focus:ring-primary/50 text-white">
+              </div>
+              
+              <div>
+                <label for="message" class="block text-sm font-medium text-text-light mb-2">消息</label>
+                <textarea id="message" name="message" rows="5" class="w-full px-4 py-3 bg-dark-light border border-gray-800 rounded-lg focus:outline-none focus:ring-2 focus:ring-primary/50 text-white"></textarea>
+              </div>
+              
+              <div class="text-center">
+                <button type="submit" class="bg-primary hover:bg-primary/90 text-white font-medium py-3 px-8 rounded-full transition-all duration-300 hover:shadow-lg hover:shadow-primary/30">
+                  发送消息
+                </button>
+              </div>
+            </form>
+          </div>
+        </div>
+      </div>
+    </section>
+  </main>
+
+  <!-- 页脚 -->
+  <footer class="bg-dark py-12">
+    <div class="container mx-auto px-4">
+      <div class="flex flex-col md:flex-row justify-between items-center">
+        <div class="mb-6 md:mb-0">
+          <a href="#" class="text-xl font-bold flex items-center">
+            <span class="text-primary mr-1">V</span>
+            <span>创意工作室</span>
+          </a>
+          <p class="text-text-light mt-2">创造有影响力的数字体验</p>
+        </div>
+        
+        <div class="flex flex-wrap justify-center gap-x-8 gap-y-4">
+          <a href="#" class="text-text-light hover:text-white transition-colors">首页</a>
+          <a href="#projects" class="text-text-light hover:text-white transition-colors">作品集</a>
+          <a href="#about" class="text-text-light hover:text-white transition-colors">关于我</a>
+          <a href="#contact" class="text-text-light hover:text-white transition-colors">联系方式</a>
+        </div>
+      </div>
+      
+      <hr class="border-gray-800 my-8">
+      
+      <div class="flex flex-col md:flex-row justify-between items-center">
+        <p class="text-text-light text-sm">© 2025 创意工作室. 保留所有权利.</p>
+        
+        <div class="flex space-x-4 mt-4 md:mt-0">
+          <a href="#" class="text-text-light hover:text-white transition-colors">
+            <i class="fa fa-behance"></i>
+          </a>
+          <a href="#" class="text-text-light hover:text-white transition-colors">
+            <i class="fa fa-dribbble"></i>
+          </a>
+          <a href="#" class="text-text-light hover:text-white transition-colors">
+            <i class="fa fa-linkedin"></i>
+          </a>
+          <a href="#" class="text-text-light hover:text-white transition-colors">
+            <i class="fa fa-github"></i>
+          </a>
+        </div>
+      </div>
+    </div>
+  </footer>
+
+  <!-- 返回顶部按钮 -->
+  <button id="backToTop" class="fixed bottom-8 right-8 w-12 h-12 rounded-full bg-primary/80 flex items-center justify-center text-white shadow-lg opacity-0 invisible transition-all duration-300 hover:bg-primary">
+    <i class="fa fa-arrow-up"></i>
+  </button>
+
+  <!-- JavaScript -->
+  <script>
+    // 初始化AOS动画库
+    document.addEventListener('DOMContentLoaded', function() {
+      AOS.init({
+        duration: 800,
+        once: true,
+        offset: 100
+      });
+      
+      // 返回顶部按钮
+      const backToTopButton = document.getElementById('backToTop');
+      
+      window.addEventListener('scroll', function() {
+        if (window.pageYOffset > 300) {
+          backToTopButton.classList.remove('opacity-0', 'invisible');
+          backToTopButton.classList.add('opacity-100', 'visible');
+        } else {
+          backToTopButton.classList.remove('opacity-100', 'visible');
+          backToTopButton.classList.add('opacity-0', 'invisible');
+        }
+      });
+      
+      backToTopButton.addEventListener('click', function() {
+        window.scrollTo({
+          top: 0,
+          behavior: 'smooth'
+        });
+      });
+      
+      // 视频播放功能
+      const videoThumbnail = document.getElementById('videoThumbnail');
+      const videoPlayer = document.getElementById('videoPlayer');
+      const closeVideo = document.getElementById('closeVideo');
+      
+      videoThumbnail.addEventListener('click', function() {
+        videoThumbnail.classList.add('hidden');
+        videoPlayer.classList.remove('hidden');
+        // 这里可以添加实际的视频播放逻辑
+        showNotification('视频开始播放');
+      });
+      
+      closeVideo.addEventListener('click', function() {
+        videoPlayer.classList.add('hidden');
+        videoThumbnail.classList.remove('hidden');
+        // 这里可以添加停止视频播放的逻辑
+        showNotification('视频已关闭');
+      });
+      
+      // 交个朋友按钮
+      const contactButton = document.getElementById('contactButton');
+      
+      contactButton.addEventListener('click', function() {
+        document.getElementById('contact').scrollIntoView({
+          behavior: 'smooth'
+        });
+        showNotification('很高兴认识你！请填写表单与我联系');
+      });
+      
+      // 导航菜单点击事件
+      const navLinks = document.querySelectorAll('nav a');
+      
+      navLinks.forEach(link => {
+        link.addEventListener('click', function(e) {
+          if (this.getAttribute('href') !== '#') {
+            e.preventDefault();
+            const targetId = this.getAttribute('href');
+            document.querySelector(targetId).scrollIntoView({
+              behavior: 'smooth'
+            });
+            
+            // 更新活动状态
+            navLinks.forEach(navLink => {
+              navLink.classList.remove('text-primary');
+              navLink.classList.add('text-text-light');
+            });
+            this.classList.remove('text-text-light');
+            this.classList.add('text-primary');
+            
+            showNotification(`导航到${this.textContent}`);
+          }
+        });
+      });
+      
+      // 表单提交
+      const contactForm = document.getElementById('contactForm');
+      
+      contactForm.addEventListener('submit', function(e) {
+        e.preventDefault();
+        
+        // 获取表单数据
+        const name = document.getElementById('name').value;
+        const email = document.getElementById('email').value;
+        const subject = document.getElementById('subject').value;
+        const message = document.getElementById('message').value;
+        
+        // 简单验证
+        if (!name || !email || !subject || !message) {
+          showNotification('请填写所有必填字段', 'error');
+          return;
+        }
+        
+        // 模拟表单提交
+        showNotification('消息已发送！我会尽快回复你', 'success');
+        
+        // 重置表单
+        contactForm.reset();
+      });
+      
+      // 通知函数
+      function showNotification(message, type = 'info') {
+        // 创建通知元素
+        const notification = document.createElement('div');
+        notification.className = `fixed top-24 right-4 px-6 py-3 rounded-lg shadow-lg z-50 transform transition-all duration-300 translate-x-full`;
+        
+        // 根据类型设置样式
+        if (type === 'success') {
+          notification.classList.add('bg-green-500', 'text-white');
+        } else if (type === 'error') {
+          notification.classList.add('bg-red-500', 'text-white');
+        } else {
+          notification.classList.add('bg-primary', 'text-white');
+        }
+        
+        // 设置内容
+        notification.textContent = message;
+        
+        // 添加到文档
+        document.body.appendChild(notification);
+        
+        // 显示通知
+        setTimeout(() => {
+          notification.classList.remove('translate-x-full');
+          notification.classList.add('translate-x-0');
+        }, 100);
+        
+        // 自动隐藏
+        setTimeout(() => {
+          notification.classList.remove('translate-x-0');
+          notification.classList.add('translate-x-full');
+          
+          // 移除元素
+          setTimeout(() => {
+            document.body.removeChild(notification);
+          }, 300);
+        }, 3000);
+      }
+    });
+  </script>
+</body>
+</html>
