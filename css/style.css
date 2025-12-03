@@ -7,7 +7,7 @@
 }
 
 body {
-  background-color: #000000; /* 纯黑色背景，可微调为 #111111 深灰黑 */
+  background-color: #111111; /* 纯黑色背景，可微调为 #111111 深灰黑 */
   color: #ffffff; /* 全局默认文字白色，确保可读性 */
 }
 
@@ -23,15 +23,15 @@ body {
 .btn {
   display: inline-block;
   padding: 12px 24px;
-  background-color: #ffffff; /* 按钮颜色 */
   color: white;
+  border: 1px solid #ffffff;
   text-decoration: none;
-  border-radius: 4px; /* 圆角 */
-  font-weight: bold;
+  border-radius: 0px; /* 圆角 */
+  font-weight: 400px;
   transition: background-color 0.3s; /*  hover 过渡效果 */
 }
 .btn:hover {
-  background-color: #34495e; /* 按钮 hover 颜色 */
+  background-color: #222; /* 按钮 hover 颜色 */
 }
 
 /* 导航栏基础样式（固定顶部，不遮挡页面内容） */
@@ -48,8 +48,8 @@ body {
 /* Logo 容器（左上角固定） */
 .logo {
   position: fixed;
-  top: 20px; /* 距离顶部20px，可调整 */
-  left: 30px; /* 距离左侧30px，可调整 */
+  top: 40px; /* 距离顶部 */
+  left: 80px; /* 距离左侧 */
   z-index: 1001;
   /* 移除原文字样式，适配图片 */
   font-size: 0; /* 清除文字默认大小，避免图片周围有空隙 */
@@ -58,7 +58,7 @@ body {
 
 /* 图片Logo样式（核心） */
 .logo-img {
-  height: 40px; /* Logo高度，根据你的图片调整（推荐30-50px） */
+  height: 60px; /* Logo高度，根据你的图片调整（推荐30-50px） */
   width: auto; /* 宽度自动，保持图片比例，避免变形 */
   object-fit: contain; /* 确保图片完整显示，不裁剪 */
 }
@@ -66,10 +66,10 @@ body {
 /* 关键：菜单div固定在右上角 */
 .nav-links {
   position: fixed; /* 固定定位，脱离文档流，钉在右上角 */
-  top: 25px; /* 距离页面顶部25px（可调整上下位置） */
-  right: 30px; /* 距离页面右侧30px（可调整左右位置） */
+  top: 40px; /* 距离页面顶部25px（可调整上下位置） */
+  right: 80px; /* 距离页面右侧30px（可调整左右位置） */
   display: flex; /* 菜单横向排列 */
-  gap: 35px; /* 5个菜单间距，可调整 */
+  gap: 60px; /* 5个菜单间距，可调整 */
   align-items: center;
 }
 
@@ -80,7 +80,7 @@ body {
   font-size: 16px;
   font-weight: 400;
   position: relative;
-  padding: 12px 0; /* 预留选中线空间 */
+  padding: 8px 0; /* 预留选中线空间 */
   transition: color 0.3s;
 }
 
@@ -91,7 +91,7 @@ body {
   bottom: 0;
   left: 0;
   width: 0;
-  height: 2px;
+  height: 1px;
   background-color: #ffffff;
   transition: width 0.3s ease;
 }
@@ -139,18 +139,19 @@ body {
 
 /* 封面区域样式 */
 .hero {
-  height: 76vh; /* 占满屏幕高度 */
-  background-image: url('../images/cover.jpg'); /* 封面图（替换成你的图） */
-  margin-top: 160px;
-  margin-right: 280px;
-  margin-bottom: 160px;
-  margin-left: 280px;
-  background-size: cover; /* 图片铺满 */
-  background-position: center; /* 图片居中 */
+  /* 1. 缩小高度（按需调整，比如改为 50vh 或固定值 400px） */
+  height: 70vh; /* 示例：缩小到屏幕高度的50%，也可以用固定值如 400px */
+  width: auto;
+  background-image: url('../images/cover.png');
+  margin: 360px 280px; /* 简化margin写法，等价于原上下左右边距 */
+  /* 2. 关键：改为 contain 保证图片完整显示，不裁剪 */
+  background-size: contain;
+  background-position: center; /* 图片依然居中 */
+  background-repeat: no-repeat; /* 防止图片重复（contain模式下容器过大时会重复） */
   display: flex;
-  align-items: center; /* 垂直居中 */
-  justify-content: center; /* 水平居中 */
-  color: white; /* 文字颜色 */
+  align-items: center;
+  justify-content: center;
+  color: white;
   text-align: center;
 }
 
@@ -158,46 +159,6 @@ body {
   color: #f1c40f; /* 强调色 */
 }
 
-/* 关于我区域样式 */
-.about {
-  padding: 100px 0; /* 上下内边距（控制区域高度） */
-  background-color: #f9f9f9; /* 背景色 */
-}
-.about h2 {
-  font-size: 36px;
-  color: #2c3e50;
-  text-align: center;
-  margin-bottom: 60px;
-}
-.about-content {
-  display: flex;
-  flex-wrap: wrap; /* 移动端自动换行 */
-  align-items: center;
-  gap: 50px; /* 头像和文字间距 */
-}
-.about-img {
-  flex: 1;
-  min-width: 250px; /* 最小宽度 */
-  text-align: center;
-}
-.about-img img {
-  width: 200px; /* 头像宽度 */
-  height: 200px;
-  border-radius: 50%; /* 圆形头像（0 为方形） */
-  object-fit: cover; /* 图片裁剪填充 */
-  border: 5px solid white; /* 边框（可选） */
-  box-shadow: 0 2px 10px rgba(0,0,0,0.1);
-}
-.about-text {
-  flex: 2;
-  min-width: 300px;
-}
-.about-text p {
-  font-size: 18px;
-  color: #333;
-  line-height: 1.8; /* 行高（增强可读性） */
-  margin-bottom: 20px;
-}
 
 /* 联系我区域样式 */
 .contact {
@@ -233,90 +194,104 @@ body {
 }
 
 /* 项目列表页样式 */
-.projects-header {
-  padding: 120px 0 60px; /* 上内边距（避开导航栏） */
-  background-color: #f9f9f9;
-  text-align: center;
-}
-.projects-header h1 {
-  font-size: 36px;
-  color: #2c3e50;
-  margin-bottom: 20px;
-}
-.projects-header p {
-  font-size: 18px;
-  color: #666;
-}
-.projects-list {
-  padding: 80px 0;
-}
 .projects-grid {
   display: grid;
-  grid-template-columns: repeat(auto-fit, minmax(300px, 1fr)); /* 自动适配列数 */
-  gap: 40px; /* 项目卡片间距 */
+  grid-template-columns: repeat(auto-fit, minmax(280px, 1fr)); /* 响应式网格 */
+  gap: 120px; /* 卡片间距 */
+  margin-top: 100px;
 }
+
 .project-card {
-  background-color: white;
-  border-radius: 8px; /* 卡片圆角 */
-  overflow: hidden; /* 裁剪超出部分 */
-  box-shadow: 0 2px 15px rgba(0,0,0,0.1);
-  transition: transform 0.3s; /* hover 缩放效果 */
+  border-radius: 8px;
+  overflow: hidden; /* 裁剪圆角 */
+  box-shadow: 0 2px 10px rgba(0,0,0,0.1); /* 轻微阴影 */
+  transition: transform 0.3s ease; /* hover动画 */
 }
-.project-card:hover {
-  transform: translateY(-10px); /* 向上浮动 10px */
+
+/* 移除绝对定位，让a标签成为块级元素，内部自然上下排列 */
+.project-card a {
+  display: flex;
+  flex-direction: column;
+  height: 100%;
+  text-decoration: none;
+  color: #333;
 }
+
+/* 图片容器：控制图片尺寸 */
+.card-img {
+  width: 100%;
+  height: 340px; /* 固定图片高度（可根据需求调整） */
+  overflow: hidden;
+}
+
 .card-img img {
   width: 100%;
-  height: 200px; /* 卡片图片高度 */
-  object-fit: cover; /* 图片裁剪填充 */
+  height: 100%;
+  object-fit: cover; /* 保持图片比例，填充容器 */
+  transition: transform 0.3s ease;
 }
+
+/* 文字内容：在图片下方，添加内边距 */
 .card-content {
-  padding: 25px;
+  padding-top: 40px;
+  padding-right: 0px;
+  padding-bottom: 0px;
+  padding-left: 0px;
+  flex: 1; /* 让文字区域自动填充剩余空间 */
 }
+
 .card-content h3 {
-  font-size: 22px;
-  color: #2c3e50;
-  margin-bottom: 10px;
+  margin: 0 0 20px 0;
+  font-size: 24px;
+  color: #ffffff;
+  font-weight: 400;
 }
+
 .card-content p {
+  margin: 0;
   font-size: 16px;
-  color: #666;
-  margin-bottom: 8px;
+  color: #E7E7E7;
 }
-.project-card a {
-  text-decoration: none;
+
+/* hover效果（可选） */
+.project-card:hover {
+  transform: translateY(-5px);
 }
+
+.project-card:hover .card-img img {
+  transform: scale(1.05);
+}
+
+/* 容器样式（确保居中） */
+.container {
+  width: 100%;
+  max-width: 1360px;
+  margin: 0 auto;
+  padding: 0 0px;
+}
+
+.text-center {
+  text-align: center;
+}
+
 
 /* 页脚样式 */
 .footer {
-  padding: 30px 0;
-  background-color: #333;
+  padding-top: 240px;
+  padding-right: 0px;
+  padding-bottom: 60px;
+  padding-left: 0px;
+  background-color: #111;
   color: white;
   text-align: center;
 }
 .footer p {
-  font-size: 16px;
-}
-
-/* 移动端适配（手机上正常显示） */
-@media (max-width: 768px) {
-  .hero-content h1 {
-    font-size: 36px; /* 移动端标题缩小 */
-  }
-  .nav-links a {
-    margin-left: 15px; /* 导航链接间距缩小 */
-    font-size: 14px;
-  }
-  .about-content {
-    gap: 30px;
-  }
-  .projects-grid {
-    gap: 20px;
-  }
+  font-size: 12px;
+  line-height:200%;
 }
 
 /* 个人介绍模块样式（黑色背景适配） */
-s
+
 .frame-2 {
   width: 100%;
   justify-content: center; 
@@ -329,7 +304,7 @@ s
   gap: 50px; /* 文字区和社交区间距 */
   max-width: 1360px;
   margin: 0 auto;
-  padding: 180px 280px 0 280px;
+  padding: 280px 0px 0 0px;
   
 }
 
@@ -342,16 +317,19 @@ s
 }
 
 .text-wrapper-3 {
-  font-size: 32px;
-  font-weight: 700;
+  font-size: 36px;
+  line-height:150%
+  font-weight 600;
   color: #ffffff; /* 白色标题，突出名字 */
   margin-bottom: 20px;
 }
 
 .element-2 {
-  font-size: 18px;
+  font-size: 20px;
   color: #e0e0e0; /* 浅灰文字，黑色背景下可读性强 */
   line-height: 1.8;
+  font-weight: 300;
+  word-spacing:30px;
   max-width: 1360px; /* 限制文字宽度，避免换行太丑 */
 }
 
@@ -370,7 +348,6 @@ s
   align-items: center;
   gap: 0px;
 }
-
 
 
 .text-wrapper-4 {
