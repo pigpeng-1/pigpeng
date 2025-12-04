@@ -446,49 +446,86 @@ body {
 
 
 /* 照片画廊容器：实现一行三张布局 */
-.photo-gallery {
-  display: grid;
-  /* 核心：一行3列，列之间间距20px，行之间间距30px */
-  grid-template-columns: repeat(3, 1fr);
-  gap: 40px 40px;
-  /* 限制最大宽度，避免大屏拉伸 */
-  max-width: 1360px;
-  margin: 0 auto;
-}
+/* 核心：照片画廊（取消固定行高，行高自适应） */
+    .photo-gallery {
+      display: grid;
+      grid-template-columns: repeat(3, 1fr); /* 一行三列 */
+      gap: 20px; /* 行列间距统一（可自定义） */
+      max-width: 1200px;
+      margin: 20px auto;
+      align-items: start; /* 关键：元素顶部对齐，行高自适应最高元素 */
+    }
 
-/* 照片卡片：包裹图片+标题 */
-.photo-card {
-  width: 100%;
-}
+    /* 照片卡片：仅包裹图片+标题，无固定高度 */
+    .photo-card {
+      cursor: pointer;
+      width: 100%;
+    }
 
-/* 图片容器：保证图片不裁剪，自适应容器 */
-.photo-wrapper {
-  width: 100%;
-  /* 关键：固定容器高度，图片按比例适配 */
-  overflow: hidden;
-  background-color: #eee; /* 图片加载前占位背景 */
-  margin-bottom: 12px; /* 图片与标题间距 */
-}
+    /* 图片容器：不固定宽高比，完全自适应图片尺寸 */
+    .photo-wrapper {
+      width: 100%;
+      border-radius: 4px;
+      overflow: hidden;
+      background: #f5f5f5;
+      margin-bottom: 8px; /* 图片与标题间距 */
+    }
 
-/* 核心：图片不裁剪，完整显示 */
-.photo-img {
-  width: 100%;
-  height: 100%;
-  /* 关键属性：保持宽高比，完整显示（不裁剪） */
-  object-fit: contain;
-  /* 可选：图片居中 */
-  display: block;
-}
+    /* 图片：自适应容器，不裁剪，保持原图比例 */
+    .photo-img {
+      width: 100%;
+      height: auto; /* 关键：高度随宽度自适应，保留原图比例 */
+      display: block; /* 去掉图片底部空隙 */
+      object-fit: contain; /* 确保图片完整显示，不裁剪 */
+    }
 
-/* 照片标题：左对齐，样式统一 */
-.photo-title {
-  font-size: 14px;
-  color: #ffffff;
-  line-height: 1.4;
-  /* 左对齐核心：清除默认边距，对齐图片左侧 */
-  margin-left: 0;
-  padding-left: 0;
-}
+    /* 标题：左对齐，清除默认边距 */
+    .photo-title {
+      font-size: 14px;
+      color: #333;
+      line-height: 1.4;
+      margin: 0;
+    }
+
+    /* 全屏查看遮罩层（保留点击放大功能） */
+    .img-modal {
+      position: fixed;
+      top: 0;
+      left: 0;
+      width: 100vw;
+      height: 100vh;
+      background: rgba(0, 0, 0, 0.9);
+      display: none;
+      justify-content: center;
+      align-items: center;
+      z-index: 9999;
+      padding: 20px;
+      box-sizing: border-box;
+    }
+    .img-modal-content {
+      max-width: 90%;
+      max-height: 90%;
+      object-fit: contain;
+    }
+    .img-modal-close {
+      position: absolute;
+      top: 20px;
+      right: 30px;
+      color: #fff;
+      font-size: 40px;
+      font-weight: bold;
+      cursor: pointer;
+    }
+    .img-modal-close:hover {
+      color: #ccc;
+    }
+
+    /* 响应式：移动端一行一列 */
+    @media (max-width: 768px) {
+      .photo-gallery {
+        grid-template-columns: 1fr;
+      }
+    }
 
 
 /* Tab容器整体样式 */

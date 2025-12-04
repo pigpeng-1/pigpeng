@@ -43,187 +43,66 @@
 
 
 <!-- 照片容器：核心排版区域 -->
-  <div class="photo-gallery">
-    <!-- 照片卡片1 -->
-    <div class="photo-card">
+<div class="photo-gallery">
+    <!-- 第一行：竖图 + 横图 + 横图（示例） -->
+    <div class="photo-card" data-img="images/vertical1.jpg">
       <div class="photo-wrapper">
-        <img src="images/文章封面.png" alt="照片描述1" class="photo-img">
+        <img src="images/638224558303077564129 (1).png" alt="竖版照片1" class="photo-img">
       </div>
-      <p class="photo-title">清晨的街道</p>
+      <p class="photo-title">清晨的巷弄（竖图）</p>
+    </div>
+    <div class="photo-card" data-img="images/horizontal1.jpg">
+      <div class="photo-wrapper">
+        <img src="images/horizontal1_thumb.jpg" alt="横版照片1" class="photo-img">
+      </div>
+      <p class="photo-title">落日的海边（横图）</p>
+    </div>
+    <div class="photo-card" data-img="images/horizontal2.jpg">
+      <div class="photo-wrapper">
+        <img src="images/horizontal2_thumb.jpg" alt="横版照片2" class="photo-img">
+      </div>
+      <p class="photo-title">城市的霓虹（横图）</p>
     </div>
 
-    <!-- 照片卡片2（竖版示例） -->
-    <div class="photo-card">
+    <!-- 第二行：任意比例图片，自动向上贴合第一行底部 -->
+    <div class="photo-card" data-img="images/horizontal3.jpg">
       <div class="photo-wrapper">
-        <img src="images/638224558303077564129 (1).png" alt="照片描述2" class="photo-img">
+        <img src="images/horizontal3_thumb.jpg" alt="横版照片3" class="photo-img">
       </div>
-      <p class="photo-title">老街的巷弄</p>
+      <p class="photo-title">山间的雾气（横图）</p>
+    </div>
+    <div class="photo-card" data-img="images/vertical2.jpg">
+      <div class="photo-wrapper">
+        <img src="images/vertical2_thumb.jpg" alt="竖版照片2" class="photo-img">
+      </div>
+      <p class="photo-title">老街的窗（竖图）</p>
+    </div>
+    <div class="photo-card" data-img="images/horizontal4.jpg">
+      <div class="photo-wrapper">
+        <img src="images/horizontal4_thumb.jpg" alt="横版照片4" class="photo-img">
+      </div>
+      <p class="photo-title">麦田的风（横图）</p>
+    </div>
+    <div class="photo-card" data-img="images/horizontal4.jpg">
+      <div class="photo-wrapper">
+        <img src="images/horizontal4_thumb.jpg" alt="横版照片4" class="photo-img">
+      </div>
+      <p class="photo-title">麦田的风（横图）</p>
+    </div>
+    <div class="photo-card" data-img="images/horizontal4.jpg">
+      <div class="photo-wrapper">
+        <img src="images/horizontal4_thumb.jpg" alt="横版照片4" class="photo-img">
+      </div>
+      <p class="photo-title">麦田的风（横图）</p>
     </div>
 
-    <!-- 照片卡片3 -->
-    <div class="photo-card">
-      <div class="photo-wrapper">
-        <img src="images/photo3.jpg" alt="照片描述3" class="photo-img">
-      </div>
-      <p class="photo-title">落日的海边</p>
-    </div>
+    <!-- 可无限追加，每行高度自适应，下方元素自动上缩 -->
+  </div>
 
-    <!-- 第二行照片 -->
-    <div class="photo-card">
-      <div class="photo-wrapper">
-        <img src="images/photo4.jpg" alt="照片描述4" class="photo-img">
-      </div>
-      <p class="photo-title">城市的霓虹</p>
-    </div>
-
-    <div class="photo-card">
-      <div class="photo-wrapper">
-        <img src="images/photo5.jpg" alt="照片描述5" class="photo-img">
-      </div>
-      <p class="photo-title">山间的雾气</p>
-    </div>
-
-    <div class="photo-card">
-      <div class="photo-wrapper">
-        <img src="images/photo6.jpg" alt="照片描述6" class="photo-img">
-      </div>
-      <p class="photo-title">麦田的风</p>
-    </div>
-
-    <!-- 第三行照片 -->
-    <div class="photo-card">
-      <div class="photo-wrapper">
-        <img src="images/photo4.jpg" alt="照片描述4" class="photo-img">
-      </div>
-      <p class="photo-title">城市的霓虹</p>
-    </div>
-
-    <div class="photo-card">
-      <div class="photo-wrapper">
-        <img src="images/photo5.jpg" alt="照片描述5" class="photo-img">
-      </div>
-      <p class="photo-title">山间的雾气</p>
-    </div>
-
-    <div class="photo-card">
-      <div class="photo-wrapper">
-        <img src="images/photo6.jpg" alt="照片描述6" class="photo-img">
-      </div>
-      <p class="photo-title">麦田的风</p>
-    </div>    
-
-
- <!-- 第四行照片 -->
-    <div class="photo-card">
-      <div class="photo-wrapper">
-        <img src="images/photo4.jpg" alt="照片描述4" class="photo-img">
-      </div>
-      <p class="photo-title">城市的霓虹</p>
-    </div>
-
-    <div class="photo-card">
-      <div class="photo-wrapper">
-        <img src="images/photo5.jpg" alt="照片描述5" class="photo-img">
-      </div>
-      <p class="photo-title">山间的雾气</p>
-    </div>
-
-    <div class="photo-card">
-      <div class="photo-wrapper">
-        <img src="images/photo6.jpg" alt="照片描述6" class="photo-img">
-      </div>
-      <p class="photo-title">麦田的风</p>
-    </div>
-
-     <!-- 第五行照片 -->
-    <div class="photo-card">
-      <div class="photo-wrapper">
-        <img src="images/photo4.jpg" alt="照片描述4" class="photo-img">
-      </div>
-      <p class="photo-title">城市的霓虹</p>
-    </div>
-
-    <div class="photo-card">
-      <div class="photo-wrapper">
-        <img src="images/photo5.jpg" alt="照片描述5" class="photo-img">
-      </div>
-      <p class="photo-title">山间的雾气</p>
-    </div>
-
-    <div class="photo-card">
-      <div class="photo-wrapper">
-        <img src="images/photo6.jpg" alt="照片描述6" class="photo-img">
-      </div>
-      <p class="photo-title">麦田的风</p>
-    </div>
-
-     <!-- 第六行照片 -->
-    <div class="photo-card">
-      <div class="photo-wrapper">
-        <img src="images/photo4.jpg" alt="照片描述4" class="photo-img">
-      </div>
-      <p class="photo-title">城市的霓虹</p>
-    </div>
-
-    <div class="photo-card">
-      <div class="photo-wrapper">
-        <img src="images/photo5.jpg" alt="照片描述5" class="photo-img">
-      </div>
-      <p class="photo-title">山间的雾气</p>
-    </div>
-
-    <div class="photo-card">
-      <div class="photo-wrapper">
-        <img src="images/photo6.jpg" alt="照片描述6" class="photo-img">
-      </div>
-      <p class="photo-title">麦田的风</p>
-    </div>
-
-     <!-- 第七行照片 -->
-    <div class="photo-card">
-      <div class="photo-wrapper">
-        <img src="images/photo4.jpg" alt="照片描述4" class="photo-img">
-      </div>
-      <p class="photo-title">城市的霓虹</p>
-    </div>
-
-    <div class="photo-card">
-      <div class="photo-wrapper">
-        <img src="images/photo5.jpg" alt="照片描述5" class="photo-img">
-      </div>
-      <p class="photo-title">山间的雾气</p>
-    </div>
-
-    <div class="photo-card">
-      <div class="photo-wrapper">
-        <img src="images/photo6.jpg" alt="照片描述6" class="photo-img">
-      </div>
-      <p class="photo-title">麦田的风</p>
-    </div>
-
-     <!-- 第八行照片 -->
-    <div class="photo-card">
-      <div class="photo-wrapper">
-        <img src="images/photo4.jpg" alt="照片描述4" class="photo-img">
-      </div>
-      <p class="photo-title">城市的霓虹</p>
-    </div>
-
-    <div class="photo-card">
-      <div class="photo-wrapper">
-        <img src="images/photo5.jpg" alt="照片描述5" class="photo-img">
-      </div>
-      <p class="photo-title">山间的雾气</p>
-    </div>
-
-    <div class="photo-card">
-      <div class="photo-wrapper">
-        <img src="images/photo6.jpg" alt="照片描述6" class="photo-img">
-      </div>
-      <p class="photo-title">麦田的风</p>
-    </div>
-
-    <!-- 可无限追加卡片，自动换行，保持一行三张 -->
+  <!-- 全屏查看遮罩层（共用） -->
+  <div class="img-modal" id="imgModal">
+    <span class="img-modal-close" id="closeBtn">&times;</span>
+    <img class="img-modal-content" id="modalImg">
   </div>
 
 
