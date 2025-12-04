@@ -3,7 +3,7 @@
   margin: 0;
   padding: 0;
   box-sizing: border-box;
-  font-family: "Inter",-apple-system,BlinkMacSystemFont,"Segoe UI","PingFang SC","Hiragino Sans GB","Microsoft YaHei","Helvetica Neue",Helvetica,Arial,sans-serif
+  font-family: "Inter","PingFang SC",-apple-system,BlinkMacSystemFont,"Segoe UI","PingFang SC","Hiragino Sans GB","Microsoft YaHei","Helvetica Neue",Helvetica,Arial,sans-serif
 }
 
 body {
@@ -76,7 +76,7 @@ body {
 
 /* 单个菜单样式（保留之前的选中线效果） */
 .nav-links a {
-  color: #ACACAC;
+  color: rgb(255, 255, 255, 0.65);
   text-decoration: none;
   font-size: 16px;
   font-weight: 400;
@@ -113,35 +113,10 @@ body {
   color: #ffffff;
 }
 
-/* 移动端适配（避免菜单超出屏幕） */
-@media (max-width: 768px) {
-  .nav-links {
-    top: 20px;
-    right: 20px;
-    gap: 20px; /* 间距缩小 */
-    overflow-x: auto; /* 横向滚动 */
-    padding-bottom: 5px;
-    scrollbar-width: none;
-  }
-  .nav-links::-webkit-scrollbar {
-    display: none;
-  }
-  .nav-links a {
-    font-size: 14px;
-    white-space: nowrap;
-  }
-  .logo {
-    font-size: 20px;
-    left: 20px;
-    top: 25px;
-  }
-}
-
 
 /* 封面区域样式 */
 .hero {
-  /* 1. 缩小高度（按需调整，比如改为 50vh 或固定值 400px） */
-  height: 70vh; /* 示例：缩小到屏幕高度的50%，也可以用固定值如 400px */
+  height: 70vh; 
   width: auto;
   background-image: url('../images/cover.png');
   margin: 360px 280px; /* 简化margin写法，等价于原上下左右边距 */
@@ -159,8 +134,7 @@ body {
 
 /* 关于我的封面区域样式 */
 .hero-about {
-  /* 1. 缩小高度（按需调整，比如改为 50vh 或固定值 400px） */
-  height: 24vh; /* 示例：缩小到屏幕高度的50%，也可以用固定值如 400px */
+  height: 24vh; 
   width: auto;
   background-image: url('../images/关于我.png');
   margin: 360px 180px; /* 简化margin写法，等价于原上下左右边距 */
@@ -175,45 +149,6 @@ body {
   text-align: center;
 }
 
-
-
-.highlight {
-  color: #f1c40f; /* 强调色 */
-}
-
-
-/* 联系我区域样式 */
-.contact {
-  padding: 100px 0;
-  background-color: #2c3e50; /* 背景色 */
-  color: white;
-}
-.contact h2 {
-  font-size: 36px;
-  text-align: center;
-  margin-bottom: 60px;
-}
-.contact-links {
-  display: flex;
-  flex-wrap: wrap;
-  justify-content: center;
-  gap: 30px; /* 联系链接间距 */
-}
-.contact-link {
-  display: flex;
-  align-items: center;
-  color: white;
-  text-decoration: none;
-  font-size: 18px;
-  transition: color 0.3s;
-}
-.contact-link i {
-  margin-right: 10px; /* 图标和文字间距 */
-  font-size: 24px;
-}
-.contact-link:hover {
-  color: #f1c40f; /* hover 颜色（强调色） */
-}
 
 /* 项目列表页样式 */
 .projects-grid {
@@ -312,6 +247,7 @@ body {
   line-height:200%;
 }
 
+
 /* 个人介绍模块样式（黑色背景适配） */
 
 .frame-2 {
@@ -336,6 +272,37 @@ body {
   min-width: 1000px; /* 最小宽度，避免太窄 */
   margin: 0;
 }
+
+.frame-5 {
+  display: flex;
+  align-items: center;
+  gap: 26px; /* 头像和社交图标间距 */
+  flex-wrap: wrap; /* 移动端换行 */
+}
+
+
+.frame-6 {
+  position: relative; /* 作为子元素绝对定位的参考 */
+  width: 100%;
+  margin: 0 auto; /* 居中显示 */
+  min-height: 400px; /* 图片加载失败时兜底高度 */
+  background: #111111; /* 图片加载失败时的背景色 */
+}
+
+.frame-7 {
+  position: absolute;
+  inset: 0; /* 等价于 top:0; right:0; bottom:0; left:0; 铺满容器 */
+  display: flex;
+  align-items: center; /* 垂直居中文字 */
+  padding: 280px; /* 内边距，避免文字贴边 */
+}
+
+.image {
+  width: 100%;
+  height: auto; /* 自适应高度，避免变形 */
+  display: block; /* 去除图片默认的行内空白 */
+}
+
 
 .text-wrapper-3 {
   font-size: 36px;
@@ -445,22 +412,166 @@ body {
 .ml-40 {
   margin-left: 40px;
 }
-</style>
 
 
 
 /* 当我不在figma */
-/* 父容器：用 max-width 限制最大宽度，避免图片过大 */
 .figma-img {
-  max-width: 1200px; /* 可选：限制最大宽度，避免大屏下图片太宽 */
-  margin: 0 auto; /* 可选：让父容器水平居中，整体布局更协调 */
+  margin-top: 60px; /* 可根据需要调整与上方内容的间距 */
+  margin-bottom: 60px;
+}
+.figma-img img {
+  width: 430px; /* 保持原图片宽度 */
+  height: auto;
+  border: none;
+  padding-left: 0; /* 移除左侧百分比 padding */
+  /* 与其他内容保持相同的左侧对齐基准 */
 }
 
-/* 图片：自适应核心样式 */
-.figma-img img {
-  width: 540px; /* 关键：图片宽度随父容器缩放（100% 即父容器宽度） */
-  padding-left: 9%; /* 用百分比替代 280px，随屏幕宽度自适应 */
-  height: auto; /* 保持宽高比，防止变形 */
+
+/* 一些足迹 */
+.zuji-img {
+  margin-top: 60px; /* 可根据需要调整与上方内容的间距 */
+  margin-bottom: 60px;
+}
+.zuji-img img {
+  width: 816px; /* 保持原图片宽度 */
+  height: auto;
   border: none;
-  /* 去掉固定 margin-left，位置由父容器 padding 控制 */
+  padding-left: 0;
+  padding-top: 360px;
+   /* 移除左侧百分比 padding */
+  /* 与其他内容保持相同的左侧对齐基准 */
+}
+
+
+/* 照片画廊容器：实现一行三张布局 */
+.photo-gallery {
+  display: grid;
+  /* 核心：一行3列，列之间间距20px，行之间间距30px */
+  grid-template-columns: repeat(3, 1fr);
+  gap: 40px 40px;
+  /* 限制最大宽度，避免大屏拉伸 */
+  max-width: 1360px;
+  margin: 0 auto;
+}
+
+/* 照片卡片：包裹图片+标题 */
+.photo-card {
+  width: 100%;
+}
+
+/* 图片容器：保证图片不裁剪，自适应容器 */
+.photo-wrapper {
+  width: 100%;
+  /* 关键：固定容器高度，图片按比例适配 */
+  overflow: hidden;
+  background-color: #eee; /* 图片加载前占位背景 */
+  margin-bottom: 12px; /* 图片与标题间距 */
+}
+
+/* 核心：图片不裁剪，完整显示 */
+.photo-img {
+  width: 100%;
+  height: 100%;
+  /* 关键属性：保持宽高比，完整显示（不裁剪） */
+  object-fit: contain;
+  /* 可选：图片居中 */
+  display: block;
+}
+
+/* 照片标题：左对齐，样式统一 */
+.photo-title {
+  font-size: 14px;
+  color: #ffffff;
+  line-height: 1.4;
+  /* 左对齐核心：清除默认边距，对齐图片左侧 */
+  margin-left: 0;
+  padding-left: 0;
+}
+
+
+/* Tab容器整体样式 */
+.tab-container {
+  width: 100%;
+  max-width: 1200px;
+  margin: 0 auto;
+  color: #fff;
+  padding-top: 280px;
+}
+
+/* Tab导航栏（四栏均分） */
+.tab-nav {
+  display: flex;
+  height: 120px;
+  border-bottom: 1px solid #1A1A1A;
+}
+
+/* Tab单个选项 */
+.tab-item {
+  flex: 1; /* 四栏均分宽度 */
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  gap: 20px; /* 图标与文字间距 */
+  padding: 0 10px;
+  cursor: pointer;
+  background-color: #222;
+  transition: background-color 0.3s;
+  position: relative; /* 用于下划线定位 */
+}
+
+/* 选中状态的Tab */
+.tab-item.active {
+  background-color: #333;
+}
+/* 选中状态的下划线（底部白色条） */
+.tab-item.active::after {
+  content: "";
+  position: absolute;
+  bottom: 0;
+  left: 0;
+  width: 100%;
+  height: 3px;
+  background-color: #fff;
+}
+
+/* Tab图标与文字样式 */
+.tab-icon {
+  font-size: 20px;
+}
+.tab-text {
+  font-size: 20px;
+  font-weight: 400;
+}
+
+/* 文章目录容器 */
+.tab-content {
+  padding: 360px;
+  background-color: #111111;
+}
+
+/* 文章目录内容（默认隐藏，仅active显示） */
+.content-item {
+  display: none;
+}
+.content-item.active {
+  display: block;
+}
+
+/* 文章列表样式 */
+.article-list {
+  list-style: none;
+  padding: 0;
+}
+.article-list li {
+  margin: 12px 0;
+}
+.article-list li a {
+  color: #ccc;
+  text-decoration: none;
+  transition: color 0.3s;
+}
+.article-list li a:hover {
+  color: #fff;
 }

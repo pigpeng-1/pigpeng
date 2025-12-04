@@ -1,0 +1,118 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Your Name - Design Portfolio</title>
+  <link rel="stylesheet" href="css/style.css">
+  <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/font-awesome@4.7.0/css/font-awesome.min.css">
+</head>
+<body>
+    
+  <!-- 右上角导航栏（5个菜单+选中下划线） -->
+  <nav class="navbar">
+    <a href="index.html" class="logo">
+  <img src="images/logo.png" alt="pigpeng" class="logo-img">
+</a>
+    <div class="nav-links">
+      <a href="index.html">主页</a>
+      <a href="projects.html">项目</a>
+      <a href="article.html"class="active">文章</a>
+      <a href="photography.html">摄影</a>
+      <a href="black.html">黑洞</a>
+    </div>
+  </nav>
+
+
+<!-- 顶部说明 -->
+  <div class="frame-6">
+    <img class="image" src="images/文章封面.png" alt="文章" />
+    <div class="frame-7">
+      <div class="frame-4">
+        <div class="text-wrapper-5">一些文章</div>
+        <div class="element-2">
+          源于创建公众号之时，但写文章对我来说并不擅长
+        </div>
+        <div class="element-2">
+          只是习惯就这样保留了下来
+        </div>
+      </div>
+    </div>
+  </div>
+
+
+<!-- tab组件 -->
+ <div class="tab-container">
+  <!-- Tab切换栏 -->
+  <div class="tab-nav">
+    <div class="tab-item active" data-tab="tab1">
+      <span class="tab-icon">📚</span> <!-- 可替换为你的图标 -->
+      <span class="tab-text">设计思考</span>
+    </div>
+    <div class="tab-item" data-tab="tab2">
+      <span class="tab-icon">🔍</span>
+      <span class="tab-text">探索产品</span>
+    </div>
+    <div class="tab-item" data-tab="tab3">
+      <span class="tab-icon">🍃</span>
+      <span class="tab-text">发牢骚的地方</span>
+    </div>
+    <div class="tab-item" data-tab="tab4">
+      <span class="tab-icon">✒️</span>
+      <span class="tab-text">捡贝壳的男孩</span>
+    </div>
+  </div>
+
+  <!-- 对应文章目录内容（默认只显示active的tab） -->
+  <div class="tab-content">
+    <!-- 设计思考的文章目录 -->
+    <div class="content-item active" id="tab1">
+      <ul class="article-list">
+        <li><a href="#">设计中的极简主义</a></li>
+        <li><a href="#">交互流程的优化思路</a></li>
+        <li><a href="#">色彩心理学在界面中的应用</a></li>
+      </ul>
+    </div>
+
+    <!-- 探索产品的文章目录 -->
+    <div class="content-item" id="tab2">
+      <ul class="article-list">
+        <li><a href="#">产品迭代的节奏把控</a></li>
+        <li><a href="#">用户调研的高效方法</a></li>
+        <li><a href="#">从0到1的产品冷启动</a></li>
+      </ul>
+    </div>
+
+    <!-- 发牢骚的地方的文章目录 -->
+    <div class="content-item" id="tab3">
+      <ul class="article-list">
+        <li><a href="#">工作中的无效沟通</a></li>
+        <li><a href="#">加班文化的反思</a></li>
+        <li><a href="#">甲方的奇葩需求合集</a></li>
+      </ul>
+    </div>
+
+    <!-- 捡贝壳的男孩的文章目录 -->
+    <div class="content-item" id="tab4">
+      <ul class="article-list">
+        <li><a href="#">海边的日出记录</a></li>
+        <li><a href="#">贝壳的种类与识别</a></li>
+        <li><a href="#">赶海的实用技巧</a></li>
+      </ul>
+    </div>
+  </div>
+</div>
+
+
+
+  <!-- 页脚 -->
+  <footer class="footer">
+    <div class="container">
+      <p>&copy; Designed and developed by zhu peng.</p>
+        <p>&copy; Copyright © 2022-2025 www.pigpeng.cn. All Rights Reserved.</p>
+    </div>
+  </footer>
+
+  <script src="js/main.js"></script>
+</body>
+</html>
