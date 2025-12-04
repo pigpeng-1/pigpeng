@@ -103,41 +103,23 @@ tabItems.forEach(item => {
   });
 });
 
-
 // 图片点击效果
-// 获取元素
+// 点击放大功能（保留）
     const modal = document.getElementById('imgModal');
     const modalImg = document.getElementById('modalImg');
     const closeBtn = document.getElementById('closeBtn');
     const photoCards = document.querySelectorAll('.photo-card');
 
-    // 给每个图片卡片绑定点击事件
     photoCards.forEach(card => {
       card.addEventListener('click', () => {
-        // 获取原图地址（从data-img属性）
         const imgSrc = card.getAttribute('data-img');
-        // 显示遮罩层+加载原图
         modal.style.display = 'flex';
         modalImg.src = imgSrc;
         modalImg.alt = card.querySelector('.photo-title').textContent;
       });
     });
 
-    // 关闭按钮点击事件
-    closeBtn.addEventListener('click', () => {
-      modal.style.display = 'none';
-    });
-
-    // 点击遮罩层空白处关闭
-    modal.addEventListener('click', (e) => {
-      if (e.target === modal) {
-        modal.style.display = 'none';
-      }
-    });
-
-    // 按ESC键关闭
-    document.addEventListener('keydown', (e) => {
-      if (e.key === 'Escape' && modal.style.display === 'flex') {
-        modal.style.display = 'none';
-      }
-    });
+    // 关闭逻辑（点击×/遮罩/ESC）
+    closeBtn.addEventListener('click', () => modal.style.display = 'none');
+    modal.addEventListener('click', (e) => e.target === modal && (modal.style.display = 'none'));
+    document.addEventListener('keydown', (e) => e.key === 'Escape' && (modal.style.display = 'none'));

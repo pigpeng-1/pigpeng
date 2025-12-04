@@ -9,6 +9,7 @@
 body {
   background-color: #111111; /* 纯黑色背景，可微调为 #111111 深灰黑 */
   color: #ffffff; /* 全局默认文字白色，确保可读性 */
+  font-weight: 400;
 }
 
 /* 容器样式（控制页面宽度，居中显示） */
@@ -116,7 +117,7 @@ body {
 
 /* 封面区域样式 */
 .hero {
-  height: 70vh; 
+  height: 800px; 
   width: auto;
   background-image: url('../images/cover.png');
   margin: 360px 280px; /* 简化margin写法，等价于原上下左右边距 */
@@ -293,8 +294,9 @@ body {
   position: absolute;
   inset: 0; /* 等价于 top:0; right:0; bottom:0; left:0; 铺满容器 */
   display: flex;
-  align-items: center; /* 垂直居中文字 */
-  padding: 280px; /* 内边距，避免文字贴边 */
+  max-width: 1360px;
+  margin: 280px auto;
+  padding: 0;
 }
 
 .image {
@@ -307,7 +309,7 @@ body {
 .text-wrapper-3 {
   font-size: 36px;
   line-height:150%
-  font-weight 600;
+  font-weight: 500;
   color: #ffffff; /* 白色标题，突出名字 */
   margin-bottom: 20px;
 }
@@ -445,44 +447,58 @@ body {
 }
 
 
-/* 照片画廊容器：实现一行三张布局 */
-/* 核心：照片画廊（取消固定行高，行高自适应） */
-    .photo-gallery {
-      display: grid;
-      grid-template-columns: repeat(3, 1fr); /* 一行三列 */
-      gap: 20px; /* 行列间距统一（可自定义） */
-      max-width: 1200px;
-      margin: 20px auto;
-      align-items: start; /* 关键：元素顶部对齐，行高自适应最高元素 */
+/* 工作之余 */
+.work-img {
+  margin-top: 60px; /* 可根据需要调整与上方内容的间距 */
+  margin-bottom: 60px;
+}
+.work-img img {
+  width: 800px; /* 保持原图片宽度 */
+  height: auto;
+  border: none;
+  padding-left: 0;
+  padding-top: 360px;
+   /* 移除左侧百分比 padding */
+  /* 与其他内容保持相同的左侧对齐基准 */
+}
+
+
+.photo-gallery {
+      columns: 3; /* 固定三列 */
+      column-gap: 40px; /* 列之间的间距 */
+      max-width: 1360px;
+      margin: 0px auto;
+      padding: 0 0;
     }
 
-    /* 照片卡片：仅包裹图片+标题，无固定高度 */
+    /* 照片卡片：关键！禁止跨列分割，确保卡片完整显示在一列中 */
     .photo-card {
+      break-inside: avoid; /* 核心属性：防止卡片被列分割 */
+      margin-bottom: 60px; /* 卡片之间的垂直间距（列内） */
       cursor: pointer;
-      width: 100%;
     }
 
-    /* 图片容器：不固定宽高比，完全自适应图片尺寸 */
+    /* 图片容器：自适应图片尺寸，不裁剪 */
     .photo-wrapper {
       width: 100%;
-      border-radius: 4px;
+      border-radius: 0px;
       overflow: hidden;
-      background: #f5f5f5;
-      margin-bottom: 8px; /* 图片与标题间距 */
+      background: #111;
+      margin-bottom: 20px;
     }
 
-    /* 图片：自适应容器，不裁剪，保持原图比例 */
+    /* 图片：保留原生比例，不裁剪，自适应列宽 */
     .photo-img {
       width: 100%;
-      height: auto; /* 关键：高度随宽度自适应，保留原图比例 */
-      display: block; /* 去掉图片底部空隙 */
-      object-fit: contain; /* 确保图片完整显示，不裁剪 */
+      height: auto; /* 高度随宽度自适应，保留原图比例 */
+      display: block;
+      object-fit: contain; /* 确保图片完整显示 */
     }
 
     /* 标题：左对齐，清除默认边距 */
     .photo-title {
       font-size: 14px;
-      color: #333;
+      color: #ffffff;
       line-height: 1.4;
       margin: 0;
     }
@@ -511,19 +527,24 @@ body {
       position: absolute;
       top: 20px;
       right: 30px;
-      color: #fff;
+      color: #111111;
       font-size: 40px;
       font-weight: bold;
       cursor: pointer;
     }
     .img-modal-close:hover {
-      color: #ccc;
+      color: #111;
     }
 
-    /* 响应式：移动端一行一列 */
+    /* 响应式：移动端自动改为1列，平板2列 */
     @media (max-width: 768px) {
       .photo-gallery {
-        grid-template-columns: 1fr;
+        columns: 1;
+      }
+    }
+    @media (min-width: 769px) and (max-width: 992px) {
+      .photo-gallery {
+        columns: 2;
       }
     }
 
@@ -531,7 +552,7 @@ body {
 /* Tab容器整体样式 */
 .tab-container {
   width: 100%;
-  max-width: 1200px;
+  max-width: 1360px;
   margin: 0 auto;
   color: #fff;
   padding-top: 280px;
@@ -611,4 +632,126 @@ body {
 }
 .article-list li a:hover {
   color: #fff;
+}
+
+/* 理性组织 */
+.hero1 {
+  height: 700px; 
+  width: auto;
+  background-image: url('../images/projects/理性组织.png');
+  margin: 360px 280px; /* 简化margin写法，等价于原上下左右边距 */
+  /* 2. 关键：改为 contain 保证图片完整显示，不裁剪 */
+  background-size: contain;
+  background-position: center; /* 图片依然居中 */
+  background-repeat: no-repeat; /* 防止图片重复（contain模式下容器过大时会重复） */
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  color: white;
+  text-align: center;
+}
+
+
+/* 项目列表 */
+/* 全局重置 */
+* {
+  margin: 0;
+  padding: 0;
+  box-sizing: border-box;
+}
+body {
+  background-color: #121212; /* 深色背景 */
+  color: #fff;
+  font-family: "Microsoft Yahei", sans-serif;
+  padding: 0;
+}
+
+/* 项目容器：左右留边距，限制最大宽度 */
+.project-container {
+  max-width: 1360px;
+  margin: 0 auto;
+  padding: 0 0px; /* 页面左右留边距 */
+}
+
+/* 整项跳转链接：去除默认样式，继承宽度 */
+.project-link {
+  display: block; /* 让a标签占满整行 */
+  text-decoration: none; /* 去除下划线 */
+  color: inherit; /* 继承文字颜色 */
+  margin-bottom: 240px; /* 项目之间的垂直间距 */
+}
+/* 整项 hover 效果（可选，提升交互） */
+.project-link:hover .project-item {
+  opacity: 0.9;
+  transform: translateY(-2px);
+  transition: all 0.2s ease;
+}
+
+/* 单个项目：一行一个 */
+.project-item {
+  width: 100%;
+  transition: all 0.2s ease; /* 配合hover动画 */
+}
+
+/* 内容封面 */
+.project-cover {
+  width: 100%;
+  border-radius: 0px;
+  overflow: hidden;
+  margin-bottom: 40px;
+  cursor: pointer; /* 鼠标悬浮变手型 */
+}
+.project-cover img {
+  width: 100%;
+  height: auto;
+  display: block;
+}
+
+/* 仅封面跳转的链接样式 */
+.cover-link {
+  text-decoration: none;
+  display: block;
+}
+.cover-link:hover .project-cover {
+  opacity: 0.9;
+}
+
+/* 内容标题 */
+.project-title {
+  font-size: 32px;
+  font-weight: 300;
+  margin-bottom: 20px;
+}
+
+/* 说明文本（小字） */
+.project-desc {
+  font-size: 14px;
+  color: #ccc;
+  line-height: 1.6;
+   font-weight: 300;
+  margin-bottom: 20px;
+}
+
+/* 灰色标签样式 */
+.project-tags {
+  display: flex;
+  flex-wrap: wrap; /* 标签过多自动换行 */
+  gap: 8px; /* 标签间距 */
+}
+.tag {
+  font-size: 14px;
+  background-color: #333;
+  color: #ccc;
+  padding: 4px 8px;
+  border-radius: 4px;
+}
+
+/* 响应式适配：移动端缩小边距 */
+@media (max-width: 768px) {
+  .project-container {
+    padding: 0 20px;
+  }
+  .project-link {
+    margin-bottom: 40px;
+  }
 }
