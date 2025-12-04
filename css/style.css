@@ -63,6 +63,7 @@ body {
   object-fit: contain; /* 确保图片完整显示，不裁剪 */
 }
 
+
 /* 关键：菜单div固定在右上角 */
 .nav-links {
   position: fixed; /* 固定定位，脱离文档流，钉在右上角 */
@@ -155,6 +156,27 @@ body {
   text-align: center;
 }
 
+
+/* 关于我的封面区域样式 */
+.hero-about {
+  /* 1. 缩小高度（按需调整，比如改为 50vh 或固定值 400px） */
+  height: 24vh; /* 示例：缩小到屏幕高度的50%，也可以用固定值如 400px */
+  width: auto;
+  background-image: url('../images/关于我.png');
+  margin: 360px 180px; /* 简化margin写法，等价于原上下左右边距 */
+  /* 2. 关键：改为 contain 保证图片完整显示，不裁剪 */
+  background-size: contain;
+  background-position: center; /* 图片依然居中 */
+  background-repeat: no-repeat; /* 防止图片重复（contain模式下容器过大时会重复） */
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  color: white;
+  text-align: center;
+}
+
+
+
 .highlight {
   color: #f1c40f; /* 强调色 */
 }
@@ -202,7 +224,7 @@ body {
 }
 
 .project-card {
-  border-radius: 8px;
+  border-radius: 0px;
   overflow: hidden; /* 裁剪圆角 */
   box-shadow: 0 2px 10px rgba(0,0,0,0.1); /* 轻微阴影 */
   transition: transform 0.3s ease; /* hover动画 */
@@ -310,10 +332,9 @@ body {
 
 /* 文字区域 */
 .frame-4 {
-  flex: 1;
   width: 100%;
   min-width: 1000px; /* 最小宽度，避免太窄 */
-  margin: 0 auto;
+  margin: 0;
 }
 
 .text-wrapper-3 {
@@ -324,6 +345,14 @@ body {
   margin-bottom: 20px;
 }
 
+.text-wrapper-5 {
+  font-size: 36px;
+  line-height:150%
+  font-weight 600;
+  color: #ffffff; /* 白色标题，突出名字 */
+  margin-bottom: 40px;
+}
+
 .element-2 {
   font-size: 20px;
   color: #e0e0e0; /* 浅灰文字，黑色背景下可读性强 */
@@ -331,6 +360,7 @@ body {
   font-weight: 300;
   word-spacing:30px;
   max-width: 1360px; /* 限制文字宽度，避免换行太丑 */
+  margin: 0 0 20px 0;
 }
 
 /* 社交+头像区域 */
@@ -387,4 +417,50 @@ body {
 .social-icon-link:hover {
   opacity: 1; /* 完全不透明 */
   transform: scale(1.1); /* 轻微放大 */
+}
+
+/* 二维码图片 */
+/* 父容器：横向排列 + 可选居中（按需调整） */
+.qrcode-group {
+  display: flex; /* 横向排列子元素 */
+  align-items: center; /* 垂直居中对齐（避免二维码高低不一致） */
+  /* 如需让两个二维码整体水平居中，加这行：margin: 0 auto; */
+  /* 如需让两个二维码靠右侧，加这行：justify-content: flex-end; */
+}
+
+/* 二维码容器：控制大小（父容器只负责布局，图片大小由自身控制） */
+.weixing-img {
+  /* 父容器不需要设宽高，让 img 自己控制 */
+}
+
+/* 二维码图片：固定 140x140px，完整显示 */
+.weixing-img img {
+  width: 140px;
+  height: 140px;
+  object-fit: contain;
+  border: none;
+}
+
+/* 右侧二维码的左边距：40px（核心间距控制） */
+.ml-40 {
+  margin-left: 40px;
+}
+</style>
+
+
+
+/* 当我不在figma */
+/* 父容器：用 max-width 限制最大宽度，避免图片过大 */
+.figma-img {
+  max-width: 1200px; /* 可选：限制最大宽度，避免大屏下图片太宽 */
+  margin: 0 auto; /* 可选：让父容器水平居中，整体布局更协调 */
+}
+
+/* 图片：自适应核心样式 */
+.figma-img img {
+  width: 540px; /* 关键：图片宽度随父容器缩放（100% 即父容器宽度） */
+  padding-left: 9%; /* 用百分比替代 280px，随屏幕宽度自适应 */
+  height: auto; /* 保持宽高比，防止变形 */
+  border: none;
+  /* 去掉固定 margin-left，位置由父容器 padding 控制 */
 }
