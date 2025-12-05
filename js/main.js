@@ -2,7 +2,7 @@
 window.addEventListener('scroll', function() {
   const navbar = document.querySelector('.navbar');
   if (window.scrollY > 50) { // 滚动超过 50px 时
-    navbar.style.backgroundColor = 'rgba(17, 17, 17, 0.00)'; // 背景色变透明
+    navbar.style.backgroundColor = 'rgba(17, 17, 17, 0)'; // 背景色变透明
   } else {
     navbar.style.backgroundColor = 'rgba(17, 17, 17, 0)'; // 恢复原样
   }
@@ -50,6 +50,12 @@ window.addEventListener('load', function() {
       opacity: 1 !important;
       transform: none !important;
     }
+    /* 新增：强制导航栏无动画（兜底保障） */
+    .navbar {
+      transition: none !important;
+      opacity: 1 !important;
+      transform: none !important;
+    }
   `;
   document.head.appendChild(style);
 
@@ -58,6 +64,10 @@ window.addEventListener('load', function() {
     let elements = [];
     Array.from(el.children).forEach(child => {
       const tag = child.tagName.toLowerCase();
+      // 关键改动1：排除导航栏元素（通过类名.navbar判断）
+      if (child.classList.contains('navbar')) {
+        return; // 跳过导航栏，不加入动画元素列表
+      }
       // 排除不需要动画的标签
       if (!['script', 'style', 'link', 'meta', 'title'].includes(tag)) {
         elements.push(child);
@@ -76,10 +86,9 @@ window.addEventListener('load', function() {
     el.classList.add('animate-element');
     setTimeout(() => {
       el.classList.add('show');
-    }, index * 50); // 缩短间隔，动画更流畅
+    }, index * 100); // 缩短间隔，动画更流畅
   });
 });
-
 
 
 // 获取所有Tab选项和内容

@@ -59,7 +59,7 @@ body {
 
 /* 图片Logo样式（核心） */
 .logo-img {
-  height: 60px; /* Logo高度，根据你的图片调整（推荐30-50px） */
+  height: 50px; /* Logo高度，根据你的图片调整（推荐30-50px） */
   width: auto; /* 宽度自动，保持图片比例，避免变形 */
   object-fit: contain; /* 确保图片完整显示，不裁剪 */
 }
