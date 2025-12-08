@@ -755,3 +755,35 @@ body {
     margin-bottom: 40px;
   }
 }
+
+
+/* 项目容器：左右留边距，限制最大宽度 */
+.black-card {
+  max-width: 1360px;
+  margin: 360px auto;
+  padding: 0 0px; /* 页面左右留边距 */
+
+
+  /* 说明文本（小字） */
+.black-desc {
+  font-size: 24px;
+  color: #ffffff;
+  line-height: 1.6;
+   font-weight: 300;
+  margin-bottom: 40px;
+  margin-top: 80px;
+}
+
+
+/* 当我不在figma */
+.black-img {
+  margin-top: 60px; /* 可根据需要调整与上方内容的间距 */
+  margin-bottom: 60px;
+}
+.black-img img {
+  width: 192px; /* 保持原图片宽度 */
+  height: auto;
+  border: none;
+  padding-left: 0; /* 移除左侧百分比 padding */
+  /* 与其他内容保持相同的左侧对齐基准 */
+}

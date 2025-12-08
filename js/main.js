@@ -28,55 +28,64 @@ document.querySelectorAll('a[href^="#"]').forEach(anchor => {
 });
 
 
-window.addEventListener('load', function() {
-  // 动态注入动画样式（只给需要动画的元素加类，避免全局!important污染）
+// 第一步：立即注入基础隐藏样式（在DOM渲染前执行，避免元素闪现）
+(function injectBaseStyle() {
   const style = document.createElement('style');
+  style.id = 'animate-base-style';
   style.textContent = `
-    /* 动画基础类 */
+    /* 提前隐藏需要动画的元素，避免初始闪现 */
     .animate-element {
-      transition: opacity 0.8s ease-out, transform 0.8s ease-out;
+      opacity: 0 !important;
+      transform: translateY(30px) !important;
+      transition: none !important; /* 初始状态关闭过渡，避免闪变 */
       will-change: opacity, transform;
-      opacity: 0;
-      transform: translateY(30px);
+    }
+    /* 排除不需要动画的元素（提前生效） */
+    script, style, link, meta, title, .navbar {
+      opacity: 1 !important;
+      transform: none !important;
+      transition: none !important;
+    }
+  `;
+  // 插入到head最前面，确保优先级最高
+  document.head.insertBefore(style, document.head.firstChild);
+})();
+
+// 第二步：DOM解析完成后立即执行动画逻辑（无需等资源加载）
+document.addEventListener('DOMContentLoaded', function() {
+  // 动态注入动画过渡样式（此时DOM已解析，过渡生效）
+  const transitionStyle = document.createElement('style');
+  transitionStyle.textContent = `
+    /* 动画过渡效果（DOM加载后才生效） */
+    .animate-element {
+      transition: opacity 0.8s ease-out, transform 0.8s ease-out !important;
     }
     /* 显示状态 */
     .animate-element.show {
-      opacity: 1;
-      transform: translateY(0);
-    }
-    /* 排除不需要动画的标签 */
-    script, style, link, meta, title {
-      transition: none !important;
       opacity: 1 !important;
-      transform: none !important;
+      transform: translateY(0) !important;
     }
   `;
-  document.head.appendChild(style);
+  document.head.appendChild(transitionStyle);
 
-  // 递归获取body下所有需要动画的元素（适配嵌套结构）
-  function getAnimateElements(el) {
-    let elements = [];
-    Array.from(el.children).forEach(child => {
-      const tag = child.tagName.toLowerCase();
-      // 排除不需要动画的标签
-      if (!['script', 'style', 'link', 'meta', 'title'].includes(tag)) {
-        elements.push(child);
-        // 递归获取子元素（解决嵌套问题）
-        elements = elements.concat(getAnimateElements(child));
-      }
-    });
-    return elements;
+  // 精准选择需要动画的元素（排除.navbar和基础标签，避免递归性能损耗）
+  function getAnimateElements() {
+    // 选择body下所有非排除类/标签的元素
+    const allElements = document.body.querySelectorAll('*:not(script):not(style):not(link):not(meta):not(title):not(.navbar)');
+    // 过滤掉空文本节点/注释节点，只保留元素节点
+    return Array.from(allElements).filter(el => el.nodeType === 1);
   }
 
-  // 获取所有需要动画的元素
-  const animateElements = getAnimateElements(document.body);
+  const animateElements = getAnimateElements();
 
-  // 逐步显示元素（避免一次性渲染）
+  // 逐步添加动画类并触发显示（无闪现）
   animateElements.forEach((el, index) => {
+    // 先添加基础隐藏类（确保初始状态隐藏）
     el.classList.add('animate-element');
+    // 延迟触发显示（间隔可根据需求调整）
     setTimeout(() => {
       el.classList.add('show');
-    }, index * 50); // 缩短间隔，动画更流畅
+    }, index * 50); // 缩短间隔，动画更丝滑（50ms比100ms更连贯）
   });
 });
 
