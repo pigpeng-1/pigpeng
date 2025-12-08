@@ -2,7 +2,7 @@
 window.addEventListener('scroll', function() {
   const navbar = document.querySelector('.navbar');
   if (window.scrollY > 50) { // 滚动超过 50px 时
-    navbar.style.backgroundColor = 'rgba(17, 17, 17, 0.00)'; // 背景色变透明
+    navbar.style.backgroundColor = 'rgba(17, 17, 17, 0)'; // 背景色变透明
   } else {
     navbar.style.backgroundColor = 'rgba(17, 17, 17, 0)'; // 恢复原样
   }
@@ -65,15 +65,41 @@ document.addEventListener('DOMContentLoaded', function() {
       opacity: 1 !important;
       transform: translateY(0) !important;
     }
+    /* 新增：强制导航栏无动画（兜底保障） */
+    .navbar {
+      transition: none !important;
+      opacity: 1 !important;
+      transform: none !important;
+    }
   `;
   document.head.appendChild(transitionStyle);
 
+<<<<<<< HEAD
   // 精准选择需要动画的元素（排除.navbar和基础标签，避免递归性能损耗）
   function getAnimateElements() {
     // 选择body下所有非排除类/标签的元素
     const allElements = document.body.querySelectorAll('*:not(script):not(style):not(link):not(meta):not(title):not(.navbar)');
     // 过滤掉空文本节点/注释节点，只保留元素节点
     return Array.from(allElements).filter(el => el.nodeType === 1);
+=======
+  // 递归获取body下所有需要动画的元素（适配嵌套结构）
+  function getAnimateElements(el) {
+    let elements = [];
+    Array.from(el.children).forEach(child => {
+      const tag = child.tagName.toLowerCase();
+      // 关键改动1：排除导航栏元素（通过类名.navbar判断）
+      if (child.classList.contains('navbar')) {
+        return; // 跳过导航栏，不加入动画元素列表
+      }
+      // 排除不需要动画的标签
+      if (!['script', 'style', 'link', 'meta', 'title'].includes(tag)) {
+        elements.push(child);
+        // 递归获取子元素（解决嵌套问题）
+        elements = elements.concat(getAnimateElements(child));
+      }
+    });
+    return elements;
+>>>>>>> ed24185b7a804e2b91f798cf0befb5f1e9b4ada9
   }
 
   const animateElements = getAnimateElements();
@@ -85,10 +111,13 @@ document.addEventListener('DOMContentLoaded', function() {
     // 延迟触发显示（间隔可根据需求调整）
     setTimeout(() => {
       el.classList.add('show');
+<<<<<<< HEAD
     }, index * 50); // 缩短间隔，动画更丝滑（50ms比100ms更连贯）
+=======
+    }, index * 100); // 缩短间隔，动画更流畅
+>>>>>>> ed24185b7a804e2b91f798cf0befb5f1e9b4ada9
   });
 });
-
 
 
 // 获取所有Tab选项和内容
