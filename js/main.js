@@ -28,42 +28,27 @@ document.querySelectorAll('a[href^="#"]').forEach(anchor => {
 });
 
 
-// 第一步：立即注入基础隐藏样式（在DOM渲染前执行，避免元素闪现）
-(function injectBaseStyle() {
+window.addEventListener('load', function() {
+  // 动态注入动画样式（只给需要动画的元素加类，避免全局!important污染）
   const style = document.createElement('style');
-  style.id = 'animate-base-style';
   style.textContent = `
-    /* 提前隐藏需要动画的元素，避免初始闪现 */
+    /* 动画基础类 */
     .animate-element {
-      opacity: 0 !important;
-      transform: translateY(30px) !important;
-      transition: none !important; /* 初始状态关闭过渡，避免闪变 */
+      transition: opacity 0.8s ease-out, transform 0.8s ease-out;
       will-change: opacity, transform;
-    }
-    /* 排除不需要动画的元素（提前生效） */
-    script, style, link, meta, title, .navbar {
-      opacity: 1 !important;
-      transform: none !important;
-      transition: none !important;
-    }
-  `;
-  // 插入到head最前面，确保优先级最高
-  document.head.insertBefore(style, document.head.firstChild);
-})();
-
-// 第二步：DOM解析完成后立即执行动画逻辑（无需等资源加载）
-document.addEventListener('DOMContentLoaded', function() {
-  // 动态注入动画过渡样式（此时DOM已解析，过渡生效）
-  const transitionStyle = document.createElement('style');
-  transitionStyle.textContent = `
-    /* 动画过渡效果（DOM加载后才生效） */
-    .animate-element {
-      transition: opacity 0.8s ease-out, transform 0.8s ease-out !important;
+      opacity: 0;
+      transform: translateY(30px);
     }
     /* 显示状态 */
     .animate-element.show {
+      opacity: 1;
+      transform: translateY(0);
+    }
+    /* 排除不需要动画的标签 */
+    script, style, link, meta, title {
+      transition: none !important;
       opacity: 1 !important;
-      transform: translateY(0) !important;
+      transform: none !important;
     }
     /* 新增：强制导航栏无动画（兜底保障） */
     .navbar {
@@ -72,16 +57,8 @@ document.addEventListener('DOMContentLoaded', function() {
       transform: none !important;
     }
   `;
-  document.head.appendChild(transitionStyle);
+  document.head.appendChild(style);
 
-<<<<<<< HEAD
-  // 精准选择需要动画的元素（排除.navbar和基础标签，避免递归性能损耗）
-  function getAnimateElements() {
-    // 选择body下所有非排除类/标签的元素
-    const allElements = document.body.querySelectorAll('*:not(script):not(style):not(link):not(meta):not(title):not(.navbar)');
-    // 过滤掉空文本节点/注释节点，只保留元素节点
-    return Array.from(allElements).filter(el => el.nodeType === 1);
-=======
   // 递归获取body下所有需要动画的元素（适配嵌套结构）
   function getAnimateElements(el) {
     let elements = [];
@@ -99,23 +76,17 @@ document.addEventListener('DOMContentLoaded', function() {
       }
     });
     return elements;
->>>>>>> ed24185b7a804e2b91f798cf0befb5f1e9b4ada9
   }
 
-  const animateElements = getAnimateElements();
+  // 获取所有需要动画的元素
+  const animateElements = getAnimateElements(document.body);
 
-  // 逐步添加动画类并触发显示（无闪现）
+  // 逐步显示元素（避免一次性渲染）
   animateElements.forEach((el, index) => {
-    // 先添加基础隐藏类（确保初始状态隐藏）
     el.classList.add('animate-element');
-    // 延迟触发显示（间隔可根据需求调整）
     setTimeout(() => {
       el.classList.add('show');
-<<<<<<< HEAD
-    }, index * 50); // 缩短间隔，动画更丝滑（50ms比100ms更连贯）
-=======
-    }, index * 100); // 缩短间隔，动画更流畅
->>>>>>> ed24185b7a804e2b91f798cf0befb5f1e9b4ada9
+    }, index * 60); // 缩短间隔，动画更流畅
   });
 });
 
@@ -141,6 +112,9 @@ tabItems.forEach(item => {
   });
 });
 
+
+
+
 // 图片点击效果
 // 点击放大功能（保留）
     const modal = document.getElementById('imgModal');
@@ -161,3 +135,12 @@ tabItems.forEach(item => {
     closeBtn.addEventListener('click', () => modal.style.display = 'none');
     modal.addEventListener('click', (e) => e.target === modal && (modal.style.display = 'none'));
     document.addEventListener('keydown', (e) => e.key === 'Escape' && (modal.style.display = 'none'));
+
+
+
+    // 点击文章的逻辑（可替换为实际跳转/展示逻辑）
+function openArticle(item) {
+  const title = item.querySelector('h3').textContent;
+  // 这里可以替换为打开文章详情的操作（比如跳转到对应页面、显示弹窗等）
+  alert(`你点击了文章：${title}`);
+}

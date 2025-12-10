@@ -38,12 +38,14 @@
   </div>
 
 
-<!-- tab组件 -->
- <div class="tab-container">
+
+
+  <!-- ========== Tab容器 ========== -->
+<div class="tab-container">
   <!-- Tab切换栏 -->
   <div class="tab-nav">
     <div class="tab-item active" data-tab="tab1">
-      <span class="tab-icon">📚</span> <!-- 可替换为你的图标 -->
+      <span class="tab-icon">📚</span>
       <span class="tab-text">设计思考</span>
     </div>
     <div class="tab-item" data-tab="tab2">
@@ -60,46 +62,122 @@
     </div>
   </div>
 
-  <!-- 对应文章目录内容（默认只显示active的tab） -->
+  <!-- Tab内容区：移入tab-container内部，保证样式嵌套 -->
   <div class="tab-content">
-    <!-- 设计思考的文章目录 -->
+    <!-- 设计思考 -->
     <div class="content-item active" id="tab1">
-      <ul class="article-list">
-        <li><a href="#">设计中的极简主义</a></li>
-        <li><a href="#">交互流程的优化思路</a></li>
-        <li><a href="#">色彩心理学在界面中的应用</a></li>
-      </ul>
+      <div class="article-list">
+
+        <div class="article-item" onclick="openArticle(this)">
+        <h3>理性组织、感性表达</h3>
+      <!-- 新增容器：包裹描述和日期 -->
+        <div class="text-date-wrap">
+      <p>这句话源于一篇文章里，也成为我一直以来对于设计的理解，以此篇作为开篇</p>
+      <span class="article-date">2025.10.12</span>
+      </div>
+      </div>
+
+         <div class="article-item" onclick="openArticle(this)">
+        <h3>理性组织、感性表达</h3>
+      <!-- 新增容器：包裹描述和日期 -->
+        <div class="text-date-wrap">
+      <p>这句话源于一篇文章里，也成为我一直以来对于设计的理解，以此篇作为开篇</p>
+      <span class="article-date">2025.10.12</span>
+      </div>
+      </div>
+
+      <div class="article-item" onclick="openArticle(this)">
+        <h3>理性组织、感性表达</h3>
+      <!-- 新增容器：包裹描述和日期 -->
+        <div class="text-date-wrap">
+      <p>这句话源于一篇文章里，也成为我一直以来对于设计的理解，以此篇作为开篇</p>
+      <span class="article-date">2025.10.12</span>
+      </div>
+      </div>
+
+        <div class="article-item" onclick="openArticle(this)">
+        <h3>理性组织、感性表达</h3>
+      <!-- 新增容器：包裹描述和日期 -->
+        <div class="text-date-wrap">
+      <p>这句话源于一篇文章里，也成为我一直以来对于设计的理解，以此篇作为开篇</p>
+      <span class="article-date">2025.10.12</span>
+      </div>
+      </div>
+
+       <div class="article-item" onclick="openArticle(this)">
+        <h3>理性组织、感性表达</h3>
+      <!-- 新增容器：包裹描述和日期 -->
+        <div class="text-date-wrap">
+      <p>这句话源于一篇文章里，也成为我一直以来对于设计的理解，以此篇作为开篇</p>
+      <span class="article-date">2025.10.12</span>
+      </div>
+      </div>
+
+      </div>
     </div>
 
-    <!-- 探索产品的文章目录 -->
+    <!-- 补全其他Tab内容容器 -->
     <div class="content-item" id="tab2">
-      <ul class="article-list">
-        <li><a href="#">产品迭代的节奏把控</a></li>
-        <li><a href="#">用户调研的高效方法</a></li>
-        <li><a href="#">从0到1的产品冷启动</a></li>
-      </ul>
-    </div>
+      <div class="article-list">
 
-    <!-- 发牢骚的地方的文章目录 -->
+         <div class="article-item" onclick="openArticle(this)">
+        <h3>理性组织、感性表达</h3>
+      <!-- 新增容器：包裹描述和日期 -->
+        <div class="text-date-wrap">
+      <p>这句话源于一篇文章里，也成为我一直以来对于设计的理解，以此篇作为开篇</p>
+      <span class="article-date">2025.10.12</span>
+      </div>
+      </div>
+
+       <div class="article-item" onclick="openArticle(this)">
+        <h3>理性组织、感性表达</h3>
+      <!-- 新增容器：包裹描述和日期 -->
+        <div class="text-date-wrap">
+      <p>这句话源于一篇文章里，也成为我一直以来对于设计的理解，以此篇作为开篇</p>
+      <span class="article-date">2025.10.12</span>
+      </div>
+      </div>
+
+       <div class="article-item" onclick="openArticle(this)">
+        <h3>理性组织、感性表达</h3>
+      <!-- 新增容器：包裹描述和日期 -->
+        <div class="text-date-wrap">
+      <p>这句话源于一篇文章里，也成为我一直以来对于设计的理解，以此篇作为开篇</p>
+      <span class="article-date">2025.10.12</span>
+      </div>
+      </div>
+
+       <div class="article-item" onclick="openArticle(this)">
+        <h3>理性组织、感性表达</h3>
+      <!-- 新增容器：包裹描述和日期 -->
+        <div class="text-date-wrap">
+      <p>这句话源于一篇文章里，也成为我一直以来对于设计的理解，以此篇作为开篇</p>
+      <span class="article-date">2025.10.12</span>
+      </div>
+      </div>
+
+      </div>
+    </div>
     <div class="content-item" id="tab3">
-      <ul class="article-list">
-        <li><a href="#">工作中的无效沟通</a></li>
-        <li><a href="#">加班文化的反思</a></li>
-        <li><a href="#">甲方的奇葩需求合集</a></li>
-      </ul>
+      <div class="article-list">
+        <div class="article-item">
+          <h3>发牢骚的地方-待补充</h3>
+          <p>发牢骚的相关内容</p>
+          <span class="article-date">2025.10.12</span>
+        </div>
+      </div>
     </div>
-
-    <!-- 捡贝壳的男孩的文章目录 -->
     <div class="content-item" id="tab4">
-      <ul class="article-list">
-        <li><a href="#">海边的日出记录</a></li>
-        <li><a href="#">贝壳的种类与识别</a></li>
-        <li><a href="#">赶海的实用技巧</a></li>
-      </ul>
+      <div class="article-list">
+        <div class="article-item">
+          <h3>捡贝壳的男孩-待补充</h3>
+          <p>捡贝壳的男孩相关内容</p>
+          <span class="article-date">2025.10.12</span>
+        </div>
+      </div>
     </div>
   </div>
 </div>
-
 
 
   <!-- 页脚 -->
