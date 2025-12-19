@@ -139,124 +139,6 @@ body {
 
 
 
-/* 视频介绍图片 */
-.hero {
-  height: 800px; 
-  width: auto;
-  background-image: url('../images/cover.png');
-  margin: 360px 280px; /* 简化margin写法，等价于原上下左右边距 */
-  /* 2. 关键：改为 contain 保证图片完整显示，不裁剪 */
-  background-size: contain;
-  background-position: center; /* 图片依然居中 */
-  background-repeat: no-repeat; /* 防止图片重复（contain模式下容器过大时会重复） */
-  display: flex;
-  align-items: center;
-  justify-content: center;
-  color: white;
-  text-align: center;
-}
-
-
-/* 关于我的封面区域样式 */
-.hero-about {
-  height: 24vh; 
-  width: auto;
-  background-image: url('../images/关于我.png');
-  margin: 360px 180px; /* 简化margin写法，等价于原上下左右边距 */
-  /* 2. 关键：改为 contain 保证图片完整显示，不裁剪 */
-  background-size: contain;
-  background-position: center; /* 图片依然居中 */
-  background-repeat: no-repeat; /* 防止图片重复（contain模式下容器过大时会重复） */
-  display: flex;
-  align-items: center;
-  justify-content: center;
-  color: white;
-  text-align: center;
-}
-
-
-/* 项目列表页样式 */
-.projects-grid {
-  display: grid;
-  grid-template-columns: repeat(auto-fit, minmax(280px, 1fr)); /* 响应式网格 */
-  gap: 120px; /* 卡片间距 */
-  margin-top: 100px;
-}
-
-.project-card {
-  border-radius: 0px;
-  overflow: hidden; /* 裁剪圆角 */
-  box-shadow: 0 2px 10px rgba(0,0,0,0.1); /* 轻微阴影 */
-  transition: transform 0.3s ease; /* hover动画 */
-}
-
-/* 移除绝对定位，让a标签成为块级元素，内部自然上下排列 */
-.project-card a {
-  display: flex;
-  flex-direction: column;
-  height: 100%;
-  text-decoration: none;
-  color: #333;
-}
-
-/* 图片容器：控制图片尺寸 */
-.card-img {
-  width: 100%;
-  height: 340px; /* 固定图片高度（可根据需求调整） */
-  overflow: hidden;
-}
-
-.card-img img {
-  width: 100%;
-  height: 100%;
-  object-fit: cover; /* 保持图片比例，填充容器 */
-  transition: transform 0.3s ease;
-}
-
-/* 文字内容：在图片下方，添加内边距 */
-.card-content {
-  padding-top: 40px;
-  padding-right: 0px;
-  padding-bottom: 0px;
-  padding-left: 0px;
-  flex: 1; /* 让文字区域自动填充剩余空间 */
-}
-
-.card-content h3 {
-  margin: 0 0 20px 0;
-  font-size: 24px;
-  color: #ffffff;
-  font-weight: 400;
-}
-
-.card-content p {
-  margin: 0;
-  font-size: 16px;
-  color: #E7E7E7;
-}
-
-/* hover效果（可选） */
-.project-card:hover {
-  transform: translateY(-5px);
-}
-
-.project-card:hover .card-img img {
-  transform: scale(1.05);
-}
-
-/* 容器样式（确保居中） */
-.container {
-  width: 100%;
-  max-width: 1360px;
-  margin: 0 auto;
-  padding: 0 0px;
-}
-
-.text-center {
-  text-align: center;
-}
-
-
 
 /* 个人介绍模块样式（黑色背景适配） */
 
@@ -397,6 +279,148 @@ body {
   transform: scale(1.1); /* 轻微放大 */
 }
 
+
+
+
+
+/* 视频介绍图片 */
+.hero {
+  height: 800px; 
+  width: auto;
+  background-image: url('../images/cover.png');
+  margin: 360px 280px; /* 简化margin写法，等价于原上下左右边距 */
+  /* 2. 关键：改为 contain 保证图片完整显示，不裁剪 */
+  background-size: contain;
+  background-position: center; /* 图片依然居中 */
+  background-repeat: no-repeat; /* 防止图片重复（contain模式下容器过大时会重复） */
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  color: white;
+  text-align: center;
+}
+
+
+
+
+
+/* 项目列表页样式 */
+.projects-grid {
+  display: grid;
+  grid-template-columns: repeat(auto-fit, minmax(280px, 1fr)); /* 响应式网格 */
+  gap: 120px; /* 卡片间距 */
+  margin-top: 100px;
+}
+
+.project-card {
+  border-radius: 0px;
+  overflow: hidden; /* 裁剪圆角 */
+  box-shadow: 0 2px 10px rgba(0,0,0,0.1); /* 轻微阴影 */
+  transition: transform 0.3s ease; /* hover动画 */
+}
+
+/* 移除绝对定位，让a标签成为块级元素，内部自然上下排列 */
+.project-card a {
+  display: flex;
+  flex-direction: column;
+  height: 100%;
+  text-decoration: none;
+  color: #333;
+}
+
+/* 图片容器：控制图片尺寸 */
+.card-img {
+  width: 100%;
+  height: 340px; /* 固定图片高度（可根据需求调整） */
+  overflow: hidden;
+}
+
+.card-img img {
+  width: 100%;
+  height: 100%;
+  object-fit: cover; /* 保持图片比例，填充容器 */
+  transition: transform 0.3s ease;
+}
+
+/* 文字内容：在图片下方，添加内边距 */
+.card-content {
+  padding-top: 40px;
+  padding-right: 0px;
+  padding-bottom: 0px;
+  padding-left: 0px;
+  flex: 1; /* 让文字区域自动填充剩余空间 */
+}
+
+.card-content h3 {
+  margin: 0 0 20px 0;
+  font-size: 24px;
+  color: #ffffff;
+  font-weight: 400;
+}
+
+.card-content p {
+  margin: 0;
+  font-size: 16px;
+  color: #E7E7E7;
+}
+
+/* hover效果（可选） */
+.project-card:hover {
+  transform: translateY(-5px);
+}
+
+.project-card:hover .card-img img {
+  transform: scale(1.05);
+}
+
+/* 容器样式（确保居中） */
+.container {
+  width: 100%;
+  max-width: 1360px;
+  margin: 0 auto;
+  padding: 0 0px;
+}
+
+.text-center {
+  text-align: center;
+}
+
+
+
+
+
+
+
+/* --------------------------------以下为关于我的页面样式-------------------------------- */
+
+
+
+
+
+/* 矩形图的区域样式 */
+.hero-about {
+  height: 24vh; 
+  width: auto;
+  background-image: url('../images/关于我.png');
+  margin: 360px 180px; /* 简化margin写法，等价于原上下左右边距 */
+  /* 2. 关键：改为 contain 保证图片完整显示，不裁剪 */
+  background-size: contain;
+  background-position: center; /* 图片依然居中 */
+  background-repeat: no-repeat; /* 防止图片重复（contain模式下容器过大时会重复） */
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  color: white;
+  text-align: center;
+}
+
+
+
+
+
+
+
+
 /* 二维码图片 */
 /* 父容器：横向排列 + 可选居中（按需调整） */
 .qrcode-group {
@@ -475,184 +499,9 @@ body {
 
 
 
-/* --------------------------------以下为摄影页面样式-------------------------------- */
+/* --------------------------------以下为项目页面样式-------------------------------- */
 
 
-
-
-
-
-
-.photo-gallery {
-      columns: 3; /* 固定三列 */
-      column-gap: 40px; /* 列之间的间距 */
-      max-width: 1360px;
-      margin: 0px auto;
-      padding: 0 0;
-    }
-
-    /* 照片卡片：关键！禁止跨列分割，确保卡片完整显示在一列中 */
-    .photo-card {
-      break-inside: avoid; /* 核心属性：防止卡片被列分割 */
-      margin-bottom: 60px; /* 卡片之间的垂直间距（列内） */
-      cursor: pointer;
-    }
-
-    /* 图片容器：自适应图片尺寸，不裁剪 */
-    .photo-wrapper {
-      width: 100%;
-      border-radius: 0px;
-      overflow: hidden;
-      background: #111;
-      margin-bottom: 20px;
-    }
-
-    /* 图片：保留原生比例，不裁剪，自适应列宽 */
-    .photo-img {
-      width: 100%;
-      height: auto; /* 高度随宽度自适应，保留原图比例 */
-      display: block;
-      object-fit: contain; /* 确保图片完整显示 */
-    }
-
-    /* 标题：左对齐，清除默认边距 */
-    .photo-title {
-      font-size: 14px;
-      color: #ffffff;
-      line-height: 1.4;
-      margin: 0;
-    }
-
-    /* 全屏查看遮罩层（保留点击放大功能） */
-    .img-modal {
-      position: fixed;
-      top: 0;
-      left: 0;
-      width: 100vw;
-      height: 100vh;
-      background: rgba(0, 0, 0, 0.9);
-      display: none;
-      justify-content: center;
-      align-items: center;
-      z-index: 9999;
-      padding: 20px;
-      box-sizing: border-box;
-    }
-    .img-modal-content {
-      max-width: 90%;
-      max-height: 90%;
-      object-fit: contain;
-    }
-    .img-modal-close {
-      position: absolute;
-      top: 20px;
-      right: 30px;
-      color: #111111;
-      font-size: 40px;
-      font-weight: bold;
-      cursor: pointer;
-    }
-    .img-modal-close:hover {
-      color: #111;
-    }
-
-    /* 响应式：移动端自动改为1列，平板2列 */
-    @media (max-width: 768px) {
-      .photo-gallery {
-        columns: 1;
-      }
-    }
-    @media (min-width: 769px) and (max-width: 992px) {
-      .photo-gallery {
-        columns: 2;
-      }
-    }
-
-
-
-
-
-
-
-
-
-/* --------------------------------以下为文章页面样式-------------------------------- */
-
-
-
-
-/* Tab容器整体样式 */
-.tab-container {
-  width: 100%;
-  max-width: 1280px;
-  margin: 0 auto;
-  color: #fff;
-  padding-top: 280px;
-}
-
-/* Tab导航栏（四栏均分） */
-.tab-nav {
-  display: flex;
-  height: 120px;
-  border-bottom: 1px solid #1A1A1A;
-}
-
-/* Tab单个选项 */
-.tab-item {
-  flex: 1; /* 四栏均分宽度 */
-  display: flex;
-  align-items: center;
-  justify-content: center;
-  gap: 20px; /* 图标与文字间距 */
-  padding: 0 10px;
-  cursor: pointer;
-  background-color: #222;
-  transition: background-color 0.3s;
-  position: relative; /* 用于下划线定位 */
-}
-
-/* 选中状态的Tab */
-.tab-item.active {
-  background-color: #333;
-}
-/* 选中状态的下划线（底部白色条） */
-.tab-item.active::after {
-  content: "";
-  position: absolute;
-  bottom: 0;
-  left: 0;
-  width: 100%;
-  height: 3px;
-  background-color: #fff;
-}
-
-/* Tab图标与文字样式 */
-.tab-icon {
-  font-size: 20px;
-}
-.tab-text {
-  font-size: 20px;
-  font-weight: 400;
-}
-
-/* 文章目录容器 */
-.tab-content {
-  padding: 0px;
-  background-color: #111111;
-  width: 100%;
-  max-width: 1280px;
-  margin: 0 auto;
-  color: #fff;
-  padding-top: 120px;
-}
-
-/* 文章目录内容（默认隐藏，仅active显示） */
-.content-item {
-  display: none;
-}
-.content-item.active {
-  display: block;
-}
 
 
 
@@ -800,7 +649,279 @@ body {
 }
 
 
-/* 当我不在figma */
+
+
+
+/* --------------------------------以下为文章页面样式-------------------------------- */
+
+
+
+/* Tab容器整体样式 */
+.tab-container {
+  width: 100%;
+  max-width: 1280px;
+  margin: 0 auto;
+  color: #fff;
+  padding-top: 280px;
+}
+
+/* Tab导航栏（四栏均分） */
+.tab-nav {
+  display: flex;
+  height: 120px;
+  border-bottom: 1px solid #1A1A1A;
+}
+
+/* Tab单个选项 */
+.tab-item {
+  flex: 1; /* 四栏均分宽度 */
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  gap: 20px; /* 图标与文字间距 */
+  padding: 0 10px;
+  cursor: pointer;
+  background-color: #222;
+  transition: background-color 0.3s;
+  position: relative; /* 用于下划线定位 */
+}
+
+/* 选中状态的Tab */
+.tab-item.active {
+  background-color: #333;
+}
+/* 选中状态的下划线（底部白色条） */
+.tab-item.active::after {
+  content: "";
+  position: absolute;
+  bottom: 0;
+  left: 0;
+  width: 100%;
+  height: 3px;
+  background-color: #fff;
+}
+
+/* Tab图标与文字样式 */
+.tab-icon {
+  font-size: 20px;
+}
+.tab-text {
+  font-size: 20px;
+  font-weight: 400;
+}
+
+/* 文章目录容器 */
+.tab-content {
+  padding: 0px;
+  background-color: #111111;
+  width: 100%;
+  max-width: 1280px;
+  margin: 0 auto;
+  color: #fff;
+  padding-top: 120px;
+}
+
+/* 文章目录内容（默认隐藏，仅active显示） */
+.content-item {
+  display: none;
+}
+.content-item.active {
+  display: block;
+}
+
+
+
+
+
+
+
+/* 文章模块内容 - 基础简洁写法 */
+.article-list {
+  width: 100%;
+  display: flex;
+  flex-direction: column;
+  gap: 36px; /* 文章项间距 */
+  box-sizing: border-box;
+  padding: 0 8px; /* 小屏留白，适配性保留 */
+}
+
+/* 文章项核心样式 */
+.article-item {
+  background: #1D1D1D;
+  color: #ffffff;
+  padding: 32px;
+  border-radius: 0;
+  cursor: pointer;
+  transition: background 0.2s ease, transform 0.2s ease;
+  overflow: hidden;
+  box-sizing: border-box;
+}
+
+.article-item:hover {
+  background: #333;
+  transform: translateY(-2px); /* 交互效果保留 */
+}
+
+/* 文章标题 */
+.article-item h3 {
+  margin: 0 0 8px;
+  font-size: 20px;
+  font-weight: 400;
+  padding-bottom: 12px;
+  color: #fff;
+  border-bottom: 1px solid #333; /* 视觉分割线保留 */
+}
+
+/* 文本+日期容器 */
+.text-date-wrap {
+  display: flex;
+  align-items: flex-start;
+  justify-content: space-between;
+  width: 100%;
+  gap: 15px;
+  margin-top: 8px;
+}
+
+/* 文章文本 */
+.article-item p {
+  margin: 0;
+  font-size: 14px;
+  color: #ccc;
+  line-height: 1.6;
+  flex: 1;
+  /* 文本行数限制保留，避免布局混乱 */
+  display: -webkit-box;
+  -webkit-line-clamp: 2;
+  -webkit-box-orient: vertical;
+  overflow: hidden;
+}
+
+/* 文章日期 */
+.article-date {
+  font-size: 14px;
+  color: #999;
+  flex-shrink: 0; /* 防止日期被挤压，布局核心保留 */
+}
+
+/* 移动端适配（保留，提升体验） */
+@media (max-width: 768px) {
+  .article-list {
+    gap: 24px;
+  }
+  .article-item {
+    padding: 20px;
+  }
+  .article-item h3 {
+    font-size: 18px;
+    padding-bottom: 10px;
+  }
+}
+
+
+
+
+/* --------------------------------以下为摄影页面样式-------------------------------- */
+
+
+
+
+
+.photo-gallery {
+      columns: 3; /* 固定三列 */
+      column-gap: 40px; /* 列之间的间距 */
+      max-width: 1360px;
+      margin: 0px auto;
+      padding: 0 0;
+    }
+
+    /* 照片卡片：关键！禁止跨列分割，确保卡片完整显示在一列中 */
+    .photo-card {
+      break-inside: avoid; /* 核心属性：防止卡片被列分割 */
+      margin-bottom: 60px; /* 卡片之间的垂直间距（列内） */
+      cursor: pointer;
+    }
+
+    /* 图片容器：自适应图片尺寸，不裁剪 */
+    .photo-wrapper {
+      width: 100%;
+      border-radius: 0px;
+      overflow: hidden;
+      background: #111;
+      margin-bottom: 20px;
+    }
+
+    /* 图片：保留原生比例，不裁剪，自适应列宽 */
+    .photo-img {
+      width: 100%;
+      height: auto; /* 高度随宽度自适应，保留原图比例 */
+      display: block;
+      object-fit: contain; /* 确保图片完整显示 */
+    }
+
+    /* 标题：左对齐，清除默认边距 */
+    .photo-title {
+      font-size: 14px;
+      color: #ffffff;
+      line-height: 1.4;
+      margin: 0;
+    }
+
+    /* 全屏查看遮罩层（保留点击放大功能） */
+    .img-modal {
+      position: fixed;
+      top: 0;
+      left: 0;
+      width: 100vw;
+      height: 100vh;
+      background: rgba(0, 0, 0, 0.9);
+      display: none;
+      justify-content: center;
+      align-items: center;
+      z-index: 9999;
+      padding: 20px;
+      box-sizing: border-box;
+    }
+    .img-modal-content {
+      max-width: 90%;
+      max-height: 90%;
+      object-fit: contain;
+    }
+    .img-modal-close {
+      position: absolute;
+      top: 20px;
+      right: 30px;
+      color: #111111;
+      font-size: 40px;
+      font-weight: bold;
+      cursor: pointer;
+    }
+    .img-modal-close:hover {
+      color: #111;
+    }
+
+    /* 响应式：移动端自动改为1列，平板2列 */
+    @media (max-width: 768px) {
+      .photo-gallery {
+        columns: 1;
+      }
+    }
+    @media (min-width: 769px) and (max-width: 992px) {
+      .photo-gallery {
+        columns: 2;
+      }
+    }
+
+
+
+
+
+
+/* --------------------------------以下为黑洞页面样式-------------------------------- */
+
+
+
+
+/* 数字花园 */
 .black-img {
   margin-top: 60px; /* 可根据需要调整与上方内容的间距 */
   margin-bottom: 80px;
@@ -813,20 +934,6 @@ body {
   /* 与其他内容保持相同的左侧对齐基准 */
 }
 
-
-
-/* 一些喜欢的文章 */
-.wenzhang-img {
-  margin-top: 240px; /* 可根据需要调整与上方内容的间距 */
-  margin-bottom: 80px;
-}
-.wenzhang-img img {
-  width: 252px; /* 保持原图片宽度 */
-  height: auto;
-  border: none;
-  padding-left: 0; /* 移除左侧百分比 padding */
-  /* 与其他内容保持相同的左侧对齐基准 */
-}
 
 
 
@@ -892,6 +999,20 @@ body {
 
 
 
+
+/* 一些喜欢的文章 */
+.wenzhang-img {
+  margin-top: 240px; /* 可根据需要调整与上方内容的间距 */
+  margin-bottom: 80px;
+}
+.wenzhang-img img {
+  width: 252px; /* 保持原图片宽度 */
+  height: auto;
+  border: none;
+  padding-left: 0; /* 移除左侧百分比 padding */
+  /* 与其他内容保持相同的左侧对齐基准 */
+}
+
     
 
 /* 黑洞洞文章卡片子模块 - 独立样式 */
@@ -943,63 +1064,3 @@ body {
         line-height: 1.6;
     }
 
-
-
-
-/* 文章模块内容 */
-/* 提升article-list优先级（嵌套选择器） */
-.tab-content .content-item .article-list {
-  width: 100%;
-  display: flex;
-  flex-direction: column;
-  gap: 36px; /* 文章项间距 */
-}
-
-/* 提升article-item优先级，确保样式生效 */
-.tab-content .content-item .article-item {
-  background: #1D1D1D ;
-  color: #ffffff ;
-  padding: 32px;
-  border-radius: 0px;
-  cursor: pointer;
-  transition: background 0.2s;
-  overflow: hidden; /* 清除float浮动影响 */
-}
-
-/* hover样式加优先级 */
-.tab-content .content-item .article-item:hover {
-  background: #333 ;
-}
-
-/* 文章标题 */
-.tab-content .content-item .article-item h3 {
-  margin: 0 0 8px;
-  font-size: 20px;
-  font-weight: 400;
-  padding-bottom: 12px;
-  color: #fff ; /* 强制白色，避免继承覆盖 */
-}
-
-/* 新增：文本+日期容器 - 核心布局 */
-.tab-content .content-item .article-item .text-date-wrap {
-  display: flex;          /* 横向排列 */
-  align-items: center;    /* 垂直居中（可选：换成flex-end是底部对齐） */
-  justify-content: space-between; /* 文本左、日期右 */
-  width: 100%;
-  gap: 10px; /* 文本和日期留少量间距 */
-}
-
-/* 修改原有p标签样式：去掉margin-bottom，避免多余间距 */
-.tab-content .content-item .article-item p {
-  margin: 0; /* 原先是 0 0 10px，去掉底部margin */
-  font-size: 14px;
-  color: #ccc ;
-  line-height: 1.5;
-  flex: 1; /* 让文本占满剩余宽度 */
-
-/* 修改原有日期样式：去掉float，适配flex布局 */
-.tab-content .content-item .article-date {
-  font-size: 14px;
-  color: #ccc;
-  flex-shrink: 0; /* 日期不被挤压 */
-}
