@@ -2,7 +2,7 @@
 window.addEventListener('scroll', function() {
   const navbar = document.querySelector('.navbar');
   if (window.scrollY > 50) { // 滚动超过 50px 时
-    navbar.style.backgroundColor = 'rgba(17, 17, 17, 0)'; // 背景色变透明
+    navbar.style.backgroundColor = 'rgba(17, 17, 17, 0.6)'; // 背景色变透明
   } else {
     navbar.style.backgroundColor = 'rgba(17, 17, 17, 0)'; // 恢复原样
   }

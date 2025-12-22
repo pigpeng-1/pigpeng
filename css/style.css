@@ -43,7 +43,7 @@ body {
   left: 0;
   width: 100%;
   height: 80px; /* 导航栏高度，和之前一致 */
-  background-color: transparent; /* 导航栏背景透明（可选，也可保留白色） */
+  background-color: transparent; /* 导航栏背景透明 */
   z-index: 1000; /* 确保在最上层，不被其他内容遮挡 */
 }
 
@@ -287,7 +287,7 @@ body {
 .hero {
   height: 800px; 
   width: auto;
-  background-image: url('../images/cover.png');
+  background-image: url('../images/shouye/首页视频介绍.png');
   margin: 360px 280px; /* 简化margin写法，等价于原上下左右边距 */
   /* 2. 关键：改为 contain 保证图片完整显示，不裁剪 */
   background-size: contain;
@@ -311,6 +311,29 @@ body {
   gap: 120px; /* 卡片间距 */
   margin-top: 100px;
 }
+
+
+
+/* 首页文章列表与项目模块对齐 */
+.index-article-list {
+  width: 100%;
+  max-width: 1360px;
+  margin-top: 120px;
+  margin-right: auto;
+  margin-bottom: 0px;
+  margin-left: auto;
+  padding: 0;
+}
+/* 仅首页文章列表的上下间距，不影响其他页面 */
+.index-article-list .article-item {
+  margin: 30px 0; /* 上下各30px，总间距约60px */
+}
+@media (max-width: 768px) {
+  .index-article-list {
+    padding: 0 20px;
+  }
+}
+
 
 .project-card {
   border-radius: 0px;
@@ -390,7 +413,6 @@ body {
 
 
 
-
 /* --------------------------------以下为关于我的页面样式-------------------------------- */
 
 
@@ -413,10 +435,6 @@ body {
   color: white;
   text-align: center;
 }
-
-
-
-
 
 
 
@@ -499,57 +517,29 @@ body {
 
 
 
+
 /* --------------------------------以下为项目页面样式-------------------------------- */
 
 
 
 
 
-/* 理性组织 */
-.hero1 {
-  height: 700px; 
-  width: auto;
-  background-image: url('../images/projects/理性组织.png');
-  margin: 360px 280px; /* 简化margin写法，等价于原上下左右边距 */
-  /* 2. 关键：改为 contain 保证图片完整显示，不裁剪 */
-  background-size: contain;
-  background-position: center; /* 图片依然居中 */
-  background-repeat: no-repeat; /* 防止图片重复（contain模式下容器过大时会重复） */
-  display: flex;
-  align-items: center;
-  justify-content: center;
-  color: white;
-  text-align: center;
-}
-
-
 /* 项目列表 */
-/* 全局重置 */
-* {
-  margin: 0;
-  padding: 0;
-  box-sizing: border-box;
-}
-body {
-  background-color: #121212; /* 深色背景 */
-  color: #fff;
-  font-family: "Microsoft Yahei", sans-serif;
-  padding: 0;
-}
-
-/* 项目容器：左右留边距，限制最大宽度 */
+/* 项目容器：左右留边距，限制最大宽度，使用grid布局一行两个 */
 .project-container {
-  max-width: 1360px;
+  max-width: 1280px;
   margin: 0 auto;
   padding: 0 0px; /* 页面左右留边距 */
+  display: grid;
+  grid-template-columns: repeat(2, 1fr); /* 一行两个，等宽 */
+  gap: 120px 80px; /* 行间距60px，列间距40px */
 }
 
-/* 整项跳转链接：去除默认样式，继承宽度 */
+/* 整项跳转链接：去除默认样式 */
 .project-link {
-  display: block; /* 让a标签占满整行 */
+  display: block; /* 让a标签占满grid单元格 */
   text-decoration: none; /* 去除下划线 */
   color: inherit; /* 继承文字颜色 */
-  margin-bottom: 240px; /* 项目之间的垂直间距 */
 }
 /* 整项 hover 效果（可选，提升交互） */
 .project-link:hover .project-item {
@@ -558,7 +548,7 @@ body {
   transition: all 0.2s ease;
 }
 
-/* 单个项目：一行一个 */
+/* 单个项目：适应grid布局 */
 .project-item {
   width: 100%;
   transition: all 0.2s ease; /* 配合hover动画 */
@@ -569,12 +559,12 @@ body {
   width: 100%;
   border-radius: 0px;
   overflow: hidden;
-  margin-bottom: 40px;
+  margin-bottom: 24px;
   cursor: pointer; /* 鼠标悬浮变手型 */
 }
 .project-cover img {
   width: 100%;
-  height: auto;
+  height: 300px;
   display: block;
 }
 
@@ -589,9 +579,9 @@ body {
 
 /* 内容标题 */
 .project-title {
-  font-size: 32px;
-  font-weight: 300;
-  margin-bottom: 20px;
+  font-size: 18px;
+  font-weight: 400;
+  margin-bottom: 12px;
 }
 
 /* 说明文本（小字） */
@@ -600,7 +590,7 @@ body {
   color: #ccc;
   line-height: 1.6;
    font-weight: 300;
-  margin-bottom: 20px;
+  margin-bottom: 12px;
 }
 
 /* 灰色标签样式 */
@@ -610,42 +600,109 @@ body {
   gap: 8px; /* 标签间距 */
 }
 .tag {
-  font-size: 14px;
+  font-size: 12px;
   background-color: #333;
   color: #ccc;
-  padding: 4px 8px;
-  border-radius: 4px;
+  padding: 4px 16px;
+  border-radius: 32px;
 }
 
-/* 响应式适配：移动端缩小边距 */
+/* 响应式适配：移动端一行一个 */
 @media (max-width: 768px) {
   .project-container {
     padding: 0 20px;
-  }
-  .project-link {
-    margin-bottom: 40px;
+    grid-template-columns: 1fr; /* 移动端一行一个 */
+    gap: 40px 0; /* 移动端只保留行间距 */
   }
 }
 
 
-/* 项目容器：左右留边距，限制最大宽度 */
-.black-card {
-  max-width: 1360px;
-  margin-top: 240px;
-  margin-right: auto;
-  margin-bottom: 0px;
-  margin-left: auto;
-  padding: 0 0px; /* 页面左右留边距 */
+
+
+/* ==================== 一行三个项目的布局样式 ==================== */
+
+/* 项目容器：一行三个，使用grid布局 */
+.project-container-3col {
+  max-width: 1280px;
+  margin: 240px auto 0;
+  padding: 0 0px;
+  display: grid;
+  grid-template-columns: repeat(3, 1fr); /* 一行三个，等宽 */
+  gap: 120px 48px; /* 行间距60px，列间距40px */
 }
 
-  /* 说明文本（小字） */
-.black-desc {
-  font-size: 20px;
-  color: #DBDBDB;
-  line-height: 1.4;
-   font-weight: 300;
-  margin-bottom: 40px;
-  margin-top: 0px;
+/* 整项跳转链接：去除默认样式 */
+.project-link-3col {
+  display: block; /* 让a标签占满grid单元格 */
+  text-decoration: none; /* 去除下划线 */
+  color: inherit; /* 继承文字颜色 */
+}
+
+/* 整项 hover 效果 */
+.project-link-3col:hover .project-item-3col {
+  opacity: 0.9;
+  transform: translateY(-2px);
+  transition: all 0.2s ease;
+}
+
+/* 单个项目：适应grid布局 */
+.project-item-3col {
+  width: 100%;
+  transition: all 0.2s ease; /* 配合hover动画 */
+}
+
+/* 内容封面 */
+.project-cover-3col {
+  width: 100%;
+  border-radius: 0px;
+  overflow: hidden;
+  margin-bottom: 20px;
+  cursor: pointer; /* 鼠标悬浮变手型 */
+}
+
+.project-cover-3col img {
+  width: 100%;
+  height: 200px; /* 固定高度，保持统一 */
+  object-fit: cover; /* 保持比例，裁剪多余部分 */
+  display: block;
+}
+
+/* 内容标题 */
+.project-title-3col {
+  font-size: 16px;
+  font-weight: 400;
+  margin-bottom: 12px;
+  color: #ffffff;
+}
+
+/* 说明文本 */
+.project-desc-3col {
+  font-size: 14px;
+  color: #ccc;
+  line-height: 1.6;
+  font-weight: 300;
+  margin-bottom: 12px;
+  display: -webkit-box;
+  -webkit-line-clamp: 1; /* 限制显示1行 */
+  -webkit-box-orient: vertical;
+  overflow: hidden;
+  text-overflow: ellipsis;
+}
+
+/* 时间样式 */
+.project-date-3col {
+  font-size: 12px;
+  color: #999;
+  font-weight: 300;
+}
+
+/* 响应式适配：移动端一行一个 */
+@media (max-width: 768px) {
+  .project-container-3col {
+    padding: 0 20px;
+    grid-template-columns: 1fr; /* 移动端一行一个 */
+    gap: 40px 0; /* 移动端只保留行间距 */
+  }
 }
 
 
@@ -653,6 +710,8 @@ body {
 
 
 /* --------------------------------以下为文章页面样式-------------------------------- */
+
+
 
 
 
@@ -668,7 +727,7 @@ body {
 /* Tab导航栏（四栏均分） */
 .tab-nav {
   display: flex;
-  height: 120px;
+  height: 100px;
   border-bottom: 1px solid #1A1A1A;
 }
 
@@ -703,10 +762,10 @@ body {
 
 /* Tab图标与文字样式 */
 .tab-icon {
-  font-size: 20px;
+  font-size: 18px;
 }
 .tab-text {
-  font-size: 20px;
+  font-size: 18px;
   font-weight: 400;
 }
 
@@ -742,14 +801,14 @@ body {
   flex-direction: column;
   gap: 36px; /* 文章项间距 */
   box-sizing: border-box;
-  padding: 0 8px; /* 小屏留白，适配性保留 */
+  padding: 0px; /* 小屏留白，适配性保留 */
 }
 
 /* 文章项核心样式 */
 .article-item {
   background: #1D1D1D;
   color: #ffffff;
-  padding: 32px;
+  padding: 24px;
   border-radius: 0;
   cursor: pointer;
   transition: background 0.2s ease, transform 0.2s ease;
@@ -765,11 +824,10 @@ body {
 /* 文章标题 */
 .article-item h3 {
   margin: 0 0 8px;
-  font-size: 20px;
+  font-size: 16px;
   font-weight: 400;
   padding-bottom: 12px;
   color: #fff;
-  border-bottom: 1px solid #333; /* 视觉分割线保留 */
 }
 
 /* 文本+日期容器 */
@@ -786,7 +844,7 @@ body {
 .article-item p {
   margin: 0;
   font-size: 14px;
-  color: #ccc;
+  color: rgb(255, 255, 255, 65%);
   line-height: 1.6;
   flex: 1;
   /* 文本行数限制保留，避免布局混乱 */
@@ -816,6 +874,7 @@ body {
     padding-bottom: 10px;
   }
 }
+
 
 
 
@@ -921,6 +980,7 @@ body {
 
 
 
+
 /* 数字花园 */
 .black-img {
   margin-top: 60px; /* 可根据需要调整与上方内容的间距 */
@@ -933,6 +993,44 @@ body {
   padding-left: 0; /* 移除左侧百分比 padding */
   /* 与其他内容保持相同的左侧对齐基准 */
 }
+
+
+/* 数字花园容器*/
+.black-card {
+  width: 1360px;
+  height: auto;
+  margin-top: 240px;
+  margin-right: auto;
+  margin-bottom: 240px;
+  margin-left: auto;
+  padding: 0 0px; /* 页面左右留边距 */
+}
+
+  /* 说明文本（小字） */
+.black-desc {
+  font-size: 20px;
+  color: #DBDBDB;
+  line-height: 1.4;
+   font-weight: 300;
+  margin-bottom: 40px;
+  margin-top: 0px;
+}
+
+
+/* 内容封面 */
+.black-project-cover {
+  width: 100%;
+  border-radius: 0px;
+  overflow: hidden;
+  margin-bottom: 40px;
+  cursor: pointer; /* 鼠标悬浮变手型 */
+}
+.black-project-cover img {
+  width: 100%;
+  height: 600px;
+  display: block;
+}
+
 
 
 
@@ -1013,7 +1111,9 @@ body {
   /* 与其他内容保持相同的左侧对齐基准 */
 }
 
-    
+
+
+
 
 /* 黑洞洞文章卡片子模块 - 独立样式 */
     .article1-cards-module {
