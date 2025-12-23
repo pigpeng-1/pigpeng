@@ -28,37 +28,11 @@ document.querySelectorAll('a[href^="#"]').forEach(anchor => {
 });
 
 
-window.addEventListener('load', function() {
-  // 动态注入动画样式（只给需要动画的元素加类，避免全局!important污染）
-  const style = document.createElement('style');
-  style.textContent = `
-    /* 动画基础类 */
-    .animate-element {
-      transition: opacity 0.8s ease-out, transform 0.8s ease-out;
-      will-change: opacity, transform;
-      opacity: 0;
-      transform: translateY(30px);
-    }
-    /* 显示状态 */
-    .animate-element.show {
-      opacity: 1;
-      transform: translateY(0);
-    }
-    /* 排除不需要动画的标签 */
-    script, style, link, meta, title {
-      transition: none !important;
-      opacity: 1 !important;
-      transform: none !important;
-    }
-    /* 新增：强制导航栏无动画（兜底保障） */
-    .navbar {
-      transition: none !important;
-      opacity: 1 !important;
-      transform: none !important;
-    }
-  `;
-  document.head.appendChild(style);
 
+// 使用 DOMContentLoaded 而不是 load，更早执行，减少闪烁
+document.addEventListener('DOMContentLoaded', function() {
+  // 注意：动画样式已预先定义在CSS文件中，避免页面加载时的闪烁问题
+  
   // 递归获取body下所有需要动画的元素（适配嵌套结构）
   function getAnimateElements(el) {
     let elements = [];
@@ -81,12 +55,19 @@ window.addEventListener('load', function() {
   // 获取所有需要动画的元素
   const animateElements = getAnimateElements(document.body);
 
-  // 逐步显示元素（避免一次性渲染）
-  animateElements.forEach((el, index) => {
+  // 先给所有元素添加 animate-element 类（立即隐藏，避免闪烁）
+  animateElements.forEach(el => {
     el.classList.add('animate-element');
-    setTimeout(() => {
-      el.classList.add('show');
-    }, index * 60); // 缩短间隔，动画更流畅
+  });
+
+  // 然后逐步显示元素（避免一次性渲染）
+  // 使用 requestAnimationFrame 确保在下一帧执行，让初始隐藏状态生效
+  requestAnimationFrame(() => {
+    animateElements.forEach((el, index) => {
+      setTimeout(() => {
+        el.classList.add('show');
+      }, index * 80); // 缩短间隔，动画更流畅
+    });
   });
 });
 
