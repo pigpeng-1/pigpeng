@@ -66,7 +66,7 @@ document.addEventListener('DOMContentLoaded', function() {
     animateElements.forEach((el, index) => {
       setTimeout(() => {
         el.classList.add('show');
-      }, index * 80); // 缩短间隔，动画更流畅
+      }, index * 40); // 缩短间隔，动画更流畅
     });
   });
 });
