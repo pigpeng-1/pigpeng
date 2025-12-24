@@ -116,12 +116,20 @@ tabItems.forEach(item => {
     closeBtn.addEventListener('click', () => modal.style.display = 'none');
     modal.addEventListener('click', (e) => e.target === modal && (modal.style.display = 'none'));
     document.addEventListener('keydown', (e) => e.key === 'Escape' && (modal.style.display = 'none'));
-
-
-
-    // 点击文章的逻辑（可替换为实际跳转/展示逻辑）
+  
+  
+  
+    // 点击文章的逻辑：优先读取 data-url 进行跳转，未配置则提示标题
 function openArticle(item) {
-  const title = item.querySelector('h3').textContent;
-  // 这里可以替换为打开文章详情的操作（比如跳转到对应页面、显示弹窗等）
+  // 从 data-url 读取跳转地址
+  const url = item.getAttribute('data-url');
+
+  if (url) {
+    window.location.href = url;
+    return;
+  }
+
+  // 没配置 data-url 时，保留原来的提示，方便调试
+  const title = item.querySelector('h3')?.textContent || '';
   alert(`你点击了文章：${title}`);
 }

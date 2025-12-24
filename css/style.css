@@ -438,10 +438,10 @@ body {
 
 /* 矩形图的区域样式 */
 .hero-about {
-  height: 24vh; 
+  height: 210px; 
   width: auto;
-  background-image: url('../images/关于我.png');
-  margin: 360px 180px; /* 简化margin写法，等价于原上下左右边距 */
+  background-image: url('../images/about/关于我.png');
+  margin: 240px 180px; /* 简化margin写法，等价于原上下左右边距 */
   /* 2. 关键：改为 contain 保证图片完整显示，不裁剪 */
   background-size: contain;
   background-position: center; /* 图片依然居中 */
