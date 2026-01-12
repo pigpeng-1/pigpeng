@@ -2,7 +2,7 @@
 window.addEventListener('scroll', function() {
   const navbar = document.querySelector('.navbar');
   if (window.scrollY > 50) { // 滚动超过 50px 时
-    navbar.style.backgroundColor = 'rgba(17, 17, 17, 0.6)'; // 背景色变透明
+    navbar.style.backgroundColor = 'rgba(17, 17, 17, 0)'; // 背景色变透明
   } else {
     navbar.style.backgroundColor = 'rgba(17, 17, 17, 0)'; // 恢复原样
   }
@@ -66,10 +66,12 @@ document.addEventListener('DOMContentLoaded', function() {
     animateElements.forEach((el, index) => {
       setTimeout(() => {
         el.classList.add('show');
-      }, index * 30); // 缩短间隔，动画更流畅
+      }, index * 20); // 缩短间隔，动画更流畅
     });
   });
 });
+
+
 
 
 // 获取所有Tab选项和内容
@@ -96,28 +98,57 @@ tabItems.forEach(item => {
 
 
 
+
 // 图片点击效果
-// 点击放大功能（保留）
+// 点击放大功能（左右布局：左侧图片，右侧信息）
     const modal = document.getElementById('imgModal');
     const modalImg = document.getElementById('modalImg');
     const closeBtn = document.getElementById('closeBtn');
     const photoCards = document.querySelectorAll('.photo-card');
+    
+    // 右侧信息元素
+    const photoLocation = document.getElementById('photoLocation');
+    const photoTitle = document.getElementById('photoTitle');
+    const photoCamera = document.getElementById('photoCamera');
+    const photoDesc = document.getElementById('photoDesc');
 
     photoCards.forEach(card => {
       card.addEventListener('click', () => {
+        // 读取图片数据
         const imgSrc = card.getAttribute('data-img');
-        modal.style.display = 'flex';
+        const location = card.getAttribute('data-location') || '';
+        const title = card.getAttribute('data-title') || card.querySelector('.photo-title')?.textContent || '';
+        const camera = card.getAttribute('data-camera') || '';
+        const desc = card.getAttribute('data-desc') || '';
+        
+        // 设置图片
         modalImg.src = imgSrc;
-        modalImg.alt = card.querySelector('.photo-title').textContent;
+        modalImg.alt = title;
+        
+        // 设置右侧信息
+        photoLocation.textContent = location;
+        photoTitle.textContent = title;
+        photoCamera.textContent = camera;
+        photoDesc.textContent = desc;
+        
+        // 显示 modal
+        modal.style.display = 'flex';
       });
     });
 
     // 关闭逻辑（点击×/遮罩/ESC）
     closeBtn.addEventListener('click', () => modal.style.display = 'none');
-    modal.addEventListener('click', (e) => e.target === modal && (modal.style.display = 'none'));
+    modal.addEventListener('click', (e) => {
+      // 只允许点击遮罩背景关闭，不能点击内容区域关闭
+      if (e.target === modal) {
+        modal.style.display = 'none';
+      }
+    });
     document.addEventListener('keydown', (e) => e.key === 'Escape' && (modal.style.display = 'none'));
   
   
+
+
   
     // 点击文章的逻辑：优先读取 data-url 进行跳转，未配置则提示标题
 function openArticle(item) {
@@ -133,3 +164,51 @@ function openArticle(item) {
   const title = item.querySelector('h3')?.textContent || '';
   alert(`你点击了文章：${title}`);
 }
+
+
+
+
+
+
+// 页面滚动位置记忆 - 适配浏览器后退/前进
+document.addEventListener('DOMContentLoaded', function() {
+  // 1. 页面加载时，恢复之前的滚动位置
+  const scrollPos = sessionStorage.getItem('scrollPosition_' + window.location.pathname);
+  if (scrollPos) {
+    // 延迟执行，确保页面内容加载完成后再滚动
+    setTimeout(() => {
+      window.scrollTo(0, parseInt(scrollPos));
+    }, 100);
+    // 恢复后清除缓存（避免重复滚动）
+    sessionStorage.removeItem('scrollPosition_' + window.location.pathname);
+  }
+
+  // 2. 页面离开前（跳转/关闭），记录当前滚动位置
+  window.addEventListener('beforeunload', function() {
+    sessionStorage.setItem(
+      'scrollPosition_' + window.location.pathname,
+      window.scrollY.toString()
+    );
+  });
+
+  // 3. 兼容浏览器后退/前进（pageshow事件包含缓存页面）
+  window.addEventListener('pageshow', function(e) {
+    if (e.persisted) { // 页面从缓存加载（后退场景）
+      const scrollPos = sessionStorage.getItem('scrollPosition_' + window.location.pathname);
+      if (scrollPos) {
+        setTimeout(() => {
+          window.scrollTo(0, parseInt(scrollPos));
+        }, 100);
+      }
+    }
+  });
+});
+
+// 适配异步内容的滚动恢复（示例：等所有图片加载完成）
+window.addEventListener('load', function() { // load事件：所有资源加载完成
+  const scrollPos = sessionStorage.getItem('scrollPosition_' + window.location.pathname);
+  if (scrollPos) {
+    window.scrollTo(0, parseInt(scrollPos));
+    sessionStorage.removeItem('scrollPosition_' + window.location.pathname);
+  }
+});

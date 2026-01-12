@@ -1,0 +1,371 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>pigpneg</title>
+  <link rel="stylesheet" href="../css/style.css">
+  <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/font-awesome@4.7.0/css/font-awesome.min.css">
+
+  <style>
+
+
+    /* 单个菜单样式（保留之前的选中线效果） */
+    .nav-links a {
+    color: rgba(0, 0, 0, 0.65);
+    text-decoration: none;
+    font-size: 16px;
+    font-weight: 400;
+    position: relative;
+    padding: 8px 0; /* 预留选中线空间 */
+    transition: color 0.3s;
+    }
+
+    /* 选中线效果（保持之前的逻辑：文字下方8px、同宽） */
+    .nav-links a::after {
+    content: '';
+    position: absolute;
+    bottom: 0;
+    left: 0;
+    width: 0;
+    height: 1px;
+    background-color: #000000;
+    transition: width 0.3s ease;
+    }
+
+    /* 选中菜单样式（核心区分） */
+    .nav-links a.active {
+    color: #000000; /* 选中文字强调色（如金色，与黑色背景强对比） */
+    font-weight: 500; /* 选中字体加粗（700=bold），明显突出 */
+    }
+
+    .nav-links a.active::after {
+    width: 100%; /* 选中时同宽 */
+    }
+    .nav-links a:hover::after {
+    width: 100%; /* hover时显示线（可选） */
+    }
+    .nav-links a:hover {
+    color: #1f1f1f;
+    }
+
+
+
+    body {
+    background-color: #ffffff; /* 背景 */
+    color: #333; /* 全局默认文字白色，确保可读性 */
+    font-weight: 400;
+    }
+
+
+
+    .frame-1 {
+    position: relative; /* 作为子元素绝对定位的参考 */
+    width: 1280px;
+    margin: 0 auto; /* 居中显示 */
+    min-height: 400px; /* 图片加载失败时兜底高度 */
+    background: #ffffff; /* 图片加载失败时的背景色 */
+    }
+
+
+    /* 封面样式 */
+    .image {
+    width: 1280px;
+    height: auto; /* 自适应高度，避免变形 */
+    display: block; /* 去除图片默认的行内空白 */
+    margin: 120px auto;
+    }
+
+
+    .frame-2 {
+    max-width: 1000px;
+    margin: 20px auto;
+    padding: 0;
+    }
+    
+
+    /* 文字区域 */
+    .frame-3 {
+    width: 100%;
+    max-width: 1000px;
+    margin: 0;
+    gap: 16px;
+    padding: 240px 0 0 0;
+    }
+    
+
+    .text-wrapper {
+    font-size: 48px;
+    width: 100%;
+    line-height:150%
+    font-weight: 600;
+    color: #333; /* 白色标题，突出名字 */
+    margin-bottom: -10px;
+    }
+
+    .element {
+    font-size: 14px;
+    color: #666; /* 浅灰文字，黑色背景下可读性强 */
+    font-weight: 300;
+    max-width: 1360px; /* 限制文字宽度，避免换行太丑 */
+    margin: 0 0 0 0;
+    }
+
+    .element-2 {
+    font-size: 18px;
+    color: #555; /* 浅灰文字，黑色背景下可读性强 */
+    font-weight: 300;
+    max-width: 1360px; /* 限制文字宽度，避免换行太丑 */
+    margin: 0 0 0 0;
+    }
+
+
+    /* 页脚样式 */
+    .footer {
+    padding-top: 80px;
+    padding-right: 0px;
+    padding-bottom: 60px;
+    padding-left: 0px;
+    background-color: #ffffff;
+    color: #666;
+    font-weight: 300;
+    text-align: center;
+    }
+    .footer p {
+    font-size: 12px;
+    line-height:200%;
+    }
+
+
+    /* 仅正文容器样式 */
+    .blog-content {
+        max-width: 800px; /* 最优阅读宽度 */
+        margin: 160px auto;   /* 居中显示 */
+        padding: 0;
+        line-height: 1.8; /* 舒适的行高 */
+        font-size: 16px;
+    }
+
+    /* 一级标题 */
+    .blog-content h1 {
+        font-size: 28px;
+        color: #333;
+        margin: 0 0 25px 0;
+        line-height: 1.3;
+        font-weight: 500;
+        border-bottom: 1px solid #eee;
+        padding-bottom: 10px;
+    }
+
+    /* 二级标题 */
+    .blog-content h2 {
+        font-size: 26px;
+        color: #222;
+        margin: 120px 0 24px 0;
+        font-weight: 400;
+        position: relative;
+        padding-left: 0px;
+    }
+
+    /* 三级标题（可选） */
+    .blog-content h3 {
+        font-size: 18px;
+        color: #222;
+        margin: 25px 0 12px 0;
+        font-weight: 400;
+    }
+
+    /* 正文段落 */
+    .blog-content p {
+        margin: 0 0 24px 0;
+        font-weight: 300;
+        text-align: justify; /* 两端对齐，提升阅读体验 */
+    }
+
+    /* 图片样式 */
+    .blog-content img {
+        max-width: 100%; /* 自适应容器宽度 */
+        height: auto;    /* 保持宽高比 */
+        border-radius: 6px; /* 轻微圆角，更美观 */
+        box-shadow: 0 2px 8px rgba(0, 0, 0, 0.08); /* 轻微阴影 */
+        margin: 20px 0;   /* 上下间距 */
+        display: block;   /* 避免图片底部留白 */
+        margin-left: auto;
+        margin-right: auto; /* 图片居中 */
+    }
+
+    /* 图片说明文字（可选） */
+    .blog-content .img-caption {
+        text-align: center;
+        font-size: 14px;
+        color: #666;
+        margin: -15px 0 20px 0;
+    }
+
+    /* 列表样式 */
+    .blog-content ul, .blog-content ol {
+        margin: 0 0 18px 30px;
+        padding-left: 10px;
+    }
+
+    .blog-content li {
+        margin: 0 0 8px 0;
+    }
+
+    /* 代码样式 */
+    .blog-content code {
+        background-color: #f5f5f5;
+        padding: 2px 6px;
+        border-radius: 4px;
+        font-family: "Consolas", "Monaco", monospace;
+        font-size: 14px;
+        color: #d63384;
+    }
+
+    /* 代码块样式 */
+    .blog-content pre {
+        background-color: #f8f8f8;
+        padding: 15px;
+        border-radius: 6px;
+        border: 1px solid #eee;
+        overflow-x: auto; /* 横向滚动 */
+        margin: 20px 0;
+        font-family: "Consolas", "Monaco", monospace;
+        font-size: 14px;
+        line-height: 1.5;
+    }
+
+    /* 链接样式 */
+    .blog-content a {
+        color: #4285f4;
+        text-decoration: none;
+        border-bottom: 1px dotted #4285f4;
+    }
+
+    .blog-content a:hover {
+        color: #2d72d9;
+        border-bottom: 1px solid #2d72d9;
+    }
+
+    /* 引用样式（可选） */
+    .blog-content blockquote {
+        border-left: 4px solid #4285f4;
+        padding: 10px 15px;
+        background-color: #f9f9f9;
+        margin: 20px 0;
+        color: #666;
+    }
+
+    /* 移动端适配 */
+    @media (max-width: 768px) {
+        .blog-content {
+            padding: 20px 15px;
+            font-size: 15px;
+        }
+        .blog-content h1 {
+            font-size: 24px;
+        }
+        .blog-content h2 {
+            font-size: 20px;
+        }
+    }
+</style>
+
+</head>
+<body>
+    
+  <!-- 右上角导航栏（5个菜单+选中下划线） -->
+  <nav class="navbar">
+    <a href="../index.html" class="logo">
+  <img src="../images/logo.png" alt="pigpeng" class="logo-img">
+</a>
+    <div class="nav-links">
+      <a href="../index.html">主页</a>
+      <a href="../projects.html">项目</a>
+      <a href="../article.html"class="active">文章</a>
+      <a href="../photography.html">摄影</a>
+      <a href="../black.html">黑洞</a>
+    </div>
+  </nav>
+
+
+
+ <!-- 顶部标题 -->
+  <div class="frame-2">
+    <div class="frame-3">
+        <div class="element">
+            2 min read - 2017年11月11日
+        </div>
+        <div class="text-wrapper">热闹是他们的，我什么都没有</div>
+        <div class="element-2">
+            我一直以为，黑夜只有在熄灯后，才会降临。“是有一段日子没断过电了”我对自己说。
+        </div>
+    </div>
+  </div>
+
+
+  <!-- 顶部封面 -->
+  <div class="frame-1">
+    <img class="image" src="../images/projects/项目封面.png" alt="项目" />
+  </div>
+
+
+
+
+<!-- 仅博客正文容器 -->
+<div class="blog-content">
+
+    <p>  我一直以为，黑夜只有在熄灯后，才会降临。“是有一段日子没断过电了”我对自己说。</p>    
+
+    <p>  初中，我是在学校住宿。那时，隔个半把月就得断电一次，像是有了些规律性。只记得，当时正在教室里自习的我，本聚精会神的写着作业，顿时就黑压压一片了。一时半会，我还没反应过来，耳边便响起着杂七杂八的声音。</p>    
+
+    <p>  “拍打桌子声、呐喊声、还有交谈声，当然，也少不了老师的呵斥声。”他们完美的演绎着一首交响乐，似乎是为了庆祝这一狂欢时刻的到来。一片漆黑中，我睁大了瞳孔，就这样看着他们。</p>    
+
+    <p>  一切都表现的异常兴奋，而我却默默无语。正如朱自清所说：“热闹是他们的，我什么都没有。”</p>    
+
+    <p>  确实，对我来说，这是次罪恶的诞生。“好端端的晚自习就这样流逝了，我的学习怎么办？”所有的结果，被我放大放大，压得喘不过气来，我感到深深的难过。</p>    
+
+    <img src="../images/article/发牢骚的地方/热闹/1.jpeg">
+
+    <p>  到了高中，却有些许不同。断电后，学校也用上了发电机。广播里一遍又一遍的播放着“关掉大功率电器，只准照明。”可谁都以为自己所开的一些小电器，不会过分影响大局，就这样，一个接着一个，终于又一次断电了，发电机也无声的叹了口气。</p>    
+
+    <p>  所以说，从本质上讲，这些举措依旧是亡羊补牢。班主任进来时，并没有呵斥安静了，教室里也没有了拍桌子声、呐喊声。似乎我们都懂事了，或者说，不再那么幼稚。</p>    
+
+    <p>  但黑夜，还是使我们兴奋起来，并表现的更高级了些。它成功掩盖了我们的丑陋，自然而然，我们的胆子就大了。请肆无忌惮的开始我们的表演秀。</p>    
+
+    <p>  女生们，披头散发的，装着鬼。男生们，则浑水摸鱼，占占小便宜。他们都可爱极了。这时，热闹依旧是他们的，不过，我不再什么都没有。</p>    
+
+    <img src="../images/article/发牢骚的地方/热闹/2.jpeg">
+
+    <p>  我的手里，是有一盏灯的，那也是唯一的一盏灯。只是，并没有人跟我走，打亮它，便显得毫无意义。现在，上了大学，也再也碰不到此类事了。如果，就会有幸，碰到了在上晚自习时断电。</p>    
+
+    <p>  估计，我们也会无动于衷，毕竟，手机还亮着呢！</p>    
+
+    <p>  我们并没有沉入无尽的黑夜中，但尽管这样，我的左眼还是痴了，右眼也呆了。大概是想让我闭上双眼，去倾听黑夜吧。写到最后，至今。那盏灯，我还保留着。“如果，在黑夜里，只有我一人有灯，你会愿意和我走吗？”</p>    
+
+    <img src="../images/article/发牢骚的地方/热闹/3.jpeg">
+    <div class="img-caption">有灯便有人，念念不忘，必有回响；</div>
+
+
+</div>
+
+
+
+
+
+
+
+
+  <!-- 页脚 -->
+  <footer class="footer">
+    <div class="container">
+      <p>&copy; Designed and developed by zhu peng.</p>
+        <p>&copy; Copyright © 2022-2025 www.pigpeng.cn. All Rights Reserved.</p>
+    </div>
+  </footer>
+
+
+  <script src="js/main.js"></script>
+</body>
+</html>
+

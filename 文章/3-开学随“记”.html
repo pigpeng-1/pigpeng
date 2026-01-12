@@ -1,0 +1,409 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>pigpneg</title>
+  <link rel="stylesheet" href="../css/style.css">
+  <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/font-awesome@4.7.0/css/font-awesome.min.css">
+
+  <style>
+
+
+    /* 单个菜单样式（保留之前的选中线效果） */
+    .nav-links a {
+    color: rgba(0, 0, 0, 0.65);
+    text-decoration: none;
+    font-size: 16px;
+    font-weight: 400;
+    position: relative;
+    padding: 8px 0; /* 预留选中线空间 */
+    transition: color 0.3s;
+    }
+
+    /* 选中线效果（保持之前的逻辑：文字下方8px、同宽） */
+    .nav-links a::after {
+    content: '';
+    position: absolute;
+    bottom: 0;
+    left: 0;
+    width: 0;
+    height: 1px;
+    background-color: #000000;
+    transition: width 0.3s ease;
+    }
+
+    /* 选中菜单样式（核心区分） */
+    .nav-links a.active {
+    color: #000000; /* 选中文字强调色（如金色，与黑色背景强对比） */
+    font-weight: 500; /* 选中字体加粗（700=bold），明显突出 */
+    }
+
+    .nav-links a.active::after {
+    width: 100%; /* 选中时同宽 */
+    }
+    .nav-links a:hover::after {
+    width: 100%; /* hover时显示线（可选） */
+    }
+    .nav-links a:hover {
+    color: #1f1f1f;
+    }
+
+
+
+    body {
+    background-color: #ffffff; /* 背景 */
+    color: #333; /* 全局默认文字白色，确保可读性 */
+    font-weight: 400;
+    }
+
+
+
+    .frame-1 {
+    position: relative; /* 作为子元素绝对定位的参考 */
+    width: 1280px;
+    margin: 0 auto; /* 居中显示 */
+    min-height: 400px; /* 图片加载失败时兜底高度 */
+    background: #ffffff; /* 图片加载失败时的背景色 */
+    }
+
+
+    /* 封面样式 */
+    .image {
+    width: 1280px;
+    height: auto; /* 自适应高度，避免变形 */
+    display: block; /* 去除图片默认的行内空白 */
+    margin: 120px auto;
+    }
+
+
+    .frame-2 {
+    max-width: 1000px;
+    margin: 20px auto;
+    padding: 0;
+    }
+    
+
+    /* 文字区域 */
+    .frame-3 {
+    width: 100%;
+    max-width: 1000px;
+    margin: 0;
+    gap: 16px;
+    padding: 240px 0 0 0;
+    }
+    
+
+    .text-wrapper {
+    font-size: 48px;
+    width: 100%;
+    line-height:150%
+    font-weight: 600;
+    color: #333; /* 白色标题，突出名字 */
+    margin-bottom: -10px;
+    }
+
+    .element {
+    font-size: 14px;
+    color: #666; /* 浅灰文字，黑色背景下可读性强 */
+    font-weight: 300;
+    max-width: 1360px; /* 限制文字宽度，避免换行太丑 */
+    margin: 0 0 0 0;
+    }
+
+    .element-2 {
+    font-size: 18px;
+    color: #555; /* 浅灰文字，黑色背景下可读性强 */
+    font-weight: 300;
+    max-width: 1360px; /* 限制文字宽度，避免换行太丑 */
+    margin: 0 0 0 0;
+    }
+
+
+    /* 页脚样式 */
+    .footer {
+    padding-top: 80px;
+    padding-right: 0px;
+    padding-bottom: 60px;
+    padding-left: 0px;
+    background-color: #ffffff;
+    color: #666;
+    font-weight: 300;
+    text-align: center;
+    }
+    .footer p {
+    font-size: 12px;
+    line-height:200%;
+    }
+
+
+    /* 仅正文容器样式 */
+    .blog-content {
+        max-width: 800px; /* 最优阅读宽度 */
+        margin: 160px auto;   /* 居中显示 */
+        padding: 0;
+        line-height: 1.8; /* 舒适的行高 */
+        font-size: 16px;
+    }
+
+    /* 一级标题 */
+    .blog-content h1 {
+        font-size: 28px;
+        color: #333;
+        margin: 0 0 25px 0;
+        line-height: 1.3;
+        font-weight: 500;
+        border-bottom: 1px solid #eee;
+        padding-bottom: 10px;
+    }
+
+    /* 二级标题 */
+    .blog-content h2 {
+        font-size: 26px;
+        color: #222;
+        margin: 120px 0 24px 0;
+        font-weight: 400;
+        position: relative;
+        padding-left: 0px;
+    }
+
+    /* 三级标题（可选） */
+    .blog-content h3 {
+        font-size: 18px;
+        color: #222;
+        margin: 25px 0 12px 0;
+        font-weight: 400;
+    }
+
+    /* 正文段落 */
+    .blog-content p {
+        margin: 0 0 24px 0;
+        font-weight: 300;
+        text-align: justify; /* 两端对齐，提升阅读体验 */
+    }
+
+    /* 图片样式 */
+    .blog-content img {
+        max-width: 100%; /* 自适应容器宽度 */
+        height: auto;    /* 保持宽高比 */
+        border-radius: 6px; /* 轻微圆角，更美观 */
+        box-shadow: 0 2px 8px rgba(0, 0, 0, 0.08); /* 轻微阴影 */
+        margin: 20px 0;   /* 上下间距 */
+        display: block;   /* 避免图片底部留白 */
+        margin-left: auto;
+        margin-right: auto; /* 图片居中 */
+    }
+
+    /* 图片说明文字（可选） */
+    .blog-content .img-caption {
+        text-align: center;
+        font-size: 14px;
+        color: #666;
+        margin: -15px 0 20px 0;
+    }
+
+    /* 列表样式 */
+    .blog-content ul, .blog-content ol {
+        margin: 0 0 18px 30px;
+        padding-left: 10px;
+    }
+
+    .blog-content li {
+        margin: 0 0 8px 0;
+    }
+
+    /* 代码样式 */
+    .blog-content code {
+        background-color: #f5f5f5;
+        padding: 2px 6px;
+        border-radius: 4px;
+        font-family: "Consolas", "Monaco", monospace;
+        font-size: 14px;
+        color: #d63384;
+    }
+
+    /* 代码块样式 */
+    .blog-content pre {
+        background-color: #f8f8f8;
+        padding: 15px;
+        border-radius: 6px;
+        border: 1px solid #eee;
+        overflow-x: auto; /* 横向滚动 */
+        margin: 20px 0;
+        font-family: "Consolas", "Monaco", monospace;
+        font-size: 14px;
+        line-height: 1.5;
+    }
+
+    /* 链接样式 */
+    .blog-content a {
+        color: #4285f4;
+        text-decoration: none;
+        border-bottom: 1px dotted #4285f4;
+    }
+
+    .blog-content a:hover {
+        color: #2d72d9;
+        border-bottom: 1px solid #2d72d9;
+    }
+
+    /* 引用样式（可选） */
+    .blog-content blockquote {
+        border-left: 4px solid #4285f4;
+        padding: 10px 15px;
+        background-color: #f9f9f9;
+        margin: 20px 0;
+        color: #666;
+    }
+
+    /* 移动端适配 */
+    @media (max-width: 768px) {
+        .blog-content {
+            padding: 20px 15px;
+            font-size: 15px;
+        }
+        .blog-content h1 {
+            font-size: 24px;
+        }
+        .blog-content h2 {
+            font-size: 20px;
+        }
+    }
+</style>
+
+</head>
+<body>
+    
+  <!-- 右上角导航栏（5个菜单+选中下划线） -->
+  <nav class="navbar">
+    <a href="../index.html" class="logo">
+  <img src="../images/logo.png" alt="pigpeng" class="logo-img">
+</a>
+    <div class="nav-links">
+      <a href="../index.html">主页</a>
+      <a href="../projects.html">项目</a>
+      <a href="../article.html"class="active">文章</a>
+      <a href="../photography.html">摄影</a>
+      <a href="../black.html">黑洞</a>
+    </div>
+  </nav>
+
+
+
+ <!-- 顶部标题 -->
+  <div class="frame-2">
+    <div class="frame-3">
+        <div class="element">
+            2 min read - 2018年4月26日
+        </div>
+        <div class="text-wrapper">开学随记</div>
+        <div class="element-2">
+            高山仰止，景行行止；虽不能至，心向往之；
+        </div>
+    </div>
+  </div>
+
+
+  <!-- 顶部封面 -->
+  <div class="frame-1">
+    <img class="image" src="../images/projects/项目封面.png" alt="项目" />
+  </div>
+
+
+
+
+<!-- 仅博客正文容器 -->
+<div class="blog-content">
+
+    <h2>已开学</h2>
+
+    <p>离开学，已过去50来天了，我很庆幸现在的我还能以开学作为一个始点来计算日期的长短。对学生这个身份，想着要带一辈子就好，人类几千年的文化更替，都没有遗失“学生”，是有所道理的。</p>    
+
+    <p>近日来，我慢慢放下了一点脚步，细细回想时，才发现这段日子里，我过的有多么的急促。</p>    
+
+    <p>正如上次所说，要尝试着6点起床，虽说就坚持了几天，我知道这并不是什么易事，多年来的睡觉习惯，一时半会改变不了，是正常的。</p>  
+      
+    <p>不过，下次想要6点起床便容易很多了，我始终难以忘记，清晨6点的操场，阳光刚刚好，不刺眼也能暖洋洋，零零散散大概有着六，七人，有跑步者，有读英语者。平时拥挤的操场，现在每人独占一大片地方，无需担心会撞到别人，也没有了杂人扰乱视线，真是快哉。</p>  
+
+    <p>于是乎，明天又准备改一改闹钟了。</p>  
+
+    <img src="../images/article/发牢骚的地方/随记/1.jpeg">
+
+    <h2>易忘记</h2>
+    
+    <p>另外，最近感觉任何学习不加以输出，便已忘记。</p>
+
+    <p>我拿出我大一时的笔记本，是的，大一过后，已有一年半之久没有拿过纸质的本子进行记录与整理了。</p>
+
+    <p>翻开时，本子上用铅笔记录的，正是大一打坐时所想的种种。仔细看了看，真是幼稚呀，写的都是些啥。好在现在的我去看，知道其幼稚可笑，也是有所进步了。</p>
+
+    <p>不过，那个行为的冲动还是令人满意的，当然是不想让其丢失的。我找本子出来，也是想着要去寻回，一个懵懂无知的少年，对未知领域渴望的那份冲动。</p>
+
+    <p>每天吸收着大量信息，貌似了解整个世界，貌似学习了不少东西，但没有经过系统的学习，终究只是皮毛。也要把自己放在一本本书的学习上了，给自己定个小计划，当然，我也希望有空的时候，能看个一两本杂文集，</p>
+
+    <p>想学的东西依旧很多，有趣的事情也有很多，比起很多人，我算不上勤奋，也没有天赋，就这样，在自己想有所成就的领域里，也没有多大的反响，但好歹自己是意识到了这点，还能调整调整。</p>
+
+    <p>可调整是需要时间的推移，这样想来，什么都与时间有关，时间其实只是人类想的一个词汇，用来解释生命而已，如果没有人类，也没时间可言，</p>
+
+    <img src="../images/article/发牢骚的地方/随记/2.jpeg">
+
+    <p>而现在时间往往被人们赋予太多，</p>
+
+    <p>比如，我20多岁了，就该去成家立业，30来岁了就该有所成就，40就会不惑，50而知天命。</p>
+
+    <p>可你们又有谁知道自己的生命长短呢，也许别人是后起之秀，也许我们并需要给自己的人生去规划太多，随心而流。</p>
+
+    <p>我朝九晚五的工作，可我最好的工作时间是在凌晨。未来会怎样，我并不知，但我越来越喜欢自由职业者了。</p>
+
+    <img src="../images/article/发牢骚的地方/随记/3.jpeg">
+
+    <p>我爱摄影，并不是要当个摄影师，我爱写文章，也并不是要当个作者，这两者，一个图像，一个文字，是最好的记录者，我用他们进行创作，去折射出自己的一些想法，这些无关金钱，无关值不值得，就纯粹想做，大概是想证明下时间的纬度，它还存在着。</p>
+
+    <p>我靠着我的工作去养活社会，也靠着我的兴趣养活自己，在我看来，这些时间就这样被证明了，通过摄影与文字，这些个性化的创作，是最独一无二的，每个人都有着自己独特的生活。</p>
+
+    <p>记得坐车时，我试图去想着，这车它在倒着走，也想让时间倒着走，但毫无可能。</p>
+
+    <p>如果人可以永久的活着，那么便不存在时间，人们并不会去关心过了多久，反正后面是无限存在，那如果人们又不知道自己可以活多久呢，效果是一样的吗？是人们时刻提心吊胆的认为自己活不过明天，还是人们对于这个不确定因素也表示无所谓了。</p>
+
+    <img src="../images/article/发牢骚的地方/随记/4.jpeg">
+    
+    <p>有时候，我就在想人这一辈子，该干些什么事情，就这样一步步走过来？</p>
+
+    <p>毕业后，找个工作，存钱买房买车，然后娶个媳妇，生个小孩，好好工作，养家，等等。我现在才20岁，貌似就看到了以后的生活，但仔细想想，这些确实是必做之事，而且也无须去摆脱，因为我们其实还有大量的时间，可以去做想做之事。</p>
+
+    <p>这样想来我一直只是在关心时间本身，却没有去利用时间。不用便没有了时间。我们被太多东西束缚着，时间便是最大的一个。每天24小时的来回，事情很多时，才感觉到时间的珍贵，把一件件事情安排好时，才体现出时间的价值，</p>
+
+    <p>依旧那样，在工作之余，喝杯小酒，不大醉；看会电影，不沉迷；阅本小说，不逃离；散会儿步，不疲倦；将来呢，就不管了，也管不着。</p>
+
+    <p>比起几年前的想着创业，盲目去想着改变世界。现在的我，更成熟点了。以前总以为成熟后，就没有了那种生活的激情了，但并不是，人碰到了自己喜欢的人，自己喜欢的生活，就不会无趣下去。</p>
+
+    <img src="../images/article/发牢骚的地方/随记/5.jpeg">
+
+    <p>话至于此，当我们再回看下，就可知道，原来前几年的预测，现在慢慢在变成事实，一年又一年的年度混剪，证明着时间的存在。</p>
+
+    <p>这便是改变，随着时间而改变的，而不是时间让其改变。可能变好，可能变坏，人们总是说时代在进步，从各方面来看，确实在进步了。但我一向认为，各个时代有各自的好，不能鲁莽的说，这个时代比上个时代好，哪怕是动乱的战争年代，哪怕是文革年代。</p>
+
+    <p>最后，我看了下时间，原来已经2018年了，提醒下大家，今天4月26号，离4月27号只剩下12个小时了。</p>
+    
+
+</div>
+
+
+
+
+
+
+
+
+  <!-- 页脚 -->
+  <footer class="footer">
+    <div class="container">
+      <p>&copy; Designed and developed by zhu peng.</p>
+        <p>&copy; Copyright © 2022-2025 www.pigpeng.cn. All Rights Reserved.</p>
+    </div>
+  </footer>
+
+
+  <script src="js/main.js"></script>
+</body>
+</html>

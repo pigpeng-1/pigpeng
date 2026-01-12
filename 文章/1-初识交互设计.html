@@ -1,0 +1,398 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>pigpneg</title>
+  <link rel="stylesheet" href="../css/style.css">
+  <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/font-awesome@4.7.0/css/font-awesome.min.css">
+
+  <style>
+
+
+    /* 单个菜单样式（保留之前的选中线效果） */
+    .nav-links a {
+    color: rgba(0, 0, 0, 0.65);
+    text-decoration: none;
+    font-size: 16px;
+    font-weight: 400;
+    position: relative;
+    padding: 8px 0; /* 预留选中线空间 */
+    transition: color 0.3s;
+    }
+
+    /* 选中线效果（保持之前的逻辑：文字下方8px、同宽） */
+    .nav-links a::after {
+    content: '';
+    position: absolute;
+    bottom: 0;
+    left: 0;
+    width: 0;
+    height: 1px;
+    background-color: #000000;
+    transition: width 0.3s ease;
+    }
+
+    /* 选中菜单样式（核心区分） */
+    .nav-links a.active {
+    color: #000000; /* 选中文字强调色（如金色，与黑色背景强对比） */
+    font-weight: 500; /* 选中字体加粗（700=bold），明显突出 */
+    }
+
+    .nav-links a.active::after {
+    width: 100%; /* 选中时同宽 */
+    }
+    .nav-links a:hover::after {
+    width: 100%; /* hover时显示线（可选） */
+    }
+    .nav-links a:hover {
+    color: #1f1f1f;
+    }
+
+
+
+    body {
+    background-color: #ffffff; /* 背景 */
+    color: #222; /* 全局默认文字白色，确保可读性 */
+    font-weight: 400;
+    }
+
+
+
+    .frame-1 {
+    position: relative; /* 作为子元素绝对定位的参考 */
+    width: 1280px;
+    margin: 0 auto; /* 居中显示 */
+    min-height: 400px; /* 图片加载失败时兜底高度 */
+    background: #ffffff; /* 图片加载失败时的背景色 */
+    }
+
+
+    /* 封面样式 */
+    .image {
+    width: 1280px;
+    height: auto; /* 自适应高度，避免变形 */
+    display: block; /* 去除图片默认的行内空白 */
+    margin: 120px auto;
+    }
+
+
+    .frame-2 {
+    max-width: 1000px;
+    margin: 20px auto;
+    padding: 0;
+    }
+    
+
+    /* 文字区域 */
+    .frame-3 {
+    width: 100%;
+    max-width: 1000px;
+    margin: 0;
+    gap: 16px;
+    padding: 240px 0 0 0;
+    }
+    
+
+    .text-wrapper {
+    font-size: 48px;
+    width: 100%;
+    line-height:150%
+    font-weight: 600;
+    color: #333; /* 白色标题，突出名字 */
+    margin-bottom: -10px;
+    }
+
+    .element {
+    font-size: 14px;
+    color: #666; /* 浅灰文字，黑色背景下可读性强 */
+    font-weight: 300;
+    max-width: 1360px; /* 限制文字宽度，避免换行太丑 */
+    margin: 0 0 0 0;
+    }
+
+    .element-2 {
+    font-size: 18px;
+    color: #555; /* 浅灰文字，黑色背景下可读性强 */
+    font-weight: 300;
+    max-width: 1360px; /* 限制文字宽度，避免换行太丑 */
+    margin: 0 0 0 0;
+    }
+
+
+    /* 页脚样式 */
+    .footer {
+    padding-top: 80px;
+    padding-right: 0px;
+    padding-bottom: 60px;
+    padding-left: 0px;
+    background-color: #ffffff;
+    color: #333;
+    text-align: center;
+    }
+    .footer p {
+    font-size: 12px;
+    line-height:200%;
+    }
+
+
+    /* 仅正文容器样式 */
+    .blog-content {
+        max-width: 800px; /* 最优阅读宽度 */
+        margin: 160px auto;   /* 居中显示 */
+        padding: 0;
+        line-height: 1.8; /* 舒适的行高 */
+        font-size: 16px;
+    }
+
+    /* 一级标题 */
+    .blog-content h1 {
+        font-size: 28px;
+        color: #333;
+        margin: 120px 0 24px 0;
+        line-height: 1.3;
+        font-weight: 500;
+        border-bottom: 1px solid #eee;
+        padding-bottom: 10px;
+    }
+
+    /* 二级标题 */
+    .blog-content h2 {
+        font-size: 22px;
+        color: #333;
+        margin: 48px 0 24px 0;
+        font-weight: 400;
+        position: relative;
+        padding-left: 0px;
+    }
+
+    /* 三级标题（可选） */
+    .blog-content h3 {
+        font-size: 18px;
+        color: #222;
+        margin: 25px 0 12px 0;
+        font-weight: 400;
+    }
+
+    /* 正文段落 */
+    .blog-content p {
+        margin: 0 0 24px 0;
+        font-weight: 300;
+        text-align: justify; /* 两端对齐，提升阅读体验 */
+    }
+
+    /* 图片样式 */
+    .blog-content img {
+        max-width: 100%; /* 自适应容器宽度 */
+        height: auto;    /* 保持宽高比 */
+        border-radius: 6px; /* 轻微圆角，更美观 */
+        box-shadow: 0 2px 8px rgba(0, 0, 0, 0.08); /* 轻微阴影 */
+        margin: 20px 0;   /* 上下间距 */
+        display: block;   /* 避免图片底部留白 */
+        margin-left: auto;
+        margin-right: auto; /* 图片居中 */
+    }
+
+    /* 图片说明文字（可选） */
+    .blog-content .img-caption {
+        text-align: center;
+        font-size: 14px;
+        color: #666;
+        margin: -15px 0 20px 0;
+    }
+
+    /* 列表样式 */
+    .blog-content ul, .blog-content ol {
+        margin: 0 0 18px 30px;
+        padding-left: 10px;
+    }
+
+    .blog-content li {
+        margin: 0 0 8px 0;
+    }
+
+    /* 代码样式 */
+    .blog-content code {
+        background-color: #f5f5f5;
+        padding: 2px 6px;
+        border-radius: 4px;
+        font-family: "Consolas", "Monaco", monospace;
+        font-size: 14px;
+        color: #d63384;
+    }
+
+    /* 代码块样式 */
+    .blog-content pre {
+        background-color: #f8f8f8;
+        padding: 15px;
+        border-radius: 6px;
+        border: 1px solid #eee;
+        overflow-x: auto; /* 横向滚动 */
+        margin: 20px 0;
+        font-family: "Consolas", "Monaco", monospace;
+        font-size: 14px;
+        line-height: 1.5;
+    }
+
+    /* 链接样式 */
+    .blog-content a {
+        color: #4285f4;
+        text-decoration: none;
+        border-bottom: 1px dotted #4285f4;
+    }
+
+    .blog-content a:hover {
+        color: #2d72d9;
+        border-bottom: 1px solid #2d72d9;
+    }
+
+    /* 引用样式（可选） */
+    .blog-content blockquote {
+        border-left: 4px solid #4285f4;
+        padding: 10px 15px;
+        background-color: #f9f9f9;
+        margin: 20px 0;
+        color: #666;
+    }
+
+    /* 移动端适配 */
+    @media (max-width: 768px) {
+        .blog-content {
+            padding: 20px 15px;
+            font-size: 15px;
+        }
+        .blog-content h1 {
+            font-size: 24px;
+        }
+        .blog-content h2 {
+            font-size: 20px;
+        }
+    }
+</style>
+
+</head>
+<body>
+    
+  <!-- 右上角导航栏（5个菜单+选中下划线） -->
+  <nav class="navbar">
+    <a href="../index.html" class="logo">
+  <img src="../images/logo.png" alt="pigpeng" class="logo-img">
+</a>
+    <div class="nav-links">
+      <a href="../index.html">主页</a>
+      <a href="../projects.html">项目</a>
+      <a href="../article.html"class="active">文章</a>
+      <a href="../photography.html">摄影</a>
+      <a href="../black.html">黑洞</a>
+    </div>
+  </nav>
+
+
+
+ <!-- 顶部标题 -->
+  <div class="frame-2">
+    <div class="frame-3">
+        <div class="element">
+            2 min read - 2021年03月10日
+        </div>
+        <div class="text-wrapper">什么是我所理解的设计</div>
+        <div class="element-2">
+        介绍下自己高中往后对设计的理解
+        </div>
+    </div>
+  </div>
+
+
+  <!-- 顶部封面 -->
+  <div class="frame-1">
+    <img class="image" src="../images/projects/项目封面.png" alt="项目" />
+  </div>
+
+
+
+
+<!-- 仅博客正文容器 -->
+<div class="blog-content">
+
+    <h1>最初认知：参数决定了一切</h1>
+    
+    <p>高中时有个爱好，下课时喜欢跑到书店那去看一本叫做电脑报的杂志，那时候似乎记得每一款新手机的参数，这是我对于科技产品的最初认知：参数决定了一切；</p>
+
+    <img src="https://picsum.photos/800/400?random=1">
+
+    <p>而我对优秀系统的认知来源于三部手机，第一是iphone 4S，第二是红米，第三是诺基亚。当然这些都是同学的，特别是诺基亚的Windows Phone，当时觉得功能简洁直白很好用(也有可能是支持的功能少)；</p>
+
+    <img src="https://picsum.photos/800/400?random=1">
+
+    <p>时间来到了大一下学期，因为感兴趣选了一门关于设计的选修课，而这让我开始接触到了交互设计，也让我开始追从苹果和乔布斯。当时的我对这一切充满了激情，顺理成章的选择了转专业至工业设计，那位选修课的老师便成为了我的班主任；但是到了大二，现实与我想象的有所不同，整个学期只有随手一做的水泥模型得到了老师的肯定，我开始意识到这并不是我想要学习的信息设计。</p>
+
+    <img src="https://picsum.photos/800/400?random=1">
+
+    <p>到了大三分方向时，我毫不犹豫的选择了交互方向，期间开始学习交互设计基础、服务设计、用户研究、动效设计、设计心理学等，后面慢慢意识到这就是我所想要学习的方向了…不过现在工作多年后再回顾起来，感觉好像还差了一点东西，那就是计算机相关的知识学习；</p>
+
+    <p>毕竟交互设计是作为人与计算机之间的桥梁而存在的，我需要懂人的行为逻辑，也需要懂计算机的处理逻辑；</p>
+
+    <img src="https://picsum.photos/800/400?random=1">
+
+
+    <h1>加深认识：结构化设计思考</h1>
+
+    <p>“设计是通过结构化的解决方案，提升人类行为的效用”               ——《六个半的设计哲学》</p>
+
+    <h2>加深认识：结构化设计思考</h2>
+
+    <p>不同于艺术设计那样，每个人都有自己独特的风格。软件产品设计作为一种工具，应当传递有效且一致的映射，以此帮助人们更好的理解信息；例如有10亿人用微信，但是每个人使用基础功能时应该是相同的交互行为且保持极简；</p>
+
+    <p>而我们也应该去思考怎么在结构化和灵活(非结构化)之间达到良好的平衡；</p>
+
+    <h2>系统化思维</h2>
+
+    <p>系统思维不是孤立地看待系统中越来越小的部分，而是涉及更广泛的观点，关注越来越多的相互作用。现在的规范层出不穷，本质上是帮助我们在设计一套系统时，降低复杂功能的学习成本，使之更为易用；</p>
+
+    <h2>理性与感性的结合</h2>
+
+    <p>交互设计更像是一种理性组织，感性表达…</p>
+
+    <img src="https://picsum.photos/800/400?random=1">
+    <div class="img-caption">Apple是站在科技与人文的交叉口</div>
+
+
+    <h1>思考本质：像构建一座城市一样去设计系统</h1>
+
+    <p>一座城市/社区所包含的内容：政府机构，道路，商业入口，城市结构，经济结构，社会结构，空间结构，住宅、社区...</p>
+
+    <p>一套软件系统所包含的内容：后台管理设置页面，导航路径，页面入口，页面框架：前端交互结构、后端数据结构</p>
+
+
+
+    <h1>思考本质：像构建一座城市一样去设计系统</h1>
+
+    <p>“一个交互形式的革命性突破，往往意味着技术本身达到了足够成熟的状态“</p>
+
+    <h2>施乐公司发明Gui和鼠标</h2>
+
+    <p>1973年，施乐公司在开发出一款名为Alto的个人电脑时掌握了这项技术。这种计算机鼠标与图形用户界面（GUI）一起使用，创造了一种全新的计算机使用方式。而后被苹果和微软发扬光大，成就了如今电脑的主流交互方式，如下为苹果公司的鼠标：</p>
+
+    <h2>iPhone的多点触控</h2>
+    
+    <p>当苹果公司于2007年6月29日推出iPhone时，全世界从未见过像iPhone这样的产品。但是，这款触手可及的触控屏设备立刻引起了所有人的注意，并像苹果电脑一样，将世界带入智能手机时代；</p>
+
+
+</div>
+
+
+
+
+
+  <!-- 页脚 -->
+  <footer class="footer">
+    <div class="container">
+      <p>&copy; Designed and developed by zhu peng.</p>
+        <p>&copy; Copyright © 2022-2025 www.pigpeng.cn. All Rights Reserved.</p>
+    </div>
+  </footer>
+
+
+  <script src="js/main.js"></script>
+</body>
+</html>

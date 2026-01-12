@@ -123,7 +123,8 @@ body {
   padding-bottom: 60px;
   padding-left: 0px;
   background-color: #111;
-  color: white;
+  font-weight 300;
+  color: rgb(255, 255, 255, 0.65);
   text-align: center;
 }
 .footer p {
@@ -392,7 +393,7 @@ body {
 }
 
 .card-content h3 {
-  margin: 0 0 20px 0;
+  margin: 0 0 12px 0;
   font-size: 18px;
   color: #ffffff;
   font-weight: 400;
@@ -400,8 +401,9 @@ body {
 
 .card-content p {
   margin: 0;
-  font-size: 16px;
-  color: #E7E7E7;
+  font-size: 14px;
+  color: rgb(255, 255, 255, 85%);
+  font-weight: 300;
 }
 
 /* hover效果（可选） */
@@ -945,6 +947,15 @@ body {
       margin: 0;
     }
 
+      /* 正文，清除默认边距 */
+      .photo-card .photo-desc {
+        font-size: 12px;
+        color: rgb(255, 255, 255, 0.65);
+        line-height: 1.4;
+        font-weight: 300;
+        margin-top: 6px;
+      }
+
     /* 全屏查看遮罩层（保留点击放大功能） */
     .img-modal {
       position: fixed;
@@ -952,30 +963,121 @@ body {
       left: 0;
       width: 100vw;
       height: 100vh;
-      background: rgba(0, 0, 0, 0.9);
+      background: rgba(0, 0, 0, 0.90);
       display: none;
-      justify-content: center;
-      align-items: center;
       z-index: 9999;
-      padding: 20px;
       box-sizing: border-box;
     }
-    .img-modal-content {
-      max-width: 90%;
-      max-height: 90%;
-      object-fit: contain;
+    
+    /* 左右布局容器 */
+    .img-modal-container {
+      display: flex;
+      width: 100%;
+      height: 100%;
+      overflow: hidden;
     }
+    
+    /* 左侧图片区域 */
+    .img-modal-left {
+      flex: 1;
+      display: flex;
+      align-items: center;
+      padding: 60px;
+      box-sizing: border-box;
+      overflow: hidden;
+    }
+    
+    .img-modal-content {
+      max-width: 100%;
+      max-height: 100%;
+      object-fit: contain;
+      width: auto;
+      height: auto;
+    }
+    
+    /* 右侧信息区域 */
+    .img-modal-right {
+      width: 50%;
+      padding: 240px 40px;
+      box-sizing: border-box;
+      display: flex;
+      flex-direction: column;
+      overflow-y: auto;
+    }
+    
+    /* 位置信息（小字，顶部） */
+    .photo-info-location {
+      font-size: 14px;
+      color: rgba(255, 255, 255, 0.6);
+      margin-bottom: 16px;
+      font-weight: 300;
+    }
+    
+    /* 标题（大字，加粗） */
+    .photo-info-title {
+      font-size: 32px;
+      color: #ffffff;
+      font-weight: 600;
+      margin: 0 0 16px 0;
+      line-height: 1.3;
+    }
+    
+    /* 相机信息（小字） */
+    .photo-info-camera {
+      font-size: 14px;
+      color: rgba(255, 255, 255, 0.6);
+      margin-bottom: 32px;
+      font-weight: 300;
+    }
+    
+    /* 描述文本（小字） */
+    .photo-info-desc {
+      font-size: 16px;
+      color: rgba(255, 255, 255, 0.85);
+      line-height: 1.6;
+      margin: 0;
+      font-weight: 300;
+    }
+    
+    /* 关闭按钮 - 位于右侧信息区域顶部 */
     .img-modal-close {
       position: absolute;
-      top: 20px;
+      top: 30px;
       right: 30px;
-      color: #111111;
-      font-size: 40px;
-      font-weight: bold;
+      color: #ffffff;
+      font-size: 36px;
+      font-weight: 300;
       cursor: pointer;
+      z-index: 10000;
+      width: 40px;
+      height: 40px;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      line-height: 1;
+      transition: opacity 0.3s;
     }
     .img-modal-close:hover {
-      color: #111;
+      opacity: 0.7;
+    }
+    
+    /* 响应式：移动端改为上下布局 */
+    @media (max-width: 768px) {
+      .img-modal-container {
+        flex-direction: column;
+      }
+      .img-modal-left {
+        flex: 0 0 50vh;
+        padding: 20px;
+      }
+      .img-modal-right {
+        width: 100%;
+        flex: 1;
+        padding: 40px 30px;
+      }
+      .photo-info-title {
+        font-size: 24px;
+      }
     }
 
     /* 响应式：移动端自动改为1列，平板2列 */
@@ -1004,10 +1106,10 @@ body {
 /* 数字花园 */
 .black-img {
   margin-top: 240px; /* 可根据需要调整与上方内容的间距 */
-  margin-bottom: 80px;
+  margin-bottom: 24px;
 }
 .black-img img {
-  width: 160px; /* 保持原图片宽度 */
+  width: 140px; /* 保持原图片宽度 */
   height: auto;
   border: none;
   padding-left: 0; /* 移除左侧百分比 padding */
@@ -1028,11 +1130,11 @@ body {
 
   /* 说明文本（小字） */
 .black-desc {
-  font-size: 20px;
+  font-size: 16px;
   color: #DBDBDB;
   line-height: 1.4;
    font-weight: 300;
-  margin-bottom: 40px;
+  margin-bottom: 60px;
   margin-top: 0px;
 }
 
@@ -1062,19 +1164,19 @@ body {
         width: 100%;
         display: flex;
         flex-direction: column;
-        gap: 32px;
+        gap: 48px;
     }
 
     .interest-card {
         width: 100%;
-        padding: 32px;
+        padding: 24px;
         border-radius: 0px;
         background-color: #1D1D1D;
         box-sizing: border-box;
     }
 
     .interest-card__title {
-        font-size: 20px;
+        font-size: 18px;
         font-weight: 400;
         color: #ffffff;
         margin: 0 0 20px 0;
@@ -1124,7 +1226,7 @@ body {
   margin-bottom: 80px;
 }
   .wenzhang-img img {
-  width: 200px; /* 保持原图片宽度 */
+  width: 180px; /* 保持原图片宽度 */
   height: auto;
   border: none;
   padding-left: 0; /* 移除左侧百分比 padding */
@@ -1212,94 +1314,3 @@ script, style, link, meta, title {
   transform: none !important;
 }
 
-
-
-
-
-
-
-
-/* --------------------------------以下为内页详情样式-------------------------------- */
-
-/* 项目详情外层容器 - 限制宽度+居中，适配深色主题 */
-.project-detail {
-  width: 100%;
-  max-width: 1200px; /* 和你网站整体容器宽度一致 */
-  margin: 0 auto;
-  padding: 40px 20px;
-}
-
-/* 图片+文字行容器 - 核心布局（一行） */
-.project-row {
-  display: flex;
-  align-items: flex-start; /* 图片和文字顶部对齐，更自然 */
-  gap: 30px; /* 图片和文字间距 */
-  margin-bottom: 48px; /* 行之间的间距 */
-  flex-wrap: wrap; /* 移动端自动换行 */
-}
-
-/* 反向排版（文字左、图片右）- 可选，增加排版多样性 */
-.project-row.reverse {
-  flex-direction: row-reverse;
-}
-
-/* 项目图片容器 - 统一图片比例，避免变形 */
-.project-img-wrap {
-  flex-shrink: 0; /* 图片不被挤压 */
-  width: 40%; /* 图片占行宽的40%，可根据需求调整 */
-}
-
-/* 项目图片 - 自适应+防变形 */
-.project-img {
-  width: 100%;
-  height: auto; /* 保持宽高比 */
-  border-radius: 0; /* 适配你网站的无圆角风格 */
-  object-fit: cover; /* 图片裁剪时保留核心内容 */
-}
-
-/* 项目文字容器 - 占剩余宽度 */
-.project-text {
-  flex: 1; /* 文字占满剩余宽度 */
-}
-
-/* 文字标题（每个模块的小标题） */
-.project-text__title {
-  font-size: 20px;
-  color: #fff; /* 标题用纯白，突出层级 */
-  margin: 0 0 16px 0;
-  font-weight: 400;
-}
-
-/* 文字内容（段落） */
-.project-text__content {
-  font-size: 14px;
-  color: #aaa; /* 正文用浅灰色，适配深色主题 */
-  margin: 0 0 12px 0;
-}
-
-/* 纯图片块（无文字）- 可选，适配全图场景 */
-.project-img-full {
-  width: 100%;
-  margin-bottom: 48px;
-}
-.project-img-full img {
-  width: 100%;
-  height: auto;
-}
-
-/* 移动端适配（核心，避免小屏排版错乱） */
-@media (max-width: 768px) {
-  .project-row {
-    gap: 20px;
-    margin-bottom: 32px;
-  }
-  .project-img-wrap {
-    width: 100%; /* 移动端图片占满整行 */
-  }
-  .project-detail {
-    padding: 20px 16px;
-  }
-  .project-text__title {
-    font-size: 18px;
-  }
-}
