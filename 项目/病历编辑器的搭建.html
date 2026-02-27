@@ -107,7 +107,7 @@
     font-size: 14px;
     color: #666; /* 浅灰文字，黑色背景下可读性强 */
     font-weight: 300;
-    max-width: 1360px; /* 限制文字宽度，避免换行太丑 */
+    max-width: 1280px; /* 限制文字宽度，避免换行太丑 */
     margin: 0 0 0 0;
     }
 
@@ -115,7 +115,7 @@
     font-size: 18px;
     color: #555; /* 浅灰文字，黑色背景下可读性强 */
     font-weight: 300;
-    max-width: 1360px; /* 限制文字宽度，避免换行太丑 */
+    max-width: 1280px; /* 限制文字宽度，避免换行太丑 */
     margin: 0 0 0 0;
     }
 
@@ -139,7 +139,7 @@
 
     /* 仅正文容器样式 */
     .blog-content {
-        max-width: 800px; /* 最优阅读宽度 */
+        max-width: 1140px; /* 最优阅读宽度 */
         margin: 160px auto;   /* 居中显示 */
         padding: 0;
         line-height: 1.8; /* 舒适的行高 */
@@ -186,9 +186,7 @@
     .blog-content img {
         max-width: 100%; /* 自适应容器宽度 */
         height: auto;    /* 保持宽高比 */
-        border-radius: 6px; /* 轻微圆角，更美观 */
-        box-shadow: 0 2px 8px rgba(0, 0, 0, 0.08); /* 轻微阴影 */
-        margin: 20px 0;   /* 上下间距 */
+        margin: 24px 0;   /* 上下间距 */
         display: block;   /* 避免图片底部留白 */
         margin-left: auto;
         margin-right: auto; /* 图片居中 */
@@ -304,128 +302,58 @@
   </div>
 
 
-  <!-- 顶部封面 -->
-  <div class="frame-1">
-    <img class="image" src="../images/article/发牢骚的地方/还在那儿/3.jpeg" alt="项目" />
-  </div>
-
-
-
 
 <!-- 仅博客正文容器 -->
 <div class="blog-content">
 
 
+    <img src="https://pigpeng-web.oss-cn-hangzhou.aliyuncs.com/project/%E7%97%85%E5%8E%86%E7%BC%96%E8%BE%91%E5%99%A8%E7%9A%84%E6%90%AD%E5%BB%BA/5.png">
 
-    <h2>病历编辑器的搭建</h2>
-    
-    <p>或许我们都有去医院门诊的经历，在现场医生会问一些你的情况，从而写出一份病历并打印。像这样的病历医院有成百上千份模版，而这背后便是由编辑器配置得来；</p>
+    <img src="https://pigpeng-web.oss-cn-hangzhou.aliyuncs.com/project/%E7%97%85%E5%8E%86%E7%BC%96%E8%BE%91%E5%99%A8%E7%9A%84%E6%90%AD%E5%BB%BA/6.png">
 
-    <p>这是一个从“0～1”的项目，我在2021年5月～2022年10月期间负责编辑器整体的“交互及UI设计”，此外和我对接的为两位产品经理、五位前端工程师；</p>
+    <img src="https://pigpeng-web.oss-cn-hangzhou.aliyuncs.com/project/%E7%97%85%E5%8E%86%E7%BC%96%E8%BE%91%E5%99%A8%E7%9A%84%E6%90%AD%E5%BB%BA/7.png">
 
-    <img src="../images/article/发牢骚的地方/还在那儿/1.jpeg">
+    <img src="https://pigpeng-web.oss-cn-hangzhou.aliyuncs.com/project/%E7%97%85%E5%8E%86%E7%BC%96%E8%BE%91%E5%99%A8%E7%9A%84%E6%90%AD%E5%BB%BA/8.png">
 
+    <img src="https://pigpeng-web.oss-cn-hangzhou.aliyuncs.com/project/%E7%97%85%E5%8E%86%E7%BC%96%E8%BE%91%E5%99%A8%E7%9A%84%E6%90%AD%E5%BB%BA/9.png">
 
-    <h2>让我们先来认识下真实的“病历和模版”</h2>
+    <img src="https://pigpeng-web.oss-cn-hangzhou.aliyuncs.com/project/%E7%97%85%E5%8E%86%E7%BC%96%E8%BE%91%E5%99%A8%E7%9A%84%E6%90%AD%E5%BB%BA/10.png">
 
-    <p>比如这份常见的门诊病历，打印出来的效果如图左，系统内的模版如图右；（因为医院要求所见及所得，所以里面字体都为宋体；）</p>
+    <img src="https://pigpeng-web.oss-cn-hangzhou.aliyuncs.com/project/%E7%97%85%E5%8E%86%E7%BC%96%E8%BE%91%E5%99%A8%E7%9A%84%E6%90%AD%E5%BB%BA/11.png">
 
-    <img src="../images/article/发牢骚的地方/还在那儿/2.jpeg">
+    <img src="https://pigpeng-web.oss-cn-hangzhou.aliyuncs.com/project/%E7%97%85%E5%8E%86%E7%BC%96%E8%BE%91%E5%99%A8%E7%9A%84%E6%90%AD%E5%BB%BA/12.png">
 
+    <img src="https://pigpeng-web.oss-cn-hangzhou.aliyuncs.com/project/%E7%97%85%E5%8E%86%E7%BC%96%E8%BE%91%E5%99%A8%E7%9A%84%E6%90%AD%E5%BB%BA/13.png">
 
-    <h2>而这背后也分为“配置和书写”两种使用场景</h2>
+    <img src="https://pigpeng-web.oss-cn-hangzhou.aliyuncs.com/project/%E7%97%85%E5%8E%86%E7%BC%96%E8%BE%91%E5%99%A8%E7%9A%84%E6%90%AD%E5%BB%BA/14.png">
 
-    <p>接下来我也会按照这两种使用场景分别进行讲述其背后的设计思路；</p>
+    <img src="https://pigpeng-web.oss-cn-hangzhou.aliyuncs.com/project/%E7%97%85%E5%8E%86%E7%BC%96%E8%BE%91%E5%99%A8%E7%9A%84%E6%90%AD%E5%BB%BA/15.png">
 
-    <img src="../images/article/发牢骚的地方/还在那儿/2.jpeg">
+    <img src="https://pigpeng-web.oss-cn-hangzhou.aliyuncs.com/project/%E7%97%85%E5%8E%86%E7%BC%96%E8%BE%91%E5%99%A8%E7%9A%84%E6%90%AD%E5%BB%BA/16.png">
 
-    
-    <h2>1、配置场景：产品类似于“word+表单编辑器”</h2>
+    <img src="https://pigpeng-web.oss-cn-hangzhou.aliyuncs.com/project/%E7%97%85%E5%8E%86%E7%BC%96%E8%BE%91%E5%99%A8%E7%9A%84%E6%90%AD%E5%BB%BA/17.png">
 
-    <p>与常规的Web表单编辑器一行一个组件不同，我们需要支持在一张如A4等纸张大小上能够使用光标直接输入文字，也支持在光标能定位的地方直接加组件，自由度较大；</p>
+    <img src="https://pigpeng-web.oss-cn-hangzhou.aliyuncs.com/project/%E7%97%85%E5%8E%86%E7%BC%96%E8%BE%91%E5%99%A8%E7%9A%84%E6%90%AD%E5%BB%BA/18.png">
 
-    <img src="../images/article/发牢骚的地方/还在那儿/2.jpeg">
+    <img src="https://pigpeng-web.oss-cn-hangzhou.aliyuncs.com/project/%E7%97%85%E5%8E%86%E7%BC%96%E8%BE%91%E5%99%A8%E7%9A%84%E6%90%AD%E5%BB%BA/19.png">
 
+    <img src="https://pigpeng-web.oss-cn-hangzhou.aliyuncs.com/project/%E7%97%85%E5%8E%86%E7%BC%96%E8%BE%91%E5%99%A8%E7%9A%84%E6%90%AD%E5%BB%BA/20.png">
 
-    <h2>角色为医院信息科和实施人员，其“行为”如下</h2>
+    <img src="https://pigpeng-web.oss-cn-hangzhou.aliyuncs.com/project/%E7%97%85%E5%8E%86%E7%BC%96%E8%BE%91%E5%99%A8%E7%9A%84%E6%90%AD%E5%BB%BA/21.png">
 
-    <p>大多数的编辑器行为都是一致的，接下来我将按照行为步骤去讲述有哪些思考点；</p>
+    <img src="https://pigpeng-web.oss-cn-hangzhou.aliyuncs.com/project/%E7%97%85%E5%8E%86%E7%BC%96%E8%BE%91%E5%99%A8%E7%9A%84%E6%90%AD%E5%BB%BA/22.png">
 
-    <img src="../images/article/发牢骚的地方/还在那儿/2.jpeg">
+    <img src="https://pigpeng-web.oss-cn-hangzhou.aliyuncs.com/project/%E7%97%85%E5%8E%86%E7%BC%96%E8%BE%91%E5%99%A8%E7%9A%84%E6%90%AD%E5%BB%BA/23.png">
 
+    <img src="https://pigpeng-web.oss-cn-hangzhou.aliyuncs.com/project/%E7%97%85%E5%8E%86%E7%BC%96%E8%BE%91%E5%99%A8%E7%9A%84%E6%90%AD%E5%BB%BA/24.png">
 
+    <img src="https://pigpeng-web.oss-cn-hangzhou.aliyuncs.com/project/%E7%97%85%E5%8E%86%E7%BC%96%E8%BE%91%E5%99%A8%E7%9A%84%E6%90%AD%E5%BB%BA/25.png">
 
-    <h2>角色为医院信息科和实施人员，其“行为”如下</h2>
+    <img src="https://pigpeng-web.oss-cn-hangzhou.aliyuncs.com/project/%E7%97%85%E5%8E%86%E7%BC%96%E8%BE%91%E5%99%A8%E7%9A%84%E6%90%AD%E5%BB%BA/26.png">
 
-    <p>大多数的编辑器行为都是一致的，接下来我将按照行为步骤去讲述有哪些思考点；</p>
+    <img src="https://pigpeng-web.oss-cn-hangzhou.aliyuncs.com/project/%E7%97%85%E5%8E%86%E7%BC%96%E8%BE%91%E5%99%A8%E7%9A%84%E6%90%AD%E5%BB%BA/27.png">
 
-    <img src="../images/article/发牢骚的地方/还在那儿/2.jpeg">
-
-
-
-    <h2>角色为医院信息科和实施人员，其“行为”如下</h2>
-
-    <p>大多数的编辑器行为都是一致的，接下来我将按照行为步骤去讲述有哪些思考点；</p>
-
-    <img src="../images/article/发牢骚的地方/还在那儿/2.jpeg">
-
-
-
-    <h2>角色为医院信息科和实施人员，其“行为”如下</h2>
-
-    <p>大多数的编辑器行为都是一致的，接下来我将按照行为步骤去讲述有哪些思考点；</p>
-
-    <img src="../images/article/发牢骚的地方/还在那儿/2.jpeg">
-
-
-
-    <h2>角色为医院信息科和实施人员，其“行为”如下</h2>
-
-    <p>大多数的编辑器行为都是一致的，接下来我将按照行为步骤去讲述有哪些思考点；</p>
-
-    <img src="../images/article/发牢骚的地方/还在那儿/2.jpeg">
-
-
-
-    <h2>角色为医院信息科和实施人员，其“行为”如下</h2>
-
-    <p>大多数的编辑器行为都是一致的，接下来我将按照行为步骤去讲述有哪些思考点；</p>
-
-    <img src="../images/article/发牢骚的地方/还在那儿/2.jpeg">
-
-
-
-    <h2>角色为医院信息科和实施人员，其“行为”如下</h2>
-
-    <p>大多数的编辑器行为都是一致的，接下来我将按照行为步骤去讲述有哪些思考点；</p>
-
-    <img src="../images/article/发牢骚的地方/还在那儿/2.jpeg">
-
-
-
-    <h2>角色为医院信息科和实施人员，其“行为”如下</h2>
-
-    <p>大多数的编辑器行为都是一致的，接下来我将按照行为步骤去讲述有哪些思考点；</p>
-
-    <img src="../images/article/发牢骚的地方/还在那儿/2.jpeg">
-
-
-
-    <h2>角色为医院信息科和实施人员，其“行为”如下</h2>
-
-    <p>大多数的编辑器行为都是一致的，接下来我将按照行为步骤去讲述有哪些思考点；</p>
-
-    <img src="../images/article/发牢骚的地方/还在那儿/2.jpeg">
-
-
-
-    <h2>角色为医院信息科和实施人员，其“行为”如下</h2>
-
-    <p>大多数的编辑器行为都是一致的，接下来我将按照行为步骤去讲述有哪些思考点；</p>
-
-    <img src="../images/article/发牢骚的地方/还在那儿/2.jpeg">
-
-
+    <img src="https://pigpeng-web.oss-cn-hangzhou.aliyuncs.com/project/%E7%97%85%E5%8E%86%E7%BC%96%E8%BE%91%E5%99%A8%E7%9A%84%E6%90%AD%E5%BB%BA/28.png">
 
 </div>
 

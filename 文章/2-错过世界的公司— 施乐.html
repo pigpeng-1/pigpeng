@@ -107,7 +107,7 @@
     font-size: 14px;
     color: #666; /* 浅灰文字，黑色背景下可读性强 */
     font-weight: 300;
-    max-width: 1280px; /* 限制文字宽度，避免换行太丑 */
+    max-width: 1360px; /* 限制文字宽度，避免换行太丑 */
     margin: 0 0 0 0;
     }
 
@@ -115,7 +115,7 @@
     font-size: 18px;
     color: #555; /* 浅灰文字，黑色背景下可读性强 */
     font-weight: 300;
-    max-width: 1280px; /* 限制文字宽度，避免换行太丑 */
+    max-width: 1360px; /* 限制文字宽度，避免换行太丑 */
     margin: 0 0 0 0;
     }
 
@@ -166,14 +166,6 @@
         padding-left: 0px;
     }
 
-    /* 三级标题（可选） */
-    .blog-content h3 {
-        font-size: 18px;
-        color: #222;
-        margin: 25px 0 12px 0;
-        font-weight: 400;
-    }
-
     /* 正文段落 */
     .blog-content p {
         margin: 0 0 24px 0;
@@ -181,7 +173,15 @@
         text-align: justify; /* 两端对齐，提升阅读体验 */
     }
 
-    /* 图片样式 */
+    /* 简单样式，让PDF预览区域更美观 */
+    .pdf-container {
+            width: 100%;
+            height: 800px;
+            margin: 20px auto;
+            border: 1px solid #eee;
+        }
+
+           /* 图片样式 */
     .blog-content img {
         max-width: 100%; /* 自适应容器宽度 */
         height: auto;    /* 保持宽高比 */
@@ -193,39 +193,7 @@
         margin-right: auto; /* 图片居中 */
     }
 
-    /* 图片说明文字（可选） */
-    .blog-content .img-caption {
-        text-align: center;
-        font-size: 14px;
-        color: #666;
-        margin: -15px 0 20px 0;
-    }
-
-    /* 列表样式 */
-    .blog-content ul, .blog-content ol {
-        margin: 0 0 18px 30px;
-        padding-left: 10px;
-    }
-
-    .blog-content li {
-        margin: 0 0 8px 0;
-    }
-
-
-
-    /* 移动端适配 */
-    @media (max-width: 768px) {
-        .blog-content {
-            padding: 20px 15px;
-            font-size: 15px;
-        }
-        .blog-content h1 {
-            font-size: 24px;
-        }
-        .blog-content h2 {
-            font-size: 20px;
-        }
-    }
+   
 </style>
 
 </head>
@@ -238,8 +206,8 @@
 </a>
     <div class="nav-links">
       <a href="../index.html">主页</a>
-      <a href="../projects.html"class="active">项目</a>
-      <a href="../article.html">文章</a>
+      <a href="../projects.html">项目</a>
+      <a href="../article.html"class="active">文章</a>
       <a href="../photography.html">摄影</a>
       <a href="../black.html">黑洞</a>
     </div>
@@ -251,11 +219,11 @@
   <div class="frame-2">
     <div class="frame-3">
         <div class="element">
-            2 min read - 2025年03月
+            2 min read - 2024年05月
         </div>
-        <div class="text-wrapper">APP版本升级视频</div>
+        <div class="text-wrapper">错过世界的公司 - 施乐</div>
         <div class="element-2">
-        为了
+        曾经的施乐存在多少种机会，作为图形界面的鼻祖，所以在组内进行过一次分享，借此机会记录一下
         </div>
     </div>
   </div>
@@ -266,56 +234,71 @@
 <!-- 仅博客正文容器 -->
 <div class="blog-content">
 
-    <h1>网点管家2.0全新亮相</h1>
-    
-    <p>为了防止用户在打开app后等待时间过长，因此在时间方面的把控要求比较高，所以整体的内容节奏比较快；</p>
+  <img src="https://pigpeng-web.oss-cn-hangzhou.aliyuncs.com/project/%E5%88%86%E4%BA%AB/%E5%88%86%E4%BA%AB/%E5%88%86%E4%BA%AB.001.jpeg">
 
-    <p>在此视频内，我采用了ai进行配音操作，并部分使用了c4d制作转场；</p>
-   
-    <video
-    src="https://pigpeng-web.oss-cn-hangzhou.aliyuncs.com/video/%E5%A4%A7%E7%89%88%E6%9C%AC%E5%8D%87%E7%BA%A7%E5%BC%80%E5%B1%8F%E5%8A%A8%E7%94%BB.mp4"
-    controls 
-    width="100%" 
-    max-width="500px"
-    poster="../images/projects/项目封面.png"
-    preload="metadata"
-    playsinline
-    style="display: block; margin: 20px auto; border-radius: 8px; border: 1px solid #ececec; height: 1158px;">
+  <img src="https://pigpeng-web.oss-cn-hangzhou.aliyuncs.com/project/%E5%88%86%E4%BA%AB/%E5%88%86%E4%BA%AB/%E5%88%86%E4%BA%AB.002.jpeg">
 
-    </video>
+  <img src="https://pigpeng-web.oss-cn-hangzhou.aliyuncs.com/project/%E5%88%86%E4%BA%AB/%E5%88%86%E4%BA%AB/%E5%88%86%E4%BA%AB.003.jpeg">
 
-   
+  <img src="https://pigpeng-web.oss-cn-hangzhou.aliyuncs.com/project/%E5%88%86%E4%BA%AB/%E5%88%86%E4%BA%AB/%E5%88%86%E4%BA%AB.004.jpeg">
+
+  <img src="https://pigpeng-web.oss-cn-hangzhou.aliyuncs.com/project/%E5%88%86%E4%BA%AB/%E5%88%86%E4%BA%AB/%E5%88%86%E4%BA%AB.005.jpeg">
+
+  <img src="https://pigpeng-web.oss-cn-hangzhou.aliyuncs.com/project/%E5%88%86%E4%BA%AB/%E5%88%86%E4%BA%AB/%E5%88%86%E4%BA%AB.006.jpeg">
+
+  <img src="https://pigpeng-web.oss-cn-hangzhou.aliyuncs.com/project/%E5%88%86%E4%BA%AB/%E5%88%86%E4%BA%AB/%E5%88%86%E4%BA%AB.007.jpeg">
+
+  <img src="https://pigpeng-web.oss-cn-hangzhou.aliyuncs.com/project/%E5%88%86%E4%BA%AB/%E5%88%86%E4%BA%AB/%E5%88%86%E4%BA%AB.008.jpeg">
+
+  <img src="https://pigpeng-web.oss-cn-hangzhou.aliyuncs.com/project/%E5%88%86%E4%BA%AB/%E5%88%86%E4%BA%AB/%E5%88%86%E4%BA%AB.009.jpeg">
+
+  <img src="https://pigpeng-web.oss-cn-hangzhou.aliyuncs.com/project/%E5%88%86%E4%BA%AB/%E5%88%86%E4%BA%AB/%E5%88%86%E4%BA%AB.010.jpeg">
+
+  <img src="https://pigpeng-web.oss-cn-hangzhou.aliyuncs.com/project/%E5%88%86%E4%BA%AB/%E5%88%86%E4%BA%AB/%E5%88%86%E4%BA%AB.011.jpeg">
+
+  <img src="https://pigpeng-web.oss-cn-hangzhou.aliyuncs.com/project/%E5%88%86%E4%BA%AB/%E5%88%86%E4%BA%AB/%E5%88%86%E4%BA%AB.012.jpeg">
+
+  <img src="https://pigpeng-web.oss-cn-hangzhou.aliyuncs.com/project/%E5%88%86%E4%BA%AB/%E5%88%86%E4%BA%AB/%E5%88%86%E4%BA%AB.013.jpeg">
+
+  <img src="https://pigpeng-web.oss-cn-hangzhou.aliyuncs.com/project/%E5%88%86%E4%BA%AB/%E5%88%86%E4%BA%AB/%E5%88%86%E4%BA%AB.014.jpeg">
+
+  <img src="https://pigpeng-web.oss-cn-hangzhou.aliyuncs.com/project/%E5%88%86%E4%BA%AB/%E5%88%86%E4%BA%AB/%E5%88%86%E4%BA%AB.015.jpeg">
+
+  <img src="https://pigpeng-web.oss-cn-hangzhou.aliyuncs.com/project/%E5%88%86%E4%BA%AB/%E5%88%86%E4%BA%AB/%E5%88%86%E4%BA%AB.016.jpeg">
+
+  <img src="https://pigpeng-web.oss-cn-hangzhou.aliyuncs.com/project/%E5%88%86%E4%BA%AB/%E5%88%86%E4%BA%AB/%E5%88%86%E4%BA%AB.017.jpeg">
+
+  <img src="https://pigpeng-web.oss-cn-hangzhou.aliyuncs.com/project/%E5%88%86%E4%BA%AB/%E5%88%86%E4%BA%AB/%E5%88%86%E4%BA%AB.018.jpeg">
+
+  <img src="https://pigpeng-web.oss-cn-hangzhou.aliyuncs.com/project/%E5%88%86%E4%BA%AB/%E5%88%86%E4%BA%AB/%E5%88%86%E4%BA%AB.020.jpeg">
+
+  <img src="https://pigpeng-web.oss-cn-hangzhou.aliyuncs.com/project/%E5%88%86%E4%BA%AB/%E5%88%86%E4%BA%AB/%E5%88%86%E4%BA%AB.021.jpeg">
+
+  <img src="https://pigpeng-web.oss-cn-hangzhou.aliyuncs.com/project/%E5%88%86%E4%BA%AB/%E5%88%86%E4%BA%AB/%E5%88%86%E4%BA%AB.022.jpeg">
+
+  <img src="https://pigpeng-web.oss-cn-hangzhou.aliyuncs.com/project/%E5%88%86%E4%BA%AB/%E5%88%86%E4%BA%AB/%E5%88%86%E4%BA%AB.023.jpeg">
+
+  <img src="https://pigpeng-web.oss-cn-hangzhou.aliyuncs.com/project/%E5%88%86%E4%BA%AB/%E5%88%86%E4%BA%AB/%E5%88%86%E4%BA%AB.024.jpeg">
+
+  <img src="https://pigpeng-web.oss-cn-hangzhou.aliyuncs.com/project/%E5%88%86%E4%BA%AB/%E5%88%86%E4%BA%AB/%E5%88%86%E4%BA%AB.025.jpeg">
+
+  <img src="https://pigpeng-web.oss-cn-hangzhou.aliyuncs.com/project/%E5%88%86%E4%BA%AB/%E5%88%86%E4%BA%AB/%E5%88%86%E4%BA%AB.026.jpeg">
+
+  <img src="https://pigpeng-web.oss-cn-hangzhou.aliyuncs.com/project/%E5%88%86%E4%BA%AB/%E5%88%86%E4%BA%AB/%E5%88%86%E4%BA%AB.027.jpeg">
+
+  <img src="https://pigpeng-web.oss-cn-hangzhou.aliyuncs.com/project/%E5%88%86%E4%BA%AB/%E5%88%86%E4%BA%AB/%E5%88%86%E4%BA%AB.028.jpeg">
+
+  <img src="https://pigpeng-web.oss-cn-hangzhou.aliyuncs.com/project/%E5%88%86%E4%BA%AB/%E5%88%86%E4%BA%AB/%E5%88%86%E4%BA%AB.029.jpeg">
+
+  <img src="https://pigpeng-web.oss-cn-hangzhou.aliyuncs.com/project/%E5%88%86%E4%BA%AB/%E5%88%86%E4%BA%AB/%E5%88%86%E4%BA%AB.030.jpeg">
+
+  <img src="https://pigpeng-web.oss-cn-hangzhou.aliyuncs.com/project/%E5%88%86%E4%BA%AB/%E5%88%86%E4%BA%AB/%E5%88%86%E4%BA%AB.031.jpeg">
+
+  <img src="https://pigpeng-web.oss-cn-hangzhou.aliyuncs.com/project/%E5%88%86%E4%BA%AB/%E5%88%86%E4%BA%AB/%E5%88%86%E4%BA%AB.033.jpeg">
+
+  <img src="">
 
 
-
-    <h1>部分制作过程</h1>
-    
-    <p>为了防止用户在打开app后等待时间过长，因此在时间方面的把控要求比较高，所以整体的内容节奏比较快；</p>
-
-    
-    <h2>开头使用C4D进行渲染合成</h2>
-
-    <p>在此视频内，我采用了ai进行配音操作，并部分使用了c4d制作转场；</p>
-
-    <img src="https://pigpeng-1.oss-cn-hangzhou.aliyuncs.com/article/%E6%96%87%E7%AB%A0%E5%B0%81%E9%9D%A2.png">
-
-    
-    <h2>采用不同的底色对模块进行区分</h2>
-    
-    <p>因为速度较快，所以针对不同功能模块，采用不同的颜色进行区分；</p>
-
-    <img src="https://pigpeng-1.oss-cn-hangzhou.aliyuncs.com/article/%E6%96%87%E7%AB%A0%E5%B0%81%E9%9D%A2.png">
-
-    
-    <h2>气泡融合转场</h2>
-    
-    <p>为了能清晰的表达出汇总的效果，我使用了气泡融合，下方放那几帧的gif图；</p>
-
-    <img src="https://pigpeng-1.oss-cn-hangzhou.aliyuncs.com/article/%E6%96%87%E7%AB%A0%E5%B0%81%E9%9D%A2.png">
-
-    
-
-    
 
 
 </div>

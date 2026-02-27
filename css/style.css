@@ -169,7 +169,7 @@ body {
   flex-wrap: wrap; /* 移动端自动换行 */
   align-items: center;
   gap: 50px; /* 文字区和社交区间距 */
-  max-width: 1360px;
+  max-width: 1280px;
   margin: 0 auto;
   padding: 280px 0px 0 0px;
   
@@ -202,7 +202,7 @@ body {
   position: absolute;
   inset: 0; /* 等价于 top:0; right:0; bottom:0; left:0; 铺满容器 */
   display: flex;
-  max-width: 1360px;
+  max-width: 1280px;
   margin: 280px auto;
   padding: 0;
 }
@@ -236,7 +236,7 @@ body {
   line-height: 1.8;
   font-weight: 300;
   word-spacing:30px;
-  max-width: 1360px; /* 限制文字宽度，避免换行太丑 */
+  max-width: 1280px; /* 限制文字宽度，避免换行太丑 */
   margin: 0 0 20px 0;
 }
 
@@ -335,7 +335,7 @@ body {
 /* 首页文章列表与项目模块对齐 */
 .index-article-list {
   width: 100%;
-  max-width: 1360px;
+  max-width: 1280px;
   margin-top: 240px;
   margin-right: auto;
   margin-bottom: 0px;
@@ -418,7 +418,7 @@ body {
 /* 容器样式（确保居中） */
 .container {
   width: 100%;
-  max-width: 1360px;
+  max-width: 1280px;
   margin: 0 auto;
   padding: 0 0px;
 }
@@ -910,7 +910,7 @@ body {
 .photo-gallery {
       columns: 3; /* 固定三列 */
       column-gap: 40px; /* 列之间的间距 */
-      max-width: 1360px;
+      max-width: 1280px;
       margin: 0px auto;
       padding: 0 0;
     }
@@ -963,7 +963,7 @@ body {
       left: 0;
       width: 100vw;
       height: 100vh;
-      background: rgba(0, 0, 0, 0.90);
+      background: rgba(0, 0, 0, 0.95);
       display: none;
       z-index: 9999;
       box-sizing: border-box;
@@ -1119,7 +1119,7 @@ body {
 
 /* 数字花园容器*/
 .black-card {
-  width: 1360px;
+  width: 1280px;
   height: auto;
   margin-top: 240px;
   margin-right: auto;
@@ -1250,7 +1250,7 @@ body {
         display: block;
         width: 100%;
         padding: 24px;
-        background-color: #353535;
+        background-color: #1D1D1D;
         border-radius: 0px;
         color: #dbdbdb;
         text-decoration: none; /* 移除链接下划线 */
@@ -1263,7 +1263,7 @@ body {
 
     /* 文章标题 */
     .article-card1__title {
-        font-size: 18px;
+        font-size: 16px;
         font-weight: 400;
         margin: 0 0 20px 0;
         color: #fff;
