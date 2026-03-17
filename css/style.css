@@ -290,6 +290,35 @@ body {
   object-fit: contain; /* 确保图片完整显示，不裁剪 */
 }
 
+/* 首页顶部三个联系方式图标 hover 文本提示 */
+.contact-icon {
+  position: relative;
+  display: inline-block;
+  margin-left: 12px;
+}
+
+.contact-icon::after {
+  content: attr(data-text);
+  position: absolute;
+  left: 50%;
+  bottom: -40px;
+  transform: translateX(-50%);
+  padding: 6px 10px;
+  font-size: 16px;
+  color: #fff;
+  background: rgba(0, 0, 0, 0.8);
+  border-radius: 4px;
+  white-space: nowrap;
+  opacity: 0;
+  pointer-events: none;
+  transition: opacity 0.2s ease, transform 0.2s ease;
+}
+
+.contact-icon:hover::after {
+  opacity: 1;
+  transform: translateX(-50%) translateY(-4px);
+}
+
 /* 社交图标hover效果 */
 .social-icon-link:hover {
   opacity: 1; /* 完全不透明 */

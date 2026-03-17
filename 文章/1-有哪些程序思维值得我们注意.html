@@ -1,0 +1,636 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>pigpneg</title>
+  <link rel="stylesheet" href="../css/style.css">
+  <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/font-awesome@4.7.0/css/font-awesome.min.css">
+
+  <style>
+
+
+    /* 单个菜单样式（保留之前的选中线效果） */
+    .nav-links a {
+    color: rgba(0, 0, 0, 0.65);
+    text-decoration: none;
+    font-size: 16px;
+    font-weight: 400;
+    position: relative;
+    padding: 8px 0; /* 预留选中线空间 */
+    transition: color 0.3s;
+    }
+
+    /* 选中线效果（保持之前的逻辑：文字下方8px、同宽） */
+    .nav-links a::after {
+    content: '';
+    position: absolute;
+    bottom: 0;
+    left: 0;
+    width: 0;
+    height: 1px;
+    background-color: #000000;
+    transition: width 0.3s ease;
+    }
+
+    /* 选中菜单样式（核心区分） */
+    .nav-links a.active {
+    color: #000000; /* 选中文字强调色（如金色，与黑色背景强对比） */
+    font-weight: 500; /* 选中字体加粗（700=bold），明显突出 */
+    }
+
+    .nav-links a.active::after {
+    width: 100%; /* 选中时同宽 */
+    }
+    .nav-links a:hover::after {
+    width: 100%; /* hover时显示线（可选） */
+    }
+    .nav-links a:hover {
+    color: #1f1f1f;
+    }
+
+
+
+    body {
+    background-color: #ffffff; /* 背景 */
+    color: #222; /* 全局默认文字白色，确保可读性 */
+    font-weight: 400;
+    }
+
+
+
+    .frame-1 {
+    position: relative; /* 作为子元素绝对定位的参考 */
+    width: 1280px;
+    margin: 0 auto; /* 居中显示 */
+    min-height: 400px; /* 图片加载失败时兜底高度 */
+    background: #ffffff; /* 图片加载失败时的背景色 */
+    }
+
+
+    /* 封面样式 */
+    .image {
+    width: 1280px;
+    height: auto; /* 自适应高度，避免变形 */
+    display: block; /* 去除图片默认的行内空白 */
+    margin: 120px auto;
+    }
+
+
+    .frame-2 {
+    max-width: 1000px;
+    margin: 20px auto;
+    padding: 0;
+    }
+    
+
+    /* 文字区域 */
+    .frame-3 {
+    width: 100%;
+    max-width: 1000px;
+    margin: 0;
+    gap: 16px;
+    padding: 240px 0 0 0;
+    }
+    
+
+    .text-wrapper {
+    font-size: 48px;
+    width: 100%;
+    line-height:150%;
+    font-weight: 600;
+    color: #333; /* 白色标题，突出名字 */
+    margin-bottom: -10px;
+    }
+
+    .element {
+    font-size: 14px;
+    color: #666; /* 浅灰文字，黑色背景下可读性强 */
+    font-weight: 300;
+    max-width: 1360px; /* 限制文字宽度，避免换行太丑 */
+    margin: 0 0 0 0;
+    }
+
+    .element-2 {
+    font-size: 18px;
+    color: #555; /* 浅灰文字，黑色背景下可读性强 */
+    font-weight: 300;
+    max-width: 1360px; /* 限制文字宽度，避免换行太丑 */
+    margin: 0 0 0 0;
+    }
+
+
+    /* 页脚样式 */
+    .footer {
+    padding-top: 80px;
+    padding-right: 0px;
+    padding-bottom: 60px;
+    padding-left: 0px;
+    background-color: #ffffff;
+    color: #333;
+    text-align: center;
+    }
+    .footer p {
+    font-size: 12px;
+    line-height:200%;
+    }
+
+
+    /* 仅正文容器样式 */
+    .blog-content {
+        max-width: 800px; /* 最优阅读宽度 */
+        margin: 160px auto;   /* 居中显示 */
+        padding: 0;
+        line-height: 1.8; /* 舒适的行高 */
+        font-size: 16px;
+    }
+
+    /* 一级标题 */
+    .blog-content h1 {
+        font-size: 28px;
+        color: #333;
+        margin: 120px 0 24px 0;
+        line-height: 1.3;
+        font-weight: 500;
+        border-bottom: 1px solid #eee;
+        padding-bottom: 10px;
+    }
+
+    /* 二级标题 */
+    .blog-content h2 {
+        font-size: 22px;
+        color: #333;
+        margin: 48px 0 24px 0;
+        font-weight: 400;
+        position: relative;
+        padding-left: 0px;
+    }
+
+    /* 三级标题（可选） */
+    .blog-content h3 {
+        font-size: 18px;
+        color: #222;
+        margin: 25px 0 12px 0;
+        font-weight: 400;
+    }
+
+    /* 正文段落 */
+    .blog-content p {
+        margin: 0 0 24px 0;
+        font-weight: 300;
+        text-align: justify; /* 两端对齐，提升阅读体验 */
+    }
+
+    /* 图片样式 */
+    .blog-content img {
+        max-width: 100%; /* 自适应容器宽度 */
+        height: auto;    /* 保持宽高比 */
+        border-radius: 6px; /* 轻微圆角，更美观 */
+        box-shadow: 0 2px 8px rgba(0, 0, 0, 0.08); /* 轻微阴影 */
+        margin: 20px 0;   /* 上下间距 */
+        display: block;   /* 避免图片底部留白 */
+        margin-left: auto;
+        margin-right: auto; /* 图片居中 */
+    }
+
+    /* 图片说明文字（可选） */
+    .blog-content .img-caption {
+        text-align: center;
+        font-size: 14px;
+        color: #666;
+        margin: -15px 0 20px 0;
+    }
+
+    /* 列表样式 */
+    .blog-content ul, .blog-content ol {
+        margin: 0 0 18px 30px;
+        padding-left: 10px;
+    }
+
+    .blog-content li {
+        margin: 0 0 8px 0;
+    }
+
+    /* 代码样式 */
+    .blog-content code {
+        background-color: #f5f5f5;
+        padding: 2px 6px;
+        border-radius: 4px;
+        font-family: "Consolas", "Monaco", monospace;
+        font-size: 14px;
+        color: #d63384;
+    }
+
+    /* 代码块样式 */
+    .blog-content pre {
+        background-color: #f8f8f8;
+        padding: 15px;
+        border-radius: 6px;
+        border: 1px solid #eee;
+        overflow-x: auto; /* 横向滚动 */
+        margin: 20px 0;
+        font-family: "Consolas", "Monaco", monospace;
+        font-size: 14px;
+        line-height: 1.5;
+    }
+
+    /* 链接样式 */
+    .blog-content a {
+        color: #4285f4;
+        text-decoration: none;
+        border-bottom: 1px dotted #4285f4;
+    }
+
+    .blog-content a:hover {
+        color: #2d72d9;
+        border-bottom: 1px solid #2d72d9;
+    }
+
+    /* 引用样式（可选） */
+    .blog-content blockquote {
+        border-left: 4px solid #4285f4;
+        padding: 10px 15px;
+        background-color: #f9f9f9;
+        margin: 20px 0;
+        color: #666;
+    }
+
+    /* 移动端适配 */
+    @media (max-width: 768px) {
+        .blog-content {
+            padding: 20px 15px;
+            font-size: 15px;
+        }
+        .blog-content h1 {
+            font-size: 24px;
+        }
+        .blog-content h2 {
+            font-size: 20px;
+        }
+    }
+</style>
+
+</head>
+<body>
+    
+  <!-- 右上角导航栏（5个菜单+选中下划线） -->
+  <nav class="navbar">
+    <a href="../index.html" class="logo">
+  <img src="../images/logo.png" alt="pigpeng" class="logo-img">
+</a>
+    <div class="nav-links">
+      <a href="../index.html">主页</a>
+      <a href="../projects.html">项目</a>
+      <a href="../article.html"class="active">文章</a>
+      <a href="../photography.html">摄影</a>
+      <a href="../black.html">黑洞</a>
+    </div>
+  </nav>
+
+
+
+ <!-- 顶部标题 -->
+  <div class="frame-2">
+    <div class="frame-3">
+        <div class="element">
+        5 min read - 2022年
+        </div>
+        <div class="text-wrapper">有哪些程序思维值得我们注意</div>
+        <div class="element-2">
+        作为一位设计师，我在出设计方案时到最终实现方面踩过哪些坑？
+        </div>
+    </div>
+  </div>
+
+
+  <!-- 顶部封面 -->
+  <div class="frame-1">
+    <img class="image" src="../images/projects/项目封面.png" alt="程序思维" />
+  </div>
+
+
+
+
+<!-- 仅博客正文容器 -->
+<div class="blog-content">
+
+    <h1>详细的交互逻辑补充</h1>
+    
+    <p>对于开发而言，其逻辑需要形成闭环，那就存在比较多的情况，而这些情况容易被不可交互的UI图所迷糊，从而导致漏掉了一些逻辑；</p>
+
+    <p>比如回收站的处理：</p>
+
+    <p>传统要做这类功能，其实非常考验设计师的行业经验，因为回收站的功能虽然简单，但是在界面之下需要处理的逻辑非常复杂。过去，我们可能会在设计工具里无限堆图，把各种情况下能够发生的事情都用图片呈现出来，确保逻辑的完整性。这个时候行业经验就体现了，如果比较年轻的设计师在做这个案例的时候，可能会经常漏掉一些场景。</p>
+
+    <p>经常会出现考虑了 A、B、C 的三种情况，结果和开发对完以后，你会发现其实还有 D、E。</p>
+
+    <p>类似于删除以后怎么办，如何恢复，如何批量删除后恢复等这些情况，原本需要反复沟通才能理清的复杂链路，借助 AI 可以在几个小时内就跑通验证。</p>
+
+    <img src="https://picsum.photos/800/400?random=1">
+
+    
+
+
+    <h1>组件封装的限制</h1>
+
+    <p>对于一个弹窗而言，四周都存在了padding，所以不要将四周paading区域存在一些内容；理解布局的元素制度规则，不要搞特殊情况；</p>
+
+    <p>要明白padding和margin的区别是什么，避免搞错间距的逻辑；</p>
+
+    <img src="https://picsum.photos/800/400?random=1">
+
+    <h2>要明白组件的Api文档属性</h2>
+
+    <p>我们也可以考虑到组件支持更改哪些内容，通过查看组件下面的api文档，去了解组件在哪些属性上支持调整，避免设计出组件不支持的方案；</p>
+
+    <img src="https://picsum.photos/800/400?random=1">
+
+
+
+
+    <h1>保存相关的逻辑</h1>
+
+    <p>对于一些实时保存的问题，哪些场景适合实时保存，哪些适合点击按钮后保存；</p>
+
+    <h2>实时保存相关内容</h2>
+
+    <p>在用户操作过程中，数据发生变化时自动触发后端保存，无需用户手动操作。其核心作用是避免用户数据丢失，提升操作便利性，减少用户的手动操作成本。</p>
+
+    <h3>1. 文档/内容编辑类场景</h3>
+
+    <p>这类场景中用户会进行长时间的内容编辑，实时保存可以避免因意外（如浏览器崩溃、电脑死机）导致的内容丢失；</p>
+
+    <p>在线文档编辑：如腾讯文档、飞书文档、Google Docs 等，用户在编辑文档时，每输入一段内容或间隔一定时间（如 1-2 分钟），自动将内容保存到后端，确保编辑的内容不会丢失。</p>
+
+    <h3>2. 表单草稿类场景</h3>
+
+    <p>用户在填写长表单时，实时保存草稿可以让用户随时中断填写，下次继续填写，提升用户体验：</p>
+
+    <ul>
+      <li><strong>长表单填写</strong>：如用户注册的详细信息填写、简历填写、申请表单填写等，用户在填写过程中，实时保存已填写的内容，下次打开页面时可以恢复之前的填写进度。</li>
+      <li><strong>分步表单填写</strong>：如多步骤的订单填写、报名表单填写，每完成一个步骤后自动保存该步骤的内容，避免用户在步骤切换时丢失数据。</li>
+    </ul>
+
+    <h3>3. 配置项修改类场景</h3>
+
+    <p>对于简单的、独立的配置项修改，实时保存可以让用户的修改即时生效，无需手动点击保存：</p>
+
+    <ul>
+      <li><strong>开关类配置</strong>：如后台系统的功能开关、通知设置开关、隐私设置开关等，用户点击开关后，实时将开关状态保存到后端，修改即时生效。</li>
+      <li><strong>简单参数配置</strong>：如字体大小设置、主题颜色设置、页面布局设置等，用户修改参数后，实时将配置保存到后端，无需用户手动点击保存。</li>
+      <li><strong>个性化设置</strong>：如用户的个人偏好设置（如语言设置、时区设置），用户修改后实时保存，确保用户下次使用时保持设置的偏好。</li>
+    </ul>
+
+    <h3>4. 聊天 / 消息类场景</h3>
+
+    <p>聊天消息需要实时保存，确保用户发送的消息和接收的消息都能被持久化存储：</p>
+
+    <ul>
+      <li><strong>即时聊天消息</strong>：如微信、QQ、企业微信等聊天工具，用户发送消息后，实时将消息保存到后端，确保消息不会丢失，并且在不同设备上可以同步查看。</li>
+      <li><strong>客服聊天记录</strong>：如在线客服系统，用户和客服的聊天记录实时保存到后端，方便后续查看和追溯。</li>
+    </ul>
+
+    <h3>5. 数据采集类场景</h3>
+
+    <p>对于需要持续采集数据的场景，实时保存可以确保数据的完整性和及时性：</p>
+
+    <ul>
+      <li><strong>实时数据监控</strong>：如物联网设备的实时数据采集（如温度、湿度、设备状态），设备将数据实时上传到后端保存，确保数据的实时性和完整性。</li>
+      <li><strong>用户行为数据采集</strong>：如用户在页面上的点击行为、浏览行为，实时将行为数据保存到后端，用于后续的数据分析。</li>
+    </ul>
+
+    
+    <h2>点击保存相关内容</h2>
+
+    <p>点击按钮保存适合用于需要用户确认修改、涉及重要业务操作、或者数据修改需要经过审核的场景：</p>
+
+    <h3>1. 重要业务操作类场景</h3>
+
+    <p>涉及重要业务逻辑的操作，需要用户明确确认后再保存，避免误操作导致的业务问题：</p>
+
+    <ul>
+      <li><strong>订单提交</strong>：如电商平台的订单提交、外卖订单提交，用户确认订单信息后，点击 “提交订单” 按钮，才将订单信息保存到后端，触发后续的订单处理流程。</li>
+      <li><strong>支付操作</strong>：如在线支付、充值操作，用户确认支付金额和支付方式后，点击 “支付” 按钮，才将支付请求提交到后端，完成支付流程。</li>
+      <li><strong>数据删除操作</strong>：如删除用户信息、删除订单、删除文章等，用户点击 “删除” 按钮并确认后，才将删除请求提交到后端，执行删除操作。</li>
+    </ul>
+
+    <h3>2. 复杂表单提交类场景</h3>
+
+    <p>对于复杂的、需要用户确认所有内容的表单，点击按钮保存可以让用户在确认所有内容无误后再提交：</p>
+
+    <ul>
+      <li><strong>复杂业务表单</strong>：如企业的采购表单、项目申报表单、合同填写表单等，用户填写完所有内容后，点击 “提交” 按钮，才将表单内容保存到后端，确保内容无误。</li>
+      <li><strong>多字段关联表单</strong>：如表单中的字段之间有复杂的关联关系，用户需要确认所有字段的内容都正确后，点击保存按钮提交，避免部分字段填写错误导致的数据问题。</li>
+    </ul>
+
+    <h3>3. 权限敏感类操作场景</h3>
+
+    <p>涉及权限修改、敏感数据修改的操作，需要用户明确确认后再保存，确保操作的安全性：</p>
+
+    <ul>
+      <li><strong>权限修改</strong>：如后台管理系统的用户权限修改、角色权限修改，管理员修改权限后，点击 “保存” 按钮，才将权限修改保存到后端，避免误修改权限导致的安全问题。</li>
+      <li><strong>敏感数据修改</strong>：如用户的密码修改、银行卡信息修改、身份证信息修改等，用户确认修改的内容后，点击 “保存” 按钮，才将修改的敏感数据保存到后端，确保数据的安全性。</li>
+      <li><strong>系统配置修改</strong>：如服务器配置修改、数据库配置修改等重要系统配置，管理员修改后，点击 “保存” 按钮并确认，才将配置修改保存到后端，避免误修改导致系统故障。</li>
+    </ul>
+
+    <h3>4. 需确认的操作类场景</h3>
+
+    <p>对于需要用户明确确认的操作，点击按钮保存可以让用户有明确的操作感知，避免误操作：</p>
+
+    <ul>
+      <li><strong>内容发布</strong>：如文章发布、产品发布、活动发布等，用户编辑完内容后，点击 “发布” 按钮，才将内容保存到后端并发布，确保用户确认内容无误后再发布。</li>
+      <li><strong>数据修改确认</strong>：如修改重要的业务数据（如订单金额、用户等级），用户修改后需要点击 “确认修改” 按钮，才将修改的数据保存到后端，避免误修改。</li>
+    </ul>
+
+    <h3>5. 批量操作类场景</h3>
+
+    <p>对于批量操作的数据，点击按钮保存可以让用户确认批量操作的内容后再提交，避免批量操作错误：</p>
+
+    <ul>
+      <li><strong>批量数据导入</strong>：如批量导入用户信息、批量导入商品信息，用户上传导入文件并确认导入内容后，点击 “开始导入” 按钮，才将数据批量保存到后端。</li>
+      <li><strong>批量数据修改</strong>：如批量修改商品价格、批量修改用户状态，用户选择需要修改的数据并设置修改内容后，点击 “批量修改” 按钮，才将修改内容保存到后端。</li>
+    </ul>
+
+
+
+
+    <h1>前后端校验逻辑</h1>
+
+    <p>对于后端校验，和前端校验方面的思考；如果是纯前端校验，可以请求的比较频繁一点，如果是后端校验，则最好放在点击提交按钮时校验；</p>
+
+
+    <h2>前端校验</h2>
+
+    <p>在用户输入数据时即时反馈错误，减少无效的请求发送；</p>
+
+    <h3>1. 格式类校验</h3>
+
+    <p>用于验证用户输入的数据是否符合指定的格式要求，这类校验可以在前端即时完成，避免用户提交错误格式的数据：</p>
+
+    <ul>
+      <li><strong>手机号格式校验</strong>：验证输入的手机号是否符合 11 位数字的格式，以及是否符合手机号的号段规则。</li>
+      <li><strong>邮箱格式校验</strong>：验证输入的邮箱是否包含 <code>@</code> 符号，以及 <code>@</code> 前后的内容是否符合邮箱格式规范。</li>
+      <li><strong>身份证号格式校验</strong>：验证身份证号的位数（18 位）、最后一位的校验码是否正确（仅格式层面，合法性需后端校验）。</li>
+      <li><strong>银行卡号格式校验</strong>：通过 Luhn 算法验证银行卡号的格式是否正确。</li>
+      <li><strong>日期格式校验</strong>：验证输入的日期是否符合 <code>YYYY-MM-DD</code>、<code>YYYY/MM/DD</code> 等指定格式。</li>
+    </ul>
+
+    <p>（这里可以放几张真实的截图）</p>
+
+    <h3>2. 必填项校验</h3>
+
+    <p>验证表单中的必填字段是否已填写，在用户提交表单前即时提示未填写的字段：</p>
+
+    <ul>
+      <li>用户注册表单中的用户名、手机号、密码字段。</li>
+      <li>订单提交表单中的收货地址、联系方式字段。</li>
+      <li>反馈表单中的内容、联系方式字段。</li>
+    </ul>
+
+    <p>（这里放一下表单校验的提醒）</p>
+
+    <h3>3. 即时反馈类校验</h3>
+
+    <p>在用户输入过程中即时反馈错误，提升用户体验：</p>
+
+    <ul>
+      <li><strong>密码强度校验</strong>：实时检测用户输入的密码是否符合复杂度要求（如包含大小写字母、数字、特殊字符，长度不少于 8 位），并给出强度提示。</li>
+      <li><strong>输入长度校验</strong>：验证输入的内容是否在指定的长度范围内，比如用户名长度限制为 2-20 位，输入时即时提示超出长度的错误。</li>
+      <li><strong>实时格式提示</strong>：在用户输入手机号、邮箱时，即时提示格式错误，比如输入手机号时输入了非数字字符，立即提示 “请输入正确的手机号”。</li>
+    </ul>
+
+    <h3>4. 简单逻辑校验</h3>
+
+    <p>处理无需依赖服务器数据的简单逻辑验证：</p>
+
+    <ul>
+      <li><strong>密码一致性校验</strong>：验证 “密码” 和 “确认密码” 字段的内容是否一致，在用户输入时即时提示是否匹配。</li>
+      <li><strong>数值范围校验</strong>：验证输入的数值是否在指定范围内，比如年龄输入框限制为 1-120 岁，输入超出范围的数值时即时提示。</li>
+      <li><strong>单选 / 复选框校验</strong>：验证是否选择了指定的选项，比如注册时是否同意用户协议。</li>
+    </ul>
+
+    <h3>5. 防重复提交的前端处理</h3>
+
+    <p>在用户提交表单时，临时防止重复请求：</p>
+
+    <ul>
+      <li><strong>按钮禁用</strong>：点击提交按钮后，禁用按钮，防止用户重复点击提交，适用于简单的表单提交场景。</li>
+      <li><strong>请求锁定</strong>：在请求发送过程中，锁定提交操作，直到请求完成（成功或失败）后解锁。</li>
+    </ul>
+
+
+    
+    <h2>后端校验</h2>
+
+    <p>用于验证数据的合法性、安全性和业务逻辑的正确性；</p>
+
+    <h3>1. 数据合法性与唯一性校验</h3>
+
+    <p>需要访问数据库或服务器资源的校验，确保数据的合法性和唯一性：</p>
+
+    <ul>
+      <li><strong>用户名 / 手机号 / 邮箱唯一性校验</strong>：验证用户注册的用户名、手机号、邮箱是否已被注册，需要查询数据库确认。</li>
+      <li><strong>身份证号合法性校验</strong>：验证身份证号的真实性，需要查询公安系统的接口或数据库确认。</li>
+      <li><strong>邀请码 / 优惠券合法性校验</strong>：验证用户输入的邀请码、优惠券是否有效，是否已过期，需要查询服务器数据库确认。</li>
+    </ul>
+
+    <h3>2. 业务逻辑校验</h3>
+
+    <p>与业务规则相关的校验，确保数据符合业务逻辑：</p>
+
+    <ul>
+      <li><strong>订单库存校验</strong>：提交订单时，验证商品的库存是否充足，需要查询数据库中的库存数据，防止超卖。</li>
+      <li><strong>支付金额校验</strong>：支付时，验证支付金额是否与订单金额一致，防止恶意篡改支付金额。</li>
+      <li><strong>订单状态校验</strong>：验证订单的状态是否允许进行当前操作，比如已完成的订单不允许再次支付。</li>
+      <li><strong>业务规则校验</strong>：比如订单金额必须大于库存成本，组合多个字段的业务规则校验（如活动参与的资格校验，需要验证用户的等级、消费记录等）。</li>
+    </ul>
+
+    <h3>3. 权限与安全校验</h3>
+
+    <p>验证用户的操作权限和数据安全：</p>
+
+    <ul>
+      <li><strong>用户权限校验</strong>：验证用户是否有执行当前操作的权限，比如只有管理员才能删除用户，普通用户无法访问后台管理页面。</li>
+      <li><strong>数据归属校验</strong>：验证用户是否有权限操作当前数据，比如用户只能修改自己的订单，无法修改他人的订单。</li>
+      <li><strong>防恶意提交校验</strong>：验证请求是否为恶意提交，比如通过 Token 校验、签名校验等方式，防止绕过前端的恶意请求。</li>
+      <li><strong>数据安全校验</strong>：验证提交的数据是否包含恶意内容（如 <code>SQL</code> 注入、<code>XSS</code> 攻击代码），防止恶意攻击。</li>
+    </ul>
+
+    <h3>4. 数据完整性校验</h3>
+
+    <p>确保提交的数据完整、符合接口要求：</p>
+
+    <ul>
+      <li><strong>必填字段校验</strong>：再次验证表单的必填字段是否存在，防止前端校验被绕过，比如恶意请求中缺失必填字段。</li>
+      <li><strong>数据格式二次校验</strong>：再次验证数据的格式是否正确，比如前端校验被绕过，提交了错误格式的手机号、邮箱。</li>
+      <li><strong>数据类型校验</strong>：验证提交的数据类型是否正确，比如接口要求接收数字类型的金额，防止提交字符串类型的数据。</li>
+    </ul>
+
+    <h3>5. 第三方依赖校验</h3>
+
+    <p>需要调用第三方接口的校验：</p>
+
+    <ul>
+      <li><strong>手机号验证码校验</strong>：验证用户输入的手机号验证码是否正确，需要调用短信服务商的接口确认。</li>
+      <li><strong>地址合法性校验</strong>：验证用户输入的收货地址是否合法，需要调用地图服务商的接口确认地址的真实性。</li>
+      <li><strong>支付结果校验</strong>：支付完成后，验证支付结果的真实性，需要调用支付服务商的接口确认。</li>
+    </ul>
+    
+    
+    
+    
+    
+    <h1>对于实时搜索和按回车（按钮）搜索的区别</h1>
+
+    <p>实时搜索需要增加一个防抖，也就是当用户未输入时过了300ms后开始执行；</p>
+
+    <p>核心结论：多数场景建议加防抖，少数极简场景可省略，移动端输入框的实时校验是否加防抖，取决于校验逻辑的复杂度，具体分析如下：</p>
+    
+    
+    <h2>移动端实时校验的防抖</h2>
+
+    <h3>1. 为什么多数场景需要加防抖？</h3>
+
+    <p>移动端输入的特性（比如拼音联想输入、手写输入、连续快速打字）会导致 <code>input</code> 事件<strong>高频触发</strong>（比如输入一个手机号会触发 11 次事件），如果直接在 <code>input</code> 事件里做实时校验：</p>
+
+    <ul>
+      <li>若校验涉及<strong>后端接口请求</strong>（比如校验手机号是否已注册）：高频请求会浪费服务器资源，甚至触发接口限流，还可能导致网络请求堆积，影响页面响应；</li>
+      <li>若校验涉及<strong>前端复杂计算</strong>（比如密码强度评分、正则多层匹配）：高频计算会增加手机 CPU 消耗，导致页面卡顿、输入不流畅；</li>
+      <li>无效校验多：比如用户输入手机号时，“138”“1380” 等中间状态的校验无意义，只有用户输入暂停后（比如输完 11 位）的校验才有效。</li>
+    </ul>
+
+    <h3>2. 什么场景可以不加防抖？</h3>
+
+    <p>仅当校验是<strong>纯前端极简逻辑</strong>（无接口、无复杂计算）时，可省略防抖，比如：</p>
+
+    <ul>
+      <li>校验输入是否为空；</li>
+      <li>校验输入字符长度是否超过限制（如最多 10 位）；</li>
+      <li>仅校验是否包含数字 / 字母（简单正则）；</li>
+      <li>仅改变输入框样式（如边框颜色）提示格式问题。</li>
+    </ul>
+
+    <h3>3. 移动端防抖的实用实现示例</h3>
+
+    <p>防抖的核心是：延迟执行校验逻辑，若在延迟时间内再次触发输入，则重置延迟，直到用户输入暂停后再执行。推荐移动端防抖延迟设为 <code>300~500ms</code>（兼顾体验和性能）。</p>
+    
+
+
+</div>
+
+
+
+
+
+  <!-- 页脚 -->
+  <footer class="footer">
+    <div class="container">
+      <p>&copy; Designed and developed by zhu peng.</p>
+        <p>&copy; Copyright © 2022-2025 www.pigpeng.cn. All Rights Reserved.</p>
+    </div>
+  </footer>
+
+
+  <script src="js/main.js"></script>
+</body>
+</html>
