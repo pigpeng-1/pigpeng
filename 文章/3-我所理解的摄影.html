@@ -1,0 +1,261 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>pigpeng</title>
+  <link rel="stylesheet" href="../css/style.css">
+  <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/font-awesome@4.7.0/css/font-awesome.min.css">
+
+  <style>
+    .nav-links a {
+      color: rgba(0, 0, 0, 0.65);
+      text-decoration: none;
+      font-size: 16px;
+      font-weight: 400;
+      position: relative;
+      padding: 8px 0;
+      transition: color 0.3s;
+    }
+
+    .nav-links a::after {
+      content: '';
+      position: absolute;
+      bottom: 0;
+      left: 0;
+      width: 0;
+      height: 1px;
+      background-color: #000000;
+      transition: width 0.3s ease;
+    }
+
+    .nav-links a.active {
+      color: #000000;
+      font-weight: 500;
+    }
+
+    .nav-links a.active::after {
+      width: 100%;
+    }
+
+    .nav-links a:hover::after {
+      width: 100%;
+    }
+
+    .nav-links a:hover {
+      color: #1f1f1f;
+    }
+
+    body {
+      background-color: #ffffff;
+      color: #222;
+      font-weight: 400;
+    }
+
+    .frame-1 {
+      position: relative;
+      width: 1280px;
+      margin: 0 auto;
+      min-height: 400px;
+      background: #ffffff;
+    }
+
+    .image {
+      width: 1280px;
+      height: auto;
+      display: block;
+      margin: 120px auto;
+    }
+
+    .frame-2 {
+      max-width: 1000px;
+      margin: 20px auto;
+      padding: 0;
+    }
+
+    .frame-3 {
+      width: 100%;
+      max-width: 1000px;
+      margin: 0;
+      gap: 16px;
+      padding: 240px 0 0 0;
+    }
+
+    .text-wrapper {
+      font-size: 48px;
+      width: 100%;
+      line-height: 150%;
+      font-weight: 600;
+      color: #333;
+      margin-bottom: -10px;
+    }
+
+    .element {
+      font-size: 14px;
+      color: #666;
+      font-weight: 300;
+      max-width: 1280px;
+      margin: 0;
+    }
+
+    .element-2 {
+      font-size: 18px;
+      color: #555;
+      font-weight: 300;
+      max-width: 1280px;
+      margin: 0;
+    }
+
+    .footer {
+      padding-top: 80px;
+      padding-right: 0;
+      padding-bottom: 60px;
+      padding-left: 0;
+      background-color: #ffffff;
+      color: #333;
+      text-align: center;
+    }
+
+    .footer p {
+      font-size: 12px;
+      line-height: 200%;
+    }
+
+    .blog-content {
+      max-width: 800px;
+      margin: 160px auto;
+      padding: 0;
+      line-height: 1.8;
+      font-size: 16px;
+    }
+
+    .blog-content h1 {
+      font-size: 28px;
+      color: #333;
+      margin: 120px 0 24px 0;
+      line-height: 1.3;
+      font-weight: 500;
+      border-bottom: 1px solid #eee;
+      padding-bottom: 10px;
+    }
+
+    .blog-content h2 {
+      font-size: 22px;
+      color: #333;
+      margin: 48px 0 24px 0;
+      font-weight: 400;
+      position: relative;
+      padding-left: 0;
+    }
+
+    .blog-content p {
+      margin: 0 0 24px 0;
+      font-weight: 300;
+      text-align: justify;
+    }
+
+    .blog-content ul {
+      margin: 0 0 18px 30px;
+      padding-left: 10px;
+    }
+
+    .blog-content li {
+      margin: 0 0 8px 0;
+    }
+
+    .blog-content blockquote {
+      border-left: 4px solid #4285f4;
+      padding: 10px 15px;
+      background-color: #f9f9f9;
+      margin: 20px 0;
+      color: #666;
+    }
+
+    @media (max-width: 768px) {
+      .blog-content {
+        padding: 20px 15px;
+        font-size: 15px;
+      }
+
+      .blog-content h1 {
+        font-size: 24px;
+      }
+
+      .blog-content h2 {
+        font-size: 20px;
+      }
+    }
+  </style>
+</head>
+<body>
+
+  <nav class="navbar">
+    <a href="../index.html" class="logo">
+      <img src="../images/logo.png" alt="pigpeng" class="logo-img">
+    </a>
+    <div class="nav-links">
+      <a href="../index.html">主页</a>
+      <a href="../projects.html">项目</a>
+      <a href="../article.html" class="active">文章</a>
+      <a href="../photography.html">定格</a>
+      <a href="../black.html">黑洞</a>
+    </div>
+  </nav>
+
+  <div class="frame-2">
+    <div class="frame-3">
+      <div class="element">5 min read - 2026年03月01日</div>
+      <div class="text-wrapper">我所理解的摄影</div>
+      <div class="element-2">摄影不是按下快门，而是决定“为什么按下快门”</div>
+    </div>
+  </div>
+
+  <div class="frame-1">
+    <img class="image" src="../images/projects/项目封面.png" alt="摄影" />
+  </div>
+
+  <div class="blog-content">
+    <h1>先有感受，再有技术</h1>
+    <p>我曾经以为摄影是一个器材问题：镜头够不够好，画质够不够细，动态范围够不够大。后来才慢慢发现，器材只能决定你能拍到多清楚，不能决定你拍得是否动人。真正让照片成立的，是你看见了什么，以及你为什么想把那一刻留下来。</p>
+    <p>摄影在我这里，更像一种观察方式。它逼着我放慢一点，认真看光线怎么落在一个人脸上，看风从树梢经过时画面怎么变化，看一段普通的日常如何在某个角度里突然有了情绪。很多时候，照片不是“记录一个事件”，而是“确认一种感受”。</p>
+
+    <h2>我理解的好照片</h2>
+    <p>好照片不一定完美，但一定诚实。所谓诚实，不是指它毫无修饰，而是它没有伪装。你看这张照片时，能感觉到拍摄者当下的心跳：是平静、是兴奋、是迟疑，还是一种说不出的留恋。技术能让照片合格，表达才能让照片被记住。</p>
+    <p>因此我会用一个很简单的标准判断自己的片子：如果去掉参数和后期说明，它还能不能成立？如果答案是可以，那这张照片大概率是有生命力的。</p>
+
+    <h2>关于构图，我更在意“关系”</h2>
+    <p>很多摄影教程会从三分法、引导线、黄金分割开始，这些都重要，但我越来越觉得，构图的本质是处理关系：主体和环境的关系，前景和背景的关系，人物和人物之间的关系，甚至“画内”和“画外”的关系。</p>
+    <p>当这些关系清晰时，照片会有一种自然的秩序感。观者会知道应该先看哪里，再看哪里，最后停在哪里。构图不是为了好看而摆放元素，而是为了让叙事更顺畅。</p>
+
+    <h2>光线是摄影的语言</h2>
+    <p>同一个场景，在不同光线下会有完全不同的语气。正午的光直白、锋利，黄昏的光柔和、克制，阴天的光平静、包容。理解光线，某种意义上就是理解“照片要说话的方式”。</p>
+    <p>我不再执着于“什么时间最适合拍照”，而是先问自己：我想让这张照片说出什么情绪？如果是热烈，我会拥抱硬光和强对比；如果是安静，我会等待更柔的光和更少的干扰。光线不是条件，它是表达的一部分。</p>
+
+    <h2>摄影和生活的距离</h2>
+    <p>有一段时间我总想拍“大场面”，结果是错过了真正属于自己的内容。后来我开始拍身边：朋友吃饭前的停顿，地铁里一个疲惫的背影，周末傍晚阳台上的植物。那些看起来“普通”的瞬间，反而最能构成个人的时间线。</p>
+    <blockquote>摄影最珍贵的，不是你见过多宏大的世界，而是你有没有认真地看过自己的生活。</blockquote>
+    <p>当我接受这一点之后，拍照变得轻松很多。不再为了“出片”而拍，而是为了把真实的感受留下来。照片开始不完美，但更像我自己。</p>
+
+    <h2>我的拍摄习惯</h2>
+    <ul>
+      <li>先看，再举相机：先观察 10 秒，再决定是否拍摄。</li>
+      <li>每次只给自己一个主题：比如“等待”“距离”“回头看”。</li>
+      <li>少按快门，多复盘：拍完挑 10 张，写下每张成立或失败的原因。</li>
+      <li>尽量在同一地点反复拍：训练自己从熟悉中发现变化。</li>
+    </ul>
+
+    <h1>最后</h1>
+    <p>我所理解的摄影，不是生产图像，而是建立连接：与世界连接，与他人连接，也与自己连接。每一次按下快门，都是在回答一个问题：这一刻，为什么值得被留下？</p>
+    <p>如果未来回看这些照片，我希望它们不仅证明“我去过哪里”，更能证明“我当时如何看待这个世界”。这大概就是我继续拍下去的理由。</p>
+  </div>
+
+  <footer class="footer">
+    <div class="container">
+      <p>&copy; Designed and developed by zhu peng.</p>
+      <p>&copy; Copyright © 2022-2025 www.pigpeng.cn. All Rights Reserved.</p>
+    </div>
+  </footer>
+
+  <script src="../js/main.js"></script>
+</body>
+</html>

@@ -99,52 +99,126 @@ tabItems.forEach(item => {
 
 
 
-// 图片点击效果
-// 点击放大功能（左右布局：左侧图片，右侧信息）
-    const modal = document.getElementById('imgModal');
-    const modalImg = document.getElementById('modalImg');
-    const closeBtn = document.getElementById('closeBtn');
-    const photoCards = document.querySelectorAll('.photo-card');
-    
-    // 右侧信息元素
-    const photoLocation = document.getElementById('photoLocation');
-    const photoTitle = document.getElementById('photoTitle');
-    const photoCamera = document.getElementById('photoCamera');
-    const photoDesc = document.getElementById('photoDesc');
+// 摄影页面：分批加载（Load More）
+function initPhotographyProgressiveLoad() {
+  const gallery = document.querySelector('.photo-gallery');
+  const loadMoreBtn = document.getElementById('photoLoadMore');
+  const loadingSkeleton = document.getElementById('photoLoadingSkeleton');
+  if (!gallery || !loadMoreBtn || !loadingSkeleton) return;
+  gallery.style.visibility = 'hidden';
 
-    photoCards.forEach(card => {
-      card.addEventListener('click', () => {
-        // 读取图片数据
-        const imgSrc = card.getAttribute('data-img');
-        const location = card.getAttribute('data-location') || '';
-        const title = card.getAttribute('data-title') || card.querySelector('.photo-title')?.textContent || '';
-        const camera = card.getAttribute('data-camera') || '';
-        const desc = card.getAttribute('data-desc') || '';
-        
-        // 设置图片
-        modalImg.src = imgSrc;
-        modalImg.alt = title;
-        
-        // 设置右侧信息
-        photoLocation.textContent = location;
-        photoTitle.textContent = title;
-        photoCamera.textContent = camera;
-        photoDesc.textContent = desc;
-        
-        // 显示 modal
-        modal.style.display = 'flex';
-      });
-    });
+  const pageSize = 12;
+  const allCards = Array.from(gallery.querySelectorAll('.photo-card'));
+  let renderedCount = 0;
+  let isRendering = false;
+  let hasMore = true;
 
-    // 关闭逻辑（点击×/遮罩/ESC）
-    closeBtn.addEventListener('click', () => modal.style.display = 'none');
-    modal.addEventListener('click', (e) => {
-      // 只允许点击遮罩背景关闭，不能点击内容区域关闭
-      if (e.target === modal) {
-        modal.style.display = 'none';
+  allCards.forEach(card => {
+    const img = card.querySelector('.photo-img');
+    if (img) {
+      const src = img.getAttribute('src');
+      if (src) {
+        img.setAttribute('data-src', src);
+        img.removeAttribute('src');
       }
-    });
-    document.addEventListener('keydown', (e) => e.key === 'Escape' && (modal.style.display = 'none'));
+      img.setAttribute('loading', 'lazy');
+      img.setAttribute('decoding', 'async');
+    }
+  });
+
+  function setLoading(loading) {
+    loadMoreBtn.disabled = loading;
+    loadMoreBtn.textContent = loading ? 'Loading...' : 'Load More';
+    loadingSkeleton.classList.toggle('active', loading);
+  }
+
+  function hydrateCard(card) {
+    const img = card.querySelector('.photo-img');
+    if (img && !img.getAttribute('src')) {
+      const realSrc = img.getAttribute('data-src');
+      if (realSrc) {
+        img.setAttribute('src', realSrc);
+      }
+    }
+  }
+
+  async function renderNextBatch() {
+    if (isRendering || !hasMore) return hasMore;
+    isRendering = true;
+    setLoading(true);
+    try {
+      const next = allCards.slice(renderedCount, renderedCount + pageSize);
+      const fragment = document.createDocumentFragment();
+      for (const card of next) {
+        hydrateCard(card);
+        fragment.appendChild(card);
+      }
+      gallery.appendChild(fragment);
+      renderedCount += next.length;
+      hasMore = renderedCount < allCards.length;
+      return next.length > 0;
+    } finally {
+      setLoading(false);
+      isRendering = false;
+    }
+  }
+
+  gallery.innerHTML = '';
+  renderNextBatch().then(() => {
+    if (!hasMore) {
+      loadMoreBtn.disabled = true;
+      loadMoreBtn.textContent = 'No more photos';
+    }
+  });
+
+  loadMoreBtn.addEventListener('click', async () => {
+    const more = await renderNextBatch();
+    if (!more || !hasMore) {
+      loadMoreBtn.disabled = true;
+      loadMoreBtn.textContent = 'No more photos';
+    }
+  });
+
+  gallery.style.visibility = 'visible';
+}
+
+initPhotographyProgressiveLoad();
+
+// 图片点击效果（事件委托，支持动态渲染的卡片）
+const modal = document.getElementById('imgModal');
+const modalImg = document.getElementById('modalImg');
+const closeBtn = document.getElementById('closeBtn');
+const photoLocation = document.getElementById('photoLocation');
+const photoTitle = document.getElementById('photoTitle');
+const photoCamera = document.getElementById('photoCamera');
+const photoDesc = document.getElementById('photoDesc');
+
+if (modal && modalImg && closeBtn) {
+  document.addEventListener('click', (e) => {
+    const card = e.target.closest('.photo-card');
+    if (!card) return;
+
+    const imgSrc = card.getAttribute('data-img') || card.querySelector('.photo-img')?.getAttribute('src') || '';
+    const location = card.getAttribute('data-location') || '';
+    const title = card.getAttribute('data-title') || card.querySelector('.photo-title')?.textContent || '';
+    const camera = card.getAttribute('data-camera') || '';
+    const desc = card.getAttribute('data-desc') || '';
+
+    modalImg.src = imgSrc;
+    modalImg.alt = title;
+    photoLocation.textContent = location;
+    photoTitle.textContent = title;
+    photoCamera.textContent = camera;
+    photoDesc.textContent = desc;
+    modal.style.display = 'flex';
+  });
+
+  closeBtn.addEventListener('click', () => modal.style.display = 'none');
+  modal.addEventListener('click', (e) => {
+    if (e.target === modal) modal.style.display = 'none';
+  });
+  document.addEventListener('keydown', (e) => e.key === 'Escape' && (modal.style.display = 'none'));
+}
   
   
 
