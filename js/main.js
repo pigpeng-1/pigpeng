@@ -31,42 +31,16 @@ document.querySelectorAll('a[href^="#"]').forEach(anchor => {
 
 // 使用 DOMContentLoaded 而不是 load，更早执行，减少闪烁
 document.addEventListener('DOMContentLoaded', function() {
-  // 注意：动画样式已预先定义在CSS文件中，避免页面加载时的闪烁问题
-  
-  // 递归获取body下所有需要动画的元素（适配嵌套结构）
-  function getAnimateElements(el) {
-    let elements = [];
-    Array.from(el.children).forEach(child => {
-      const tag = child.tagName.toLowerCase();
-      // 关键改动1：排除导航栏元素（通过类名.navbar判断）
-      if (child.classList.contains('navbar')) {
-        return; // 跳过导航栏，不加入动画元素列表
-      }
-      // 排除不需要动画的标签
-      if (!['script', 'style', 'link', 'meta', 'title'].includes(tag)) {
-        elements.push(child);
-        // 递归获取子元素（解决嵌套问题）
-        elements = elements.concat(getAnimateElements(child));
-      }
-    });
-    return elements;
-  }
+  // 仅对关键区块做入场动画，避免递归扫描整个 DOM 带来的性能开销
+  const animateElements = Array.from(document.querySelectorAll(
+    '.frame-6, .section-title-container, .project-container, .project-container-3col, .index-article-list, .interest-cards-module, .article1-cards-module, .footer'
+  ));
+  if (animateElements.length === 0) return;
 
-  // 获取所有需要动画的元素
-  const animateElements = getAnimateElements(document.body);
-
-  // 先给所有元素添加 animate-element 类（立即隐藏，避免闪烁）
-  animateElements.forEach(el => {
-    el.classList.add('animate-element');
-  });
-
-  // 然后逐步显示元素（避免一次性渲染）
-  // 使用 requestAnimationFrame 确保在下一帧执行，让初始隐藏状态生效
+  animateElements.forEach(el => el.classList.add('animate-element'));
   requestAnimationFrame(() => {
     animateElements.forEach((el, index) => {
-      setTimeout(() => {
-        el.classList.add('show');
-      }, index * 20); // 缩短间隔，动画更流畅
+      setTimeout(() => el.classList.add('show'), index * 60);
     });
   });
 });
