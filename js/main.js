@@ -37,10 +37,29 @@ document.addEventListener('DOMContentLoaded', function() {
   ));
   if (animateElements.length === 0) return;
 
-  animateElements.forEach(el => el.classList.add('animate-element'));
+  // 首屏内容直接显示，避免“页面要等加载完才出现”的体感
+  const firstScreenThreshold = window.innerHeight * 1.1;
+  const aboveFold = [];
+  const belowFold = [];
+
+  animateElements.forEach(el => {
+    const rect = el.getBoundingClientRect();
+    if (rect.top < firstScreenThreshold) {
+      aboveFold.push(el);
+    } else {
+      belowFold.push(el);
+    }
+  });
+
+  aboveFold.forEach(el => {
+    el.classList.add('show');
+  });
+
+  // 仅对首屏外元素添加淡入动画
+  belowFold.forEach(el => el.classList.add('animate-element'));
   requestAnimationFrame(() => {
-    animateElements.forEach((el, index) => {
-      setTimeout(() => el.classList.add('show'), index * 60);
+    belowFold.forEach((el, index) => {
+      setTimeout(() => el.classList.add('show'), index * 50);
     });
   });
 });
