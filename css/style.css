@@ -1193,7 +1193,7 @@ body {
   margin-bottom: 24px;
 }
 .black-img img {
-  width: 140px; /* 保持原图片宽度 */
+  width: 160px; /* 保持原图片宽度 */
   height: auto;
   border: none;
   padding-left: 0; /* 移除左侧百分比 padding */
