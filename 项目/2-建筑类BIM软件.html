@@ -53,7 +53,7 @@
 
     body {
     background-color: #ffffff; /* 背景 */
-    color: #222; /* 全局默认文字白色，确保可读性 */
+    color: #333; /* 全局默认文字白色，确保可读性 */
     font-weight: 400;
     }
 
@@ -107,7 +107,7 @@
     font-size: 14px;
     color: #666; /* 浅灰文字，黑色背景下可读性强 */
     font-weight: 300;
-    max-width: 1360px; /* 限制文字宽度，避免换行太丑 */
+    max-width: 1280px; /* 限制文字宽度，避免换行太丑 */
     margin: 0 0 0 0;
     }
 
@@ -115,7 +115,7 @@
     font-size: 18px;
     color: #555; /* 浅灰文字，黑色背景下可读性强 */
     font-weight: 300;
-    max-width: 1360px; /* 限制文字宽度，避免换行太丑 */
+    max-width: 1280px; /* 限制文字宽度，避免换行太丑 */
     margin: 0 0 0 0;
     }
 
@@ -127,7 +127,8 @@
     padding-bottom: 60px;
     padding-left: 0px;
     background-color: #ffffff;
-    color: #333;
+    color: #666;
+    font-weight: 300;
     text-align: center;
     }
     .footer p {
@@ -140,7 +141,7 @@
     .blog-content {
         max-width: 800px; /* 最优阅读宽度 */
         margin: 160px auto;   /* 居中显示 */
-        padding: 0;
+        padding: 36;
         line-height: 1.8; /* 舒适的行高 */
         font-size: 16px;
     }
@@ -158,9 +159,9 @@
 
     /* 二级标题 */
     .blog-content h2 {
-        font-size: 22px;
-        color: #333;
-        margin: 48px 0 24px 0;
+        font-size: 26px;
+        color: #222;
+        margin: 120px 0 24px 0;
         font-weight: 400;
         position: relative;
         padding-left: 0px;
@@ -176,7 +177,7 @@
 
     /* 正文段落 */
     .blog-content p {
-        margin: 0 0 24px 0;
+        margin: 0 0 12px 0;
         font-weight: 300;
         text-align: justify; /* 两端对齐，提升阅读体验 */
     }
@@ -276,12 +277,12 @@
   <!-- 右上角导航栏（5个菜单+选中下划线） -->
   <nav class="navbar">
     <a href="../index.html" class="logo">
-  <img src="../images/logo.png" alt="pigpeng" class="logo-img">
+  <img src="../images/logo.png" alt="pigpeng" class="logo-img" decoding="async" fetchpriority="high">
 </a>
     <div class="nav-links">
       <a href="../index.html">主页</a>
-      <a href="../projects.html">项目</a>
-      <a href="../article.html"class="active">文章</a>
+      <a href="../projects.html"class="active">项目</a>
+      <a href="../article.html">文章</a>
       <a href="../photography.html">定格</a>
       <a href="../black.html">黑洞</a>
     </div>
@@ -293,80 +294,39 @@
   <div class="frame-2">
     <div class="frame-3">
         <div class="element">
-        5 min read - 2022年
+            2 min read - 2023年9月～2024年1月
         </div>
-        <div class="text-wrapper">迭代改如何有条不紊的进行着</div>
+        <div class="text-wrapper">建筑类BIM软件</div>
         <div class="element-2">
-        一款精美的软件离不开持续的迭代，记录一下在我待过的第二家公司中的整体验收流程
+            在这里短暂的4个月内，我所做的事情，主要分为规范以及一些基础页面的设计；
         </div>
     </div>
   </div>
 
 
-  <!-- 顶部封面 -->
-  <div class="frame-1">
-    <img class="image" src="https://pigpeng-web.oss-cn-hangzhou.aliyuncs.com/images/article/%E9%AA%8C%E6%94%B6%E5%B7%A5%E4%BD%9C/%E5%B0%81%E9%9D%A2.png" alt="项目" />
-  </div>
 
+ <!-- 顶部封面 -->
+ <div class="frame-1">
+    <img class="image" src="https://pigpeng-web.oss-cn-hangzhou.aliyuncs.com/images/projects/%E6%9C%89%E8%B6%A3%E7%9A%84%E5%B0%9D%E8%AF%95/%E6%8B%8D%E7%85%A7%E5%B0%9D%E8%AF%95%E4%B8%AD.png" alt="脑洞大开"  decoding="async" fetchpriority="high">
+  </div>
 
 
 
 <!-- 仅博客正文容器 -->
 <div class="blog-content">
 
-    <h1>步骤1</h1>
+    <h1>人物形象照</h1>
+    <p>当时想在网站放每个位同事的照片，分为两张，当鼠标切换上去时则自动变成另外一张活泼生动的照片；</p>     
+
+    <img src="https://pigpeng-web.oss-cn-hangzhou.aliyuncs.com/images/projects/%E4%BA%BA%E7%89%A9%E5%BD%A2%E8%B1%A1%E7%85%A7.png" decoding="async" loading="lazy">
+
+
     
-    <p>测试提前将测试环境及对应的账号弄好（此账号已开通对应的角色，支持不同的功能模块），并通过邮件发送给验收的产品及设计；</p>
-
-    <p>如地址：www.test.com  账号：admin 123456  角色：组织者</p>
-
-    <img src="https://pigpeng-web.oss-cn-hangzhou.aliyuncs.com/images/article/%E9%AA%8C%E6%94%B6%E5%B7%A5%E4%BD%9C/%E6%B5%8B%E8%AF%95%E9%82%AE%E4%BB%B6%E6%95%B4%E7%90%86.png">
-
-
-    <h1>步骤2</h1>
-    
-    <p>产品建立好对应的文档，并按照页面功能模块进行标题的划分，此处可以参考需求的文章结构；</p>
-
-    <img src="https://pigpeng-web.oss-cn-hangzhou.aliyuncs.com/images/article/%E9%AA%8C%E6%94%B6%E5%B7%A5%E4%BD%9C/%E9%AA%8C%E6%94%B6%E6%8A%A5%E5%91%8A%E6%80%BB%E7%BB%93.png">
-
-
-    <h1>步骤3</h1>
-    
-    <p>将所有的问题分为“严重”“一般”“优化”三个等级，优化属于产品设计层面未考虑到的问题；</p>
-
-    <img src="https://pigpeng-web.oss-cn-hangzhou.aliyuncs.com/images/article/%E9%AA%8C%E6%94%B6%E5%B7%A5%E4%BD%9C/%E7%AD%89%E7%BA%A7%E5%88%92%E5%88%86.png">
-
-
-    <h1>步骤4</h1>
-    
-    <p>所有的问题都分为两部分组成，一部分是现状、下一部分是期望改成的样子；每一个问题后面增加对应的状态，是否已解决；</p>
-
-    <img src="https://pigpeng-web.oss-cn-hangzhou.aliyuncs.com/images/article/%E9%AA%8C%E6%94%B6%E5%B7%A5%E4%BD%9C/%E6%88%AA%E5%B1%8F2026-03-17%2021.25.01.png">
-
-    <img src="https://pigpeng-web.oss-cn-hangzhou.aliyuncs.com/images/article/%E9%AA%8C%E6%94%B6%E5%B7%A5%E4%BD%9C/%E6%88%AA%E5%B1%8F2026-03-17%2021.25.15.png">
-
-
-    <h1>步骤5</h1>
-    
-    <p>只有严重、一般的问题都解决后，才能进行二次验收；产品会发送邮件，告知这次的验收结果怎么样，并且督促开发进行修改；</p>
-
-    <p>开发进行二次修改，当修改完成后，测试通知产品&设计进行二次验收，二次验收的结果在原有的问题上进行标记；</p>
-
-    <p>当所有的问题都解决完后，即可上线；而考虑到技术与时间问题，优化类的问题不强求全部修复。</p>
-
-    <p>当完成了几次迭代后，定期回顾，将曾经的那些未解决的优化问题拎出来，统计在一起，并作为一个版本的需求迭代推进下去。至此所有的问题都得到了解决；</p>
-
-
-    <h1>步骤6：以此往复即可</h1>
-    
-    <p>当不断的循环这个流程时，应用则会越来越完善，整体验收概览如下：</p>
-
-    <img src="https://pigpeng-web.oss-cn-hangzhou.aliyuncs.com/images/article/%E9%AA%8C%E6%94%B6%E5%B7%A5%E4%BD%9C/%E9%AA%8C%E6%94%B6%E6%95%B4%E4%BD%93%E6%B5%81%E7%A8%8B.png">
-    
-
-
 
 </div>
+
+
+
 
 
 

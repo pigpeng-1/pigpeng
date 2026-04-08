@@ -61,7 +61,7 @@
 
     .frame-1 {
     position: relative; /* 作为子元素绝对定位的参考 */
-    width: 1280px;
+    width: 960px;
     margin: 0 auto; /* 居中显示 */
     min-height: 400px; /* 图片加载失败时兜底高度 */
     background: #ffffff; /* 图片加载失败时的背景色 */
@@ -78,7 +78,7 @@
 
 
     .frame-2 {
-    max-width: 1000px;
+    max-width: 960px;
     margin: 20px auto;
     padding: 0;
     }
@@ -87,7 +87,7 @@
     /* 文字区域 */
     .frame-3 {
     width: 100%;
-    max-width: 1000px;
+    max-width: 960px;
     margin: 0;
     gap: 16px;
     padding: 240px 0 0 0;
@@ -98,7 +98,7 @@
     font-size: 48px;
     width: 100%;
     line-height:150%;
-    font-weight: 600;
+    font-weight: 500;
     color: #333; /* 白色标题，突出名字 */
     margin-bottom: -10px;
     }
@@ -138,7 +138,7 @@
 
     /* 仅正文容器样式 */
     .blog-content {
-        max-width: 800px; /* 最优阅读宽度 */
+        max-width: 1100px; /* 作品阅读宽度 */
         margin: 160px auto;   /* 居中显示 */
         padding: 0;
         line-height: 1.8; /* 舒适的行高 */
@@ -166,14 +166,6 @@
         padding-left: 0px;
     }
 
-    /* 三级标题（可选） */
-    .blog-content h3 {
-        font-size: 18px;
-        color: #222;
-        margin: 25px 0 12px 0;
-        font-weight: 400;
-    }
-
     /* 正文段落 */
     .blog-content p {
         margin: 0 0 24px 0;
@@ -186,7 +178,6 @@
         max-width: 100%; /* 自适应容器宽度 */
         height: auto;    /* 保持宽高比 */
         border-radius: 6px; /* 轻微圆角，更美观 */
-        box-shadow: 0 2px 8px rgba(0, 0, 0, 0.08); /* 轻微阴影 */
         margin: 20px 0;   /* 上下间距 */
         display: block;   /* 避免图片底部留白 */
         margin-left: auto;
@@ -211,49 +202,7 @@
         margin: 0 0 8px 0;
     }
 
-    /* 代码样式 */
-    .blog-content code {
-        background-color: #f5f5f5;
-        padding: 2px 6px;
-        border-radius: 4px;
-        font-family: "Consolas", "Monaco", monospace;
-        font-size: 14px;
-        color: #d63384;
-    }
 
-    /* 代码块样式 */
-    .blog-content pre {
-        background-color: #f8f8f8;
-        padding: 15px;
-        border-radius: 6px;
-        border: 1px solid #eee;
-        overflow-x: auto; /* 横向滚动 */
-        margin: 20px 0;
-        font-family: "Consolas", "Monaco", monospace;
-        font-size: 14px;
-        line-height: 1.5;
-    }
-
-    /* 链接样式 */
-    .blog-content a {
-        color: #4285f4;
-        text-decoration: none;
-        border-bottom: 1px dotted #4285f4;
-    }
-
-    .blog-content a:hover {
-        color: #2d72d9;
-        border-bottom: 1px solid #2d72d9;
-    }
-
-    /* 引用样式（可选） */
-    .blog-content blockquote {
-        border-left: 4px solid #4285f4;
-        padding: 10px 15px;
-        background-color: #f9f9f9;
-        margin: 20px 0;
-        color: #666;
-    }
 
     /* 移动端适配 */
     @media (max-width: 768px) {
@@ -276,7 +225,7 @@
   <!-- 右上角导航栏（5个菜单+选中下划线） -->
   <nav class="navbar">
     <a href="../index.html" class="logo">
-  <img src="../images/logo.png" alt="pigpeng" class="logo-img">
+  <img src="../images/logo.png" alt="pigpeng" class="logo-img" decoding="async" fetchpriority="high">
 </a>
     <div class="nav-links">
       <a href="../index.html">主页</a>
@@ -293,19 +242,13 @@
   <div class="frame-2">
     <div class="frame-3">
         <div class="element">
-        5 min read - 2022年
+            5 min read - 2021年9月
         </div>
-        <div class="text-wrapper">迭代改如何有条不紊的进行着</div>
+        <div class="text-wrapper">文本策略真的很重要</div>
         <div class="element-2">
-        一款精美的软件离不开持续的迭代，记录一下在我待过的第二家公司中的整体验收流程
+          复杂的后台系统中，这份在海豚的文本策略帮我统一了很多文案上的内容，也避免了我很多纠结的时候...
         </div>
     </div>
-  </div>
-
-
-  <!-- 顶部封面 -->
-  <div class="frame-1">
-    <img class="image" src="https://pigpeng-web.oss-cn-hangzhou.aliyuncs.com/images/article/%E9%AA%8C%E6%94%B6%E5%B7%A5%E4%BD%9C/%E5%B0%81%E9%9D%A2.png" alt="项目" />
   </div>
 
 
@@ -314,61 +257,17 @@
 <!-- 仅博客正文容器 -->
 <div class="blog-content">
 
-    <h1>步骤1</h1>
-    
-    <p>测试提前将测试环境及对应的账号弄好（此账号已开通对应的角色，支持不同的功能模块），并通过邮件发送给验收的产品及设计；</p>
+    <img src="https://pigpeng-web.oss-cn-hangzhou.aliyuncs.com/images/article/%E6%96%87%E6%9C%AC%E7%AD%96%E7%95%A5/%E6%96%87%E6%9C%AC%E7%AD%96%E7%95%A51.jpg" decoding="async" loading="lazy">
 
-    <p>如地址：www.test.com  账号：admin 123456  角色：组织者</p>
+    <img src="https://pigpeng-web.oss-cn-hangzhou.aliyuncs.com/images/article/%E6%96%87%E6%9C%AC%E7%AD%96%E7%95%A5/%E6%96%87%E6%9C%AC%E7%AD%96%E7%95%A52.jpg" decoding="async" loading="lazy">
 
-    <img src="https://pigpeng-web.oss-cn-hangzhou.aliyuncs.com/images/article/%E9%AA%8C%E6%94%B6%E5%B7%A5%E4%BD%9C/%E6%B5%8B%E8%AF%95%E9%82%AE%E4%BB%B6%E6%95%B4%E7%90%86.png">
+    <img src="https://pigpeng-web.oss-cn-hangzhou.aliyuncs.com/images/article/%E6%96%87%E6%9C%AC%E7%AD%96%E7%95%A5/%E6%96%87%E6%9C%AC%E7%AD%96%E7%95%A53.jpg" decoding="async" loading="lazy">
 
+    <img src="https://pigpeng-web.oss-cn-hangzhou.aliyuncs.com/images/article/%E6%96%87%E6%9C%AC%E7%AD%96%E7%95%A5/%E6%96%87%E6%9C%AC%E7%AD%96%E7%95%A54.jpg" decoding="async" loading="lazy">
 
-    <h1>步骤2</h1>
-    
-    <p>产品建立好对应的文档，并按照页面功能模块进行标题的划分，此处可以参考需求的文章结构；</p>
-
-    <img src="https://pigpeng-web.oss-cn-hangzhou.aliyuncs.com/images/article/%E9%AA%8C%E6%94%B6%E5%B7%A5%E4%BD%9C/%E9%AA%8C%E6%94%B6%E6%8A%A5%E5%91%8A%E6%80%BB%E7%BB%93.png">
-
-
-    <h1>步骤3</h1>
-    
-    <p>将所有的问题分为“严重”“一般”“优化”三个等级，优化属于产品设计层面未考虑到的问题；</p>
-
-    <img src="https://pigpeng-web.oss-cn-hangzhou.aliyuncs.com/images/article/%E9%AA%8C%E6%94%B6%E5%B7%A5%E4%BD%9C/%E7%AD%89%E7%BA%A7%E5%88%92%E5%88%86.png">
-
-
-    <h1>步骤4</h1>
-    
-    <p>所有的问题都分为两部分组成，一部分是现状、下一部分是期望改成的样子；每一个问题后面增加对应的状态，是否已解决；</p>
-
-    <img src="https://pigpeng-web.oss-cn-hangzhou.aliyuncs.com/images/article/%E9%AA%8C%E6%94%B6%E5%B7%A5%E4%BD%9C/%E6%88%AA%E5%B1%8F2026-03-17%2021.25.01.png">
-
-    <img src="https://pigpeng-web.oss-cn-hangzhou.aliyuncs.com/images/article/%E9%AA%8C%E6%94%B6%E5%B7%A5%E4%BD%9C/%E6%88%AA%E5%B1%8F2026-03-17%2021.25.15.png">
-
-
-    <h1>步骤5</h1>
-    
-    <p>只有严重、一般的问题都解决后，才能进行二次验收；产品会发送邮件，告知这次的验收结果怎么样，并且督促开发进行修改；</p>
-
-    <p>开发进行二次修改，当修改完成后，测试通知产品&设计进行二次验收，二次验收的结果在原有的问题上进行标记；</p>
-
-    <p>当所有的问题都解决完后，即可上线；而考虑到技术与时间问题，优化类的问题不强求全部修复。</p>
-
-    <p>当完成了几次迭代后，定期回顾，将曾经的那些未解决的优化问题拎出来，统计在一起，并作为一个版本的需求迭代推进下去。至此所有的问题都得到了解决；</p>
-
-
-    <h1>步骤6：以此往复即可</h1>
-    
-    <p>当不断的循环这个流程时，应用则会越来越完善，整体验收概览如下：</p>
-
-    <img src="https://pigpeng-web.oss-cn-hangzhou.aliyuncs.com/images/article/%E9%AA%8C%E6%94%B6%E5%B7%A5%E4%BD%9C/%E9%AA%8C%E6%94%B6%E6%95%B4%E4%BD%93%E6%B5%81%E7%A8%8B.png">
-    
-
-
+    <img src="https://pigpeng-web.oss-cn-hangzhou.aliyuncs.com/images/article/%E6%96%87%E6%9C%AC%E7%AD%96%E7%95%A5/%E6%96%87%E6%9C%AC%E7%AD%96%E7%95%A55.jpg" decoding="async" loading="lazy">
 
 </div>
-
-
 
 
 
