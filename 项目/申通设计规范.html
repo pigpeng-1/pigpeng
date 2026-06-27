@@ -1,0 +1,392 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>pigpneg</title>
+  <link rel="stylesheet" href="../css/style.css">
+  <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/font-awesome@4.7.0/css/font-awesome.min.css">
+
+  <style>
+
+
+    /* 单个菜单样式（保留之前的选中线效果） */
+    .nav-links a {
+    color: rgba(0, 0, 0, 0.65);
+    text-decoration: none;
+    font-size: 16px;
+    font-weight: 400;
+    position: relative;
+    padding: 8px 0; /* 预留选中线空间 */
+    transition: color 0.3s;
+    }
+
+    /* 选中线效果（保持之前的逻辑：文字下方8px、同宽） */
+    .nav-links a::after {
+    content: '';
+    position: absolute;
+    bottom: 0;
+    left: 0;
+    width: 0;
+    height: 1px;
+    background-color: #000000;
+    transition: width 0.3s ease;
+    }
+
+    /* 选中菜单样式（核心区分） */
+    .nav-links a.active {
+    color: #000000; /* 选中文字强调色（如金色，与黑色背景强对比） */
+    font-weight: 500; /* 选中字体加粗（700=bold），明显突出 */
+    }
+
+    .nav-links a.active::after {
+    width: 100%; /* 选中时同宽 */
+    }
+    .nav-links a:hover::after {
+    width: 100%; /* hover时显示线（可选） */
+    }
+    .nav-links a:hover {
+    color: #1f1f1f;
+    }
+
+
+
+    body {
+    background-color: #ffffff; /* 背景 */
+    color: #333; /* 全局默认文字白色，确保可读性 */
+    font-weight: 400;
+    }
+
+
+
+    .frame-1 {
+    position: relative; /* 作为子元素绝对定位的参考 */
+    width: 1280px;
+    margin: 0 auto; /* 居中显示 */
+    min-height: 400px; /* 图片加载失败时兜底高度 */
+    background: #ffffff; /* 图片加载失败时的背景色 */
+    }
+
+
+    /* 封面样式 */
+    .image {
+    width: 1280px;
+    height: auto; /* 自适应高度，避免变形 */
+    display: block; /* 去除图片默认的行内空白 */
+    margin: 120px auto;
+    }
+
+
+    .frame-2 {
+    max-width: 1000px;
+    margin: 20px auto;
+    padding: 0;
+    }
+    
+
+    /* 文字区域 */
+    .frame-3 {
+    width: 100%;
+    max-width: 1000px;
+    margin: 0;
+    gap: 16px;
+    padding: 240px 0 0 0;
+    }
+    
+
+    .text-wrapper {
+    font-size: 48px;
+    width: 100%;
+    line-height:150%;
+    font-weight: 600;
+    color: #333; /* 白色标题，突出名字 */
+    margin-bottom: -10px;
+    }
+
+    .element {
+    font-size: 14px;
+    color: #666; /* 浅灰文字，黑色背景下可读性强 */
+    font-weight: 300;
+    max-width: 1280px; /* 限制文字宽度，避免换行太丑 */
+    margin: 0 0 0 0;
+    }
+
+    .element-2 {
+    font-size: 18px;
+    color: #555; /* 浅灰文字，黑色背景下可读性强 */
+    font-weight: 300;
+    max-width: 1280px; /* 限制文字宽度，避免换行太丑 */
+    margin: 0 0 0 0;
+    }
+
+
+    /* 页脚样式 */
+    .footer {
+    padding-top: 80px;
+    padding-right: 0px;
+    padding-bottom: 60px;
+    padding-left: 0px;
+    background-color: #ffffff;
+    color: #666;
+    font-weight: 300;
+    text-align: center;
+    }
+    .footer p {
+    font-size: 12px;
+    line-height:200%;
+    }
+
+
+    /* 仅正文容器样式 */
+    .blog-content {
+        max-width: 1000px; /* 最优阅读宽度 */
+        margin: 160px auto;   /* 居中显示 */
+        padding: 36;
+        line-height: 1.8; /* 舒适的行高 */
+        font-size: 16px;
+    }
+
+    /* 一级标题 */
+    .blog-content h1 {
+        font-size: 28px;
+        color: #333;
+        margin: 120px 0 24px 0;
+        line-height: 1.3;
+        font-weight: 500;
+        border-bottom: 1px solid #eee;
+        padding-bottom: 10px;
+    }
+
+    /* 二级标题 */
+    .blog-content h2 {
+        font-size: 26px;
+        color: #222;
+        margin: 120px 0 24px 0;
+        font-weight: 500;
+        position: relative;
+        padding-left: 0px;
+    }
+
+    /* 三级标题（可选） */
+    .blog-content h3 {
+        font-size: 20px;
+        color: #222;
+        margin: 25px 0 12px 0;
+        font-weight: 500;
+    }
+
+    /* 正文段落 */
+    .blog-content p {
+        margin: 0 0 12px 0;
+        font-weight: 300;
+        text-align: justify; /* 两端对齐，提升阅读体验 */
+    }
+
+    /* 图片样式 */
+    .blog-content img {
+        max-width: 100%; /* 自适应容器宽度 */
+        height: auto;    /* 保持宽高比 */
+        margin: 20px 0;   /* 上下间距 */
+        display: block;   /* 避免图片底部留白 */
+        margin-left: auto;
+        margin-right: auto; /* 图片居中 */
+    }
+
+    /* 图片说明文字（可选） */
+    .blog-content .img-caption {
+        text-align: center;
+        font-size: 14px;
+        color: #666;
+        margin: -15px 0 20px 0;
+    }
+
+    /* 列表样式 */
+    .blog-content ul, .blog-content ol {
+        margin: 0 0 18px 30px;
+        padding-left: 10px;
+    }
+
+    .blog-content li {
+        font-size: 16px;
+        font-weight: 300;
+        margin: 0 0 8px 0;
+    }
+ 
+
+    /* 链接样式 */
+    .blog-content a {
+        color: #4285f4;
+        text-decoration: none;
+        border-bottom: 1px dotted #4285f4;
+    }
+
+    .blog-content a:hover {
+        color: #2d72d9;
+        border-bottom: 1px solid #2d72d9;
+    }
+
+    /* 引用样式（可选） */
+    .blog-content blockquote {
+        border-left: 4px solid #4285f4;
+        padding: 10px 15px;
+        background-color: #f9f9f9;
+        margin: 20px 0;
+        color: #666;
+    }
+
+    /* 移动端适配 */
+    @media (max-width: 768px) {
+        .blog-content {
+            padding: 20px 15px;
+            font-size: 15px;
+        }
+        .blog-content h1 {
+            font-size: 24px;
+        }
+        .blog-content h2 {
+            font-size: 20px;
+        }
+    }
+</style>
+
+</head>
+<body>
+    
+  <!-- 右上角导航栏（5个菜单+选中下划线） -->
+  <nav class="navbar">
+    <a href="../index.html" class="logo">
+  <img src="../images/logo.png" alt="pigpeng" class="logo-img" decoding="async" fetchpriority="high">
+</a>
+    <div class="nav-links">
+      <a href="../index.html">主页</a>
+      <a href="../projects.html"class="active">项目</a>
+      <a href="../article.html">文章</a>
+      <a href="../photography.html">定格</a>
+      <a href="../black.html">黑洞</a>
+    </div>
+  </nav>
+
+
+
+ <!-- 顶部标题 -->
+  <div class="frame-2">
+    <div class="frame-3">
+        <div class="element">
+            10 min read - 2024年2月～2025年2月
+        </div>
+        <div class="text-wrapper">申通设计规范</div>
+        <div class="element-2">
+            规范跨团队、跨项目的内容设计，在此期间完成了大大小小的修改与迭代，让不同业务线的产品保持一致的体验基线。
+        </div>
+    </div>
+  </div>
+
+
+
+ <!-- 顶部封面 -->
+ <div class="frame-1">
+    <img class="image" src="https://pigpeng-web.oss-cn-hangzhou.aliyuncs.com/images/projects/%E7%94%B3%E9%80%9A%E8%AE%BE%E8%AE%A1%E8%A7%84%E8%8C%83.png" alt="申通设计规范" decoding="async" fetchpriority="high">
+  </div>
+
+
+
+<!-- 仅博客正文容器 -->
+<div class="blog-content">
+
+    <h1>背景介绍</h1>
+    <p>随着业务线增多，各团队独立推进界面时，按钮样式、表格密度、反馈方式逐渐「各写各的」。设计规范的目标，是在不扼杀业务灵活性的前提下，提供一套可复用、可检索、可落地的基础组件与使用说明。</p>
+    <img src="https://pigpeng-web.oss-cn-hangzhou.aliyuncs.com/images/projects/%E7%94%B3%E9%80%9A%E8%AE%BE%E8%AE%A1%E8%A7%84%E8%8C%83.png" decoding="async" loading="lazy">
+
+
+    <h1>那组件规范的产出流程是什么样子的？又是怎么去思考的？</h1>
+    <p>我的习惯并不是先写规范，而是先去收集页面，归纳总结对应的规律，保证交互流畅性，且符合各类业务需求，具有一定的扩展性；</p>
+    <img src="https://pigpeng-web.oss-cn-hangzhou.aliyuncs.com/images/projects/%E7%94%B3%E9%80%9A%E8%AE%BE%E8%AE%A1%E8%A7%84%E8%8C%83.png" decoding="async" loading="lazy">
+
+
+
+
+
+    <h1>PC端组件白皮书</h1>
+    <p>公用常见的组件规范就不再列出，这里主要讲两个有代表性的组件；</p>
+
+    <h2>1、pc端的卡片容器</h2>
+    
+    <p>卡片头部元素基础排列如下：当对应的元素内容缺失时，按照下方的排列顺序进行自适应填满剩余空间。</p>
+    <img src="https://pigpeng-web.oss-cn-hangzhou.aliyuncs.com/images/projects/%E7%BB%84%E4%BB%B6%E8%A7%84%E8%8C%83/%E8%A7%84%E5%88%99.png" decoding="async" loading="lazy">
+    
+    <p>文字注释信息”、“内容切换器”、“功能按钮”、“快捷筛选项”每个都作为一个元素，一共四个元素；标题不作为一个独立元素；</p>
+    <img src="https://pigpeng-web.oss-cn-hangzhou.aliyuncs.com/images/projects/%E7%BB%84%E4%BB%B6%E8%A7%84%E8%8C%83/%E7%A4%BA%E4%BE%8B.png" decoding="async" loading="lazy">
+
+    <h3>元素排列规则</h3>
+    <p>那么基于这个规则，我们可以得到一个基础的卡片容器样式，当对应的内容缺失时，会按照下方的排列顺序进行自适应填满剩余空间。</p>
+    
+    <h3>当元素数量为1时</h3>
+    <li>当元素数量为1时，此外当卡片顶部只有右侧元素时，可在左侧增加一个标题，来平衡页面元素。</li>
+    <img src="https://pigpeng-web.oss-cn-hangzhou.aliyuncs.com/images/projects/%E7%BB%84%E4%BB%B6%E8%A7%84%E8%8C%83/%E7%A4%BA%E4%BE%8B.png" decoding="async" loading="lazy">
+
+    
+    <h2>2、pc端的tab层级等内容</h2>
+   
+    <p>收集页面，归纳总结对应的规律，保证交互流畅性，且符合各类业务需求，具有一定的扩展性；</p>
+    <img src="https://pigpeng-web.oss-cn-hangzhou.aliyuncs.com/images/projects/%E4%BA%8C%E7%BA%A7%E5%B0%81%E9%9D%A2/%E8%A7%84%E8%8C%83%E8%A7%86%E9%A2%91%E5%B0%81%E9%9D%A2.png" decoding="async" loading="lazy">
+
+
+
+    <h1>移动端组件白皮书</h1>
+    <p>公用常见的组件规范就不再列出，这里主要讲一下特殊样式规范；</p>
+
+
+    <h1>钉钉详细的组件文档</h1>
+    <p>除了在mastergo里面的文件外，我们还会在钉钉上进行详细的组件文档说明，方便对细节进行查阅；但是我们后面发现大多人都习惯在mastergo上进行查阅，所以后续也同步更新到了mastergo中；</p>
+    <img src="https://pigpeng-web.oss-cn-hangzhou.aliyuncs.com/images/projects/%E4%BA%8C%E7%BA%A7%E5%B0%81%E9%9D%A2/%E8%A7%84%E8%8C%83%E8%A7%86%E9%A2%91%E5%B0%81%E9%9D%A2.png" decoding="async" loading="lazy">
+
+
+    <h1>那搭建的设计体系如何“落到业务”当中？</h1>
+    <p>其实后面发现有效落地的原因在于：随着时间的积累，大家对规范越来越熟悉；而熟悉后就不会按照以往的习惯去做了；</p>
+    <img src="https://pigpeng-web.oss-cn-hangzhou.aliyuncs.com/images/projects/%E7%BB%84%E4%BB%B6%E8%A7%84%E8%8C%83/%E6%9B%B4%E6%96%B0%E6%B5%81%E7%A8%8B.png" decoding="async" loading="lazy">
+
+
+    <h1>附录：产品经理使用的组件模版</h1>
+    <p>整体规范除了给我们设计师用，也开放给到产品经理去用。因为我们提升产品团队的整体原型绘制水平，同时也避免设计师被一些常规后台页面所困住，所以开发了对应的模版，方便产品经理进行使用；同时当产品想要进行一些修改时，也可以直接在模版上进行修改，方便快捷</p>
+    
+    <h3>1、宣发组件规范</h3>
+    <p>每次更新规范后，我们每个月都会通过钉钉机器人发送订阅卡片，书写对应的介绍文档，向产品介绍新的规范内容；</p>
+    <img src="https://pigpeng-web.oss-cn-hangzhou.aliyuncs.com/images/projects/%E4%BA%8C%E7%BA%A7%E5%B0%81%E9%9D%A2/%E8%A7%84%E8%8C%83%E8%A7%86%E9%A2%91%E5%B0%81%E9%9D%A2.png" decoding="async" loading="lazy">
+    
+    <h3>2、PC端模版&移动端模版</h3>
+    <p>在和产品对接的过程中，持续收集产品使用需求，将一些可复用的页面，完善到通用和业务模版中，例如多样化的指标卡组合和表格的扩展样式等。此外为了方便产品进行调用，将模版封装成原子组件；</p>
+    <img src="https://pigpeng-web.oss-cn-hangzhou.aliyuncs.com/images/projects/%E7%BB%84%E4%BB%B6%E8%A7%84%E8%8C%83/%E6%A8%A1%E7%89%88%E7%BB%84%E4%BB%B6.png" decoding="async" loading="lazy">
+
+    <h3>3、重新归类方便检索</h3>
+    <p>丰富后对模版重新归类，例如使用率非常高的指标卡组件，我们将其分为常规、公式类、节点类、二级包裹类…在满足更多场景时方便产品进行查阅；</p>
+    <img src="https://pigpeng-web.oss-cn-hangzhou.aliyuncs.com/images/projects/%E7%BB%84%E4%BB%B6%E8%A7%84%E8%8C%83/%E6%A3%80%E7%B4%A2%E5%8D%A1%E7%89%87.png" decoding="async" loading="lazy">
+    
+    <h3>4、模版内的各类辅助与提示</h3>
+    <p>在每个模版旁补充了使用指引，当产品在使用的过程可见则可得，即使忘记如何操作时，也可按照指引调用模版使用；</p>
+    <img src="https://pigpeng-web.oss-cn-hangzhou.aliyuncs.com/images/projects/%E7%BB%84%E4%BB%B6%E8%A7%84%E8%8C%83/%E6%90%9C%E7%B4%A2%E6%93%8D%E4%BD%9C%E8%B7%AF%E5%BE%84.png" decoding="async" loading="lazy">
+    
+    <p>模版推广结论：目前没有准确的数据去衡量模版的使用率，但和产品对接需求时，大部分产品已形成 “先找模版再修改” 的习惯，提升了原型制作效率与规范性；</p>
+
+
+
+</div>
+
+
+
+
+
+
+
+
+  <!-- 页脚 -->
+  <footer class="footer">
+    <div class="container">
+      <p>&copy; Designed and developed by zhu peng.</p>
+        <p>&copy; Copyright © 2022-2025 www.pigpeng.cn. All Rights Reserved.</p>
+    </div>
+  </footer>
+
+
+  <script src="../js/main.js"></script>
+</body>
+</html>

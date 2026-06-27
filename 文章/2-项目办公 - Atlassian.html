@@ -1,0 +1,414 @@
+<!DOCTYPE html>
+<html lang="zh-CN">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Atlassian 的探索与使用 — pigpeng</title>
+  <link rel="stylesheet" href="../css/style.css">
+  <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/font-awesome@4.7.0/css/font-awesome.min.css">
+
+  <style>
+
+
+    /* 单个菜单样式（保留之前的选中线效果） */
+    .nav-links a {
+    color: rgba(0, 0, 0, 0.65);
+    text-decoration: none;
+    font-size: 16px;
+    font-weight: 400;
+    position: relative;
+    padding: 8px 0; /* 预留选中线空间 */
+    transition: color 0.3s;
+    }
+
+    /* 选中线效果（保持之前的逻辑：文字下方8px、同宽） */
+    .nav-links a::after {
+    content: '';
+    position: absolute;
+    bottom: 0;
+    left: 0;
+    width: 0;
+    height: 1px;
+    background-color: #000000;
+    transition: width 0.3s ease;
+    }
+
+    /* 选中菜单样式（核心区分） */
+    .nav-links a.active {
+    color: #000000; /* 选中文字强调色（如金色，与黑色背景强对比） */
+    font-weight: 500; /* 选中字体加粗（700=bold），明显突出 */
+    }
+
+    .nav-links a.active::after {
+    width: 100%; /* 选中时同宽 */
+    }
+    .nav-links a:hover::after {
+    width: 100%; /* hover时显示线（可选） */
+    }
+    .nav-links a:hover {
+    color: #1f1f1f;
+    }
+
+
+
+    body {
+    background-color: #ffffff; /* 背景 */
+    color: #222; /* 全局默认文字白色，确保可读性 */
+    font-weight: 400;
+    }
+
+
+
+    .frame-1 {
+    position: relative; /* 作为子元素绝对定位的参考 */
+    width: 1280px;
+    margin: 0 auto; /* 居中显示 */
+    min-height: 400px; /* 图片加载失败时兜底高度 */
+    background: #ffffff; /* 图片加载失败时的背景色 */
+    }
+
+
+    /* 封面样式 */
+    .image {
+    width: 1280px;
+    height: auto; /* 自适应高度，避免变形 */
+    display: block; /* 去除图片默认的行内空白 */
+    margin: 120px auto;
+    }
+
+
+    .frame-2 {
+    max-width: 1000px;
+    margin: 20px auto;
+    padding: 0;
+    }
+    
+
+    /* 文字区域 */
+    .frame-3 {
+    width: 100%;
+    max-width: 1000px;
+    margin: 0;
+    gap: 16px;
+    padding: 240px 0 0 0;
+    }
+    
+
+    .text-wrapper {
+    font-size: 48px;
+    width: 100%;
+    line-height:150%;
+    font-weight: 600;
+    color: #333; /* 白色标题，突出名字 */
+    margin-bottom: -10px;
+    }
+
+    .element {
+    font-size: 14px;
+    color: #666; /* 浅灰文字，黑色背景下可读性强 */
+    font-weight: 300;
+    max-width: 1360px; /* 限制文字宽度，避免换行太丑 */
+    margin: 0 0 0 0;
+    }
+
+    .element-2 {
+    font-size: 18px;
+    color: #555; /* 浅灰文字，黑色背景下可读性强 */
+    font-weight: 300;
+    max-width: 1360px; /* 限制文字宽度，避免换行太丑 */
+    margin: 0 0 0 0;
+    }
+
+
+    /* 页脚样式 */
+    .footer {
+    padding-top: 80px;
+    padding-right: 0px;
+    padding-bottom: 60px;
+    padding-left: 0px;
+    background-color: #ffffff;
+    color: #333;
+    text-align: center;
+    }
+    .footer p {
+    font-size: 12px;
+    line-height:200%;
+    }
+
+
+    /* 仅正文容器样式 */
+    .blog-content {
+        max-width: 1000px; /* 最优阅读宽度 */
+        margin: 160px auto;   /* 居中显示 */
+        padding: 0;
+        line-height: 1.8; /* 舒适的行高 */
+        font-size: 16px;
+    }
+
+    /* 一级标题 */
+    .blog-content h1 {
+        font-size: 28px;
+        color: #333;
+        margin: 120px 0 24px 0;
+        line-height: 1.3;
+        font-weight: 500;
+        border-bottom: 1px solid #eee;
+        padding-bottom: 10px;
+    }
+
+    /* 二级标题 */
+    .blog-content h2 {
+        font-size: 22px;
+        color: #333;
+        margin: 48px 0 24px 0;
+        font-weight: 400;
+        position: relative;
+        padding-left: 0px;
+    }
+
+    /* 三级标题（可选） */
+    .blog-content h3 {
+        font-size: 18px;
+        color: #222;
+        margin: 25px 0 12px 0;
+        font-weight: 400;
+    }
+
+    /* 正文段落 */
+    .blog-content p {
+        margin: 0 0 24px 0;
+        font-weight: 300;
+        text-align: justify; /* 两端对齐，提升阅读体验 */
+    }
+
+    /* 图片样式 */
+    .blog-content img {
+        max-width: 100%; /* 自适应容器宽度 */
+        height: auto;    /* 保持宽高比 */
+        border-radius: 6px; /* 轻微圆角，更美观 */
+        box-shadow: 0 2px 8px rgba(0, 0, 0, 0.08); /* 轻微阴影 */
+        margin: 20px 0;   /* 上下间距 */
+        display: block;   /* 避免图片底部留白 */
+        margin-left: auto;
+        margin-right: auto; /* 图片居中 */
+    }
+
+    /* 图片说明文字（可选） */
+    .blog-content .img-caption {
+        text-align: center;
+        font-size: 14px;
+        color: #666;
+        margin: -15px 0 20px 0;
+    }
+
+    /* 列表样式 */
+    .blog-content ul, .blog-content ol {
+        margin: 0 0 18px 30px;
+        padding-left: 10px;
+    }
+
+    .blog-content li {
+        margin: 0 0 8px 0;
+    }
+
+    /* 代码样式 */
+    .blog-content code {
+        background-color: #f5f5f5;
+        padding: 2px 6px;
+        border-radius: 4px;
+        font-family: "Consolas", "Monaco", monospace;
+        font-size: 14px;
+        color: #d63384;
+    }
+
+    /* 代码块样式 */
+    .blog-content pre {
+        background-color: #f8f8f8;
+        padding: 15px;
+        border-radius: 6px;
+        border: 1px solid #eee;
+        overflow-x: auto; /* 横向滚动 */
+        margin: 20px 0;
+        font-family: "Consolas", "Monaco", monospace;
+        font-size: 14px;
+        line-height: 1.5;
+    }
+
+    /* 链接样式 */
+    .blog-content a {
+        color: #4285f4;
+        text-decoration: none;
+        border-bottom: 1px dotted #4285f4;
+    }
+
+    .blog-content a:hover {
+        color: #2d72d9;
+        border-bottom: 1px solid #2d72d9;
+    }
+
+    /* 引用样式（可选） */
+    .blog-content blockquote {
+        border-left: 4px solid #4285f4;
+        padding: 10px 15px;
+        background-color: #f9f9f9;
+        margin: 20px 0;
+        color: #666;
+    }
+
+    /* 移动端适配 */
+    @media (max-width: 768px) {
+        .blog-content {
+            padding: 20px 15px;
+            font-size: 15px;
+        }
+        .blog-content h1 {
+            font-size: 24px;
+        }
+        .blog-content h2 {
+            font-size: 20px;
+        }
+    }
+</style>
+
+</head>
+<body>
+    
+  <!-- 右上角导航栏（5个菜单+选中下划线） -->
+  <nav class="navbar">
+    <a href="../index.html" class="logo">
+  <img src="../images/logo.png" alt="pigpeng" class="logo-img">
+</a>
+    <div class="nav-links">
+      <a href="../index.html">主页</a>
+      <a href="../projects.html">项目</a>
+      <a href="../article.html" class="active">文章</a>
+      <a href="../photography.html">定格</a>
+      <a href="../black.html">黑洞</a>
+    </div>
+  </nav>
+
+
+
+ <!-- 顶部标题 -->
+  <div class="frame-2">
+    <div class="frame-3">
+        <div class="element">
+        约 8 min read - 2022年
+        </div>
+        <div class="text-wrapper">Atlassian 的探索与使用</div>
+        <div class="element-2">
+        使用Jira/Confluence等时的界面观察与交互笔记，当时也学习过他们家的设计系统，在一些细节上，还是非常值得学习的
+        </div>
+    </div>
+  </div>
+
+
+
+<div class="blog-content">
+
+    <h2>1、这个页面通过分割线进行区域划分、通过投影突出重点的设计方案了；</h2>
+    <img src="https://pigpeng-web.oss-cn-hangzhou.aliyuncs.com/images/article/%E4%BA%A7%E5%93%81%E4%BD%93%E9%AA%8C/Atlassian/1.png" alt="配图 1" loading="lazy">
+
+    <h2>2、与右侧主内容区域存在一点点的色差，同时这个分割线上加上淡淡的投影，非常的舒服，也起到了分割的作用；</h2>
+    <img src="https://pigpeng-web.oss-cn-hangzhou.aliyuncs.com/images/article/%E4%BA%A7%E5%93%81%E4%BD%93%E9%AA%8C/Atlassian/2.png" alt="配图 2" loading="lazy">
+
+    <h2>3、对于帮助内容的浮窗，可以加上一些投影，以及比较能突出品牌色系的颜色模块；</h2>
+    <img src="https://pigpeng-web.oss-cn-hangzhou.aliyuncs.com/images/article/%E4%BA%A7%E5%93%81%E4%BD%93%E9%AA%8C/Atlassian/3.png" alt="配图 3" loading="lazy">
+
+    <h2>4、编辑态和查看态进行区分，貌似在国外是个常见的做法了；</h2>
+    <img src="https://pigpeng-web.oss-cn-hangzhou.aliyuncs.com/images/article/%E4%BA%A7%E5%93%81%E4%BD%93%E9%AA%8C/Atlassian/4.png" alt="配图 4" loading="lazy">
+
+    <h2>5、空间不够时，也可以将「确认」、「取消」按钮放在编辑框的下方；</h2>
+    <img src="https://pigpeng-web.oss-cn-hangzhou.aliyuncs.com/images/article/%E4%BA%A7%E5%93%81%E4%BD%93%E9%AA%8C/Atlassian/5.png" alt="配图 5" loading="lazy">
+
+    <h2>6、一个系统内可以存在两种左右的目录选中样式，例如外面主页面的，以及弹窗里面的内页；像这种选择类的弹窗，实际上可以选中某一项后采取激活右下角的按钮即可；</h2>
+    <img src="https://pigpeng-web.oss-cn-hangzhou.aliyuncs.com/images/article/%E4%BA%A7%E5%93%81%E4%BD%93%E9%AA%8C/Atlassian/6.png" alt="配图 6" loading="lazy">
+
+    <h2>7、有些编辑页面，退出编辑态可以不用「取消」按钮，而是使用「放弃更改」，这样更加符合语境；</h2>
+    <img src="https://pigpeng-web.oss-cn-hangzhou.aliyuncs.com/images/article/%E4%BA%A7%E5%93%81%E4%BD%93%E9%AA%8C/Atlassian/7.png" alt="配图 7" loading="lazy">
+
+    <h2>8、有些同步的通知可以采用这种，过个几秒自动消失；</h2>
+    <img src="https://pigpeng-web.oss-cn-hangzhou.aliyuncs.com/images/article/%E4%BA%A7%E5%93%81%E4%BD%93%E9%AA%8C/Atlassian/8.png" alt="配图 8" loading="lazy">
+
+    <h2>9、想要将一个东西拖拽进去，这是一个不错的缺省图；</h2>
+    <img src="https://pigpeng-web.oss-cn-hangzhou.aliyuncs.com/images/article/%E4%BA%A7%E5%93%81%E4%BD%93%E9%AA%8C/Atlassian/9.png" alt="配图 9" loading="lazy">
+
+    <h2>10、对于帮助模块，或者说类似别的一些需要折叠的模块，有些是需要折叠、有些是需要彻底隐藏在某个菜单栏里面，那么可以借鉴下面这种步骤；</h2>
+    <img src="https://pigpeng-web.oss-cn-hangzhou.aliyuncs.com/images/article/%E4%BA%A7%E5%93%81%E4%BD%93%E9%AA%8C/Atlassian/10.png" alt="配图 10" loading="lazy">
+
+    <h2>11、为了不影响平时的操作与阅读，一些低频的编辑可以这样去处理：正常状态下为阅读态，鼠标点击后为编辑态；</h2>
+    <img src="https://pigpeng-web.oss-cn-hangzhou.aliyuncs.com/images/article/%E4%BA%A7%E5%93%81%E4%BD%93%E9%AA%8C/Atlassian/11.png" alt="配图 11" loading="lazy">
+    <img src="https://pigpeng-web.oss-cn-hangzhou.aliyuncs.com/images/article/%E4%BA%A7%E5%93%81%E4%BD%93%E9%AA%8C/Atlassian/11-1.png" alt="配图 11-1" loading="lazy">
+
+    <h2>12、一个输入框的新增这种形式，点击后其输入框可以直接放在新增按钮上，这样可以保证用户一个个的去新增选项，而不会导致中间留有空白，也正好符合我们之前做的「一次只能新增一行」；</h2>
+    <img src="https://pigpeng-web.oss-cn-hangzhou.aliyuncs.com/images/article/%E4%BA%A7%E5%93%81%E4%BD%93%E9%AA%8C/Atlassian/12.png" alt="配图 12" loading="lazy">
+
+    <h2>13、添加子选项、添加父选项；</h2>
+    <img src="https://pigpeng-web.oss-cn-hangzhou.aliyuncs.com/images/article/%E4%BA%A7%E5%93%81%E4%BD%93%E9%AA%8C/Atlassian/13.png" alt="配图 13" loading="lazy">
+
+    <h2>14、这种表单的投影卡片，看起来和 Google 表单的一样；</h2>
+    <img src="https://pigpeng-web.oss-cn-hangzhou.aliyuncs.com/images/article/%E4%BA%A7%E5%93%81%E4%BD%93%E9%AA%8C/Atlassian/14.png" alt="配图 14" loading="lazy">
+
+    <h2>15、有些缺省图，如果能帮助其理解操作，这样会更加的有用，而不是个花瓶，华而不实；类似于这种引导性的简笔画就挺有意思的；</h2>
+    <img src="https://pigpeng-web.oss-cn-hangzhou.aliyuncs.com/images/article/%E4%BA%A7%E5%93%81%E4%BD%93%E9%AA%8C/Atlassian/15.png" alt="配图 15" loading="lazy">
+
+    <h2>16、只要高度足够的情况下，这种自适应挺不错的，字段从右边放至到了下边；</h2>
+    <img src="https://pigpeng-web.oss-cn-hangzhou.aliyuncs.com/images/article/%E4%BA%A7%E5%93%81%E4%BD%93%E9%AA%8C/Atlassian/16.png" alt="配图 16" loading="lazy">
+    <img src="https://pigpeng-web.oss-cn-hangzhou.aliyuncs.com/images/article/%E4%BA%A7%E5%93%81%E4%BD%93%E9%AA%8C/Atlassian/16-1.png" alt="配图 16-1" loading="lazy">
+
+    <h2>17、这是作为简单一点的布局设置，而复杂一点的布局设置则是像 Ones，在一个最小单元格里面进行拖拽拉伸；</h2>
+    <img src="https://pigpeng-web.oss-cn-hangzhou.aliyuncs.com/images/article/%E4%BA%A7%E5%93%81%E4%BD%93%E9%AA%8C/Atlassian/17.png" alt="配图 17" loading="lazy">
+    <img src="https://pigpeng-web.oss-cn-hangzhou.aliyuncs.com/images/article/%E4%BA%A7%E5%93%81%E4%BD%93%E9%AA%8C/Atlassian/17-1.png" alt="配图 17-1" loading="lazy">
+
+    <h2>18、切换应用的时候，可以放一些图标，比较有鲜明特征的；</h2>
+    <img src="https://pigpeng-web.oss-cn-hangzhou.aliyuncs.com/images/article/%E4%BA%A7%E5%93%81%E4%BD%93%E9%AA%8C/Atlassian/18.png" alt="配图 18" loading="lazy">
+
+    <h2>19、对于设置展示浮窗的样式可以如下：</h2>
+    <img src="https://pigpeng-web.oss-cn-hangzhou.aliyuncs.com/images/article/%E4%BA%A7%E5%93%81%E4%BD%93%E9%AA%8C/Atlassian/19.png" alt="配图 19" loading="lazy">
+
+    <h2>20、这种箭头卡片挺不错的，有指向性，有系统风格；</h2>
+    <img src="https://pigpeng-web.oss-cn-hangzhou.aliyuncs.com/images/article/%E4%BA%A7%E5%93%81%E4%BD%93%E9%AA%8C/Atlassian/20.png" alt="配图 20" loading="lazy">
+
+    <h2>21、链接文本应指示链接导航到的位置。当链接文本时，我们使用「了解更多」以及我们将用户带到哪里的描述。链接您的整个消息。对于应用内或产品内链接，请勿在句子末尾使用<a href="https://atlassian.design/content/language-and-grammar/#periods-full-stops" target="_blank" rel="noopener noreferrer">句号（句号）</a>。</h2>
+    
+
+    <h2>22、提示的气泡样式如下：</h2>
+    <img src="https://pigpeng-web.oss-cn-hangzhou.aliyuncs.com/images/article/%E4%BA%A7%E5%93%81%E4%BD%93%E9%AA%8C/Atlassian/22.png" alt="配图 22" loading="lazy">
+
+    <h2>23、一个系统内存在一些状态，那么我们可以统一的去规划一些属性颜色；</h2>
+    <img src="https://pigpeng-web.oss-cn-hangzhou.aliyuncs.com/images/article/%E4%BA%A7%E5%93%81%E4%BD%93%E9%AA%8C/Atlassian/23.png" alt="配图 23" loading="lazy">
+
+    <h2>24、间距的使用与标识可以采用这种方式，比较直观：不同的用例需要不同范围的间距单位才能实现最佳结果。我们的间距尺度可以分为三个不同的尺寸范围；</h2>
+    <img src="https://pigpeng-web.oss-cn-hangzhou.aliyuncs.com/images/article/%E4%BA%A7%E5%93%81%E4%BD%93%E9%AA%8C/Atlassian/24.png" alt="配图 24" loading="lazy">
+
+    <h2>25、点击 logo 可以回到首页，而点击 logo 前面的更多图标，可以快捷打开全部菜单，这是一个不错的方式，用来放置全部菜单选项；</h2>
+    <img src="https://pigpeng-web.oss-cn-hangzhou.aliyuncs.com/images/article/%E4%BA%A7%E5%93%81%E4%BD%93%E9%AA%8C/Atlassian/25.png" alt="配图 25" loading="lazy">
+
+    <h2>26、简单、直观的缺省图，再配上一个进入的按钮；并且这个插画也比较直观，传达的意思比较明确；「申请进入」的按钮展示在最下方；</h2>
+    <img src="https://pigpeng-web.oss-cn-hangzhou.aliyuncs.com/images/article/%E4%BA%A7%E5%93%81%E4%BD%93%E9%AA%8C/Atlassian/26.png" alt="配图 26" loading="lazy">
+
+    <h2>27、按钮放在这个位置也是可以的；</h2>
+    <img src="https://pigpeng-web.oss-cn-hangzhou.aliyuncs.com/images/article/%E4%BA%A7%E5%93%81%E4%BD%93%E9%AA%8C/Atlassian/27.png" alt="配图 27" loading="lazy">
+
+    <h2>28、其实前面的图标不一定需要圆，也可以根据等级进行区分，可以采用菱形，三角形之类的，这样区分更加明显；</h2>
+    <img src="https://pigpeng-web.oss-cn-hangzhou.aliyuncs.com/images/article/%E4%BA%A7%E5%93%81%E4%BD%93%E9%AA%8C/Atlassian/28.png" alt="配图 28" loading="lazy">
+
+    <h2>29、这种多选项的删除，存在一定的 hover 效果，可以让用户操作更加明显；</h2>
+    <img src="https://pigpeng-web.oss-cn-hangzhou.aliyuncs.com/images/article/%E4%BA%A7%E5%93%81%E4%BD%93%E9%AA%8C/Atlassian/29.png" alt="配图 29" loading="lazy">
+
+</div>
+
+
+
+  <!-- 页脚 -->
+  <footer class="footer">
+    <div class="container">
+      <p>&copy; Designed and developed by zhu peng.</p>
+        <p>&copy; Copyright © 2022-2025 www.pigpeng.cn. All Rights Reserved.</p>
+    </div>
+  </footer>
+
+
+  <script src="../js/main.js"></script>
+</body>
+</html>

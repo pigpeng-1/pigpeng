@@ -1,0 +1,392 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>pigpneg</title>
+  <link rel="stylesheet" href="../css/style.css">
+  <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/font-awesome@4.7.0/css/font-awesome.min.css">
+
+  <style>
+
+
+    /* 单个菜单样式（保留之前的选中线效果） */
+    .nav-links a {
+    color: rgba(0, 0, 0, 0.65);
+    text-decoration: none;
+    font-size: 16px;
+    font-weight: 400;
+    position: relative;
+    padding: 8px 0; /* 预留选中线空间 */
+    transition: color 0.3s;
+    }
+
+    /* 选中线效果（保持之前的逻辑：文字下方8px、同宽） */
+    .nav-links a::after {
+    content: '';
+    position: absolute;
+    bottom: 0;
+    left: 0;
+    width: 0;
+    height: 1px;
+    background-color: #000000;
+    transition: width 0.3s ease;
+    }
+
+    /* 选中菜单样式（核心区分） */
+    .nav-links a.active {
+    color: #000000; /* 选中文字强调色（如金色，与黑色背景强对比） */
+    font-weight: 500; /* 选中字体加粗（700=bold），明显突出 */
+    }
+
+    .nav-links a.active::after {
+    width: 100%; /* 选中时同宽 */
+    }
+    .nav-links a:hover::after {
+    width: 100%; /* hover时显示线（可选） */
+    }
+    .nav-links a:hover {
+    color: #1f1f1f;
+    }
+
+
+
+    body {
+    background-color: #ffffff; /* 背景 */
+    color: #333; /* 全局默认文字白色，确保可读性 */
+    font-weight: 400;
+    }
+
+
+
+    .frame-1 {
+    position: relative; /* 作为子元素绝对定位的参考 */
+    width: 1280px;
+    margin: 0 auto; /* 居中显示 */
+    min-height: 400px; /* 图片加载失败时兜底高度 */
+    background: #ffffff; /* 图片加载失败时的背景色 */
+    }
+
+
+    /* 封面样式 */
+    .image {
+    width: 1280px;
+    height: auto; /* 自适应高度，避免变形 */
+    display: block; /* 去除图片默认的行内空白 */
+    margin: 120px auto;
+    }
+
+
+    .frame-2 {
+    max-width: 1000px;
+    margin: 20px auto;
+    padding: 0;
+    }
+    
+
+    /* 文字区域 */
+    .frame-3 {
+    width: 100%;
+    max-width: 1000px;
+    margin: 0;
+    gap: 16px;
+    padding: 240px 0 0 0;
+    }
+    
+
+    .text-wrapper {
+    font-size: 48px;
+    width: 100%;
+    line-height:150%;
+    font-weight: 600;
+    color: #333; /* 白色标题，突出名字 */
+    margin-bottom: -10px;
+    }
+
+    .element {
+    font-size: 14px;
+    color: #666; /* 浅灰文字，黑色背景下可读性强 */
+    font-weight: 300;
+    max-width: 1280px; /* 限制文字宽度，避免换行太丑 */
+    margin: 0 0 0 0;
+    }
+
+    .element-2 {
+    font-size: 18px;
+    color: #555; /* 浅灰文字，黑色背景下可读性强 */
+    font-weight: 300;
+    max-width: 1280px; /* 限制文字宽度，避免换行太丑 */
+    margin: 0 0 0 0;
+    }
+
+
+    /* 页脚样式 */
+    .footer {
+    padding-top: 80px;
+    padding-right: 0px;
+    padding-bottom: 60px;
+    padding-left: 0px;
+    background-color: #ffffff;
+    color: #666;
+    font-weight: 300;
+    text-align: center;
+    }
+    .footer p {
+    font-size: 12px;
+    line-height:200%;
+    }
+
+
+    /* 仅正文容器样式 */
+    .blog-content {
+        max-width: 1000px; /* 最优阅读宽度 */
+        margin: 160px auto;   /* 居中显示 */
+        padding: 36;
+        line-height: 1.8; /* 舒适的行高 */
+        font-size: 16px;
+    }
+
+    /* 一级标题 */
+    .blog-content h1 {
+        font-size: 28px;
+        color: #333;
+        margin: 120px 0 24px 0;
+        line-height: 1.3;
+        font-weight: 500;
+        border-bottom: 1px solid #eee;
+        padding-bottom: 10px;
+    }
+
+    /* 二级标题 */
+    .blog-content h2 {
+        font-size: 26px;
+        color: #222;
+        margin: 120px 0 24px 0;
+        font-weight: 400;
+        position: relative;
+        padding-left: 0px;
+    }
+
+    /* 三级标题（可选） */
+    .blog-content h3 {
+        font-size: 18px;
+        color: #222;
+        margin: 25px 0 12px 0;
+        font-weight: 400;
+    }
+
+    /* 正文段落 */
+    .blog-content p {
+        margin: 0 0 12px 0;
+        font-weight: 300;
+        text-align: justify; /* 两端对齐，提升阅读体验 */
+    }
+
+    /* 图片样式 */
+    .blog-content img {
+        max-width: 100%; /* 自适应容器宽度 */
+        height: auto;    /* 保持宽高比 */
+        margin: 20px 0;   /* 上下间距 */
+        display: block;   /* 避免图片底部留白 */
+        margin-left: auto;
+        margin-right: auto; /* 图片居中 */
+    }
+
+    /* 图片说明文字（可选） */
+    .blog-content .img-caption {
+        text-align: center;
+        font-size: 14px;
+        color: #666;
+        margin: -15px 0 20px 0;
+    }
+
+    /* 列表样式 */
+    .blog-content ul, .blog-content ol {
+        margin: 0 0 18px 30px;
+        padding-left: 10px;
+    }
+
+    .blog-content li {
+        margin: 0 0 8px 0;
+    }
+ 
+
+    /* 链接样式 */
+    .blog-content a {
+        color: #4285f4;
+        text-decoration: none;
+        border-bottom: 1px dotted #4285f4;
+    }
+
+    .blog-content a:hover {
+        color: #2d72d9;
+        border-bottom: 1px solid #2d72d9;
+    }
+
+    /* 引用样式（可选） */
+    .blog-content blockquote {
+        border-left: 4px solid #4285f4;
+        padding: 10px 15px;
+        background-color: #f9f9f9;
+        margin: 20px 0;
+        color: #666;
+    }
+
+    /* 移动端适配 */
+    @media (max-width: 768px) {
+        .blog-content {
+            padding: 20px 15px;
+            font-size: 15px;
+        }
+        .blog-content h1 {
+            font-size: 24px;
+        }
+        .blog-content h2 {
+            font-size: 20px;
+        }
+    }
+</style>
+
+</head>
+<body>
+    
+  <!-- 右上角导航栏（5个菜单+选中下划线） -->
+  <nav class="navbar">
+    <a href="../index.html" class="logo">
+  <img src="../images/logo.png" alt="pigpeng" class="logo-img" decoding="async" fetchpriority="high">
+</a>
+    <div class="nav-links">
+      <a href="../index.html">主页</a>
+      <a href="../projects.html"class="active">项目</a>
+      <a href="../article.html">文章</a>
+      <a href="../photography.html">定格</a>
+      <a href="../black.html">黑洞</a>
+    </div>
+  </nav>
+
+
+
+ <!-- 顶部标题 -->
+  <div class="frame-2">
+    <div class="frame-3">
+        <div class="element">
+            5 min read - 2025年3月～4月
+        </div>
+        <div class="text-wrapper">交叉带的格口分布尝试</div>
+        <div class="element-2">
+            我渴望有个很大很大的屏，似乎就能将完整的分拣格口放入其中，但真的是吗？这是一个探索性项目，后面并没有开发落地。
+        </div>
+    </div>
+  </div>
+
+
+
+ <!-- 顶部封面 -->
+ <div class="frame-1">
+    <img class="image" src="https://pigpeng-web.oss-cn-hangzhou.aliyuncs.com/images/projects/%E4%BA%A4%E5%8F%89%E5%B8%A6%E6%A0%BC%E5%8F%A3%E5%B0%9D%E8%AF%95/%E6%A0%BC%E5%8F%A3%E5%B0%9D%E8%AF%95%E5%B0%81%E9%9D%A2.jpg" alt="交叉带的格口分布尝试"  decoding="async" fetchpriority="high">
+  </div>
+
+
+
+<!-- 仅博客正文容器 -->
+<div class="blog-content">
+
+    <h1>认识交叉带</h1>
+    <p>交叉带主要是帮助快递包裹能够快速分拣的一种机器，比较庞大；而合适的分拣配置对结果起到了关键的作用，分拣系统就是在格口上配置对应的包裹流向，这样当包裹在运转过程中就能落到这个格口内，操作人员再对包裹进行打包。因此如果能在一屏内看到概览图，将提高用户的配置与理解难度；</p>    
+    <img src="https://pigpeng-web.oss-cn-hangzhou.aliyuncs.com/images/projects/%E4%BA%A4%E5%8F%89%E5%B8%A6%E6%A0%BC%E5%8F%A3%E5%B0%9D%E8%AF%95/%E7%9C%9F%E5%AE%9E%E7%9A%84%E4%BA%A4%E5%8F%89%E5%B8%A6.png" alt="真实的交叉带" decoding="async" loading="lazy">
+    <p class="img-caption">真实的交叉带图</p>
+
+
+    <h1>一些数据支持</h1>
+    <p>对于大型的网点，往往有个专职的人负责整体的交叉带分拣系统的调配，但大多数网点是没有专业的人进行处理，因此导致配置理解难度高，操作复杂，在生成可视化图片之前，需要先收集一些数据支持；</p>  
+    <p>1、首先我找后端拿到所有现有分拣方案下所配置的格口数量，看看单个方案下的格口数量平均都是多少，然后判断每个格口的大小是否合适；</p>     
+    <p>2、对于系统而言目前可以拿到的数据有：用户录入的格口数量、初始的包裹流量、流向等基础数据，这些数据将作为后续格口生成的依据；</p>      
+
+    <img src="https://pigpeng-web.oss-cn-hangzhou.aliyuncs.com/images/projects/%E4%BA%A4%E5%8F%89%E5%B8%A6%E6%A0%BC%E5%8F%A3%E5%B0%9D%E8%AF%95/%E6%A0%BC%E5%8F%A3%E6%95%B0.png" alt="真实的交叉带" decoding="async" loading="lazy">
+    <p class="img-caption">格口基础数据</p>
+
+
+
+    <h1>格口生成的前提</h1>
+    <p>整个项目其实就做一件事，也就是将现实的格口数据按照一定的规律，在系统里面自动描绘出来，可视化出来，其实目前会有些网点专业人士会将格口数据录入到excel中，然后导出为图片，方便后续的查看；</p>  
+    <p>但是格口配置会不断变化，因为他们无法手动去更新图片，因此需要一个系统来动态生成，并且在excel中看不到实时流量的变化。</p>    
+    <img src="https://pigpeng-web.oss-cn-hangzhou.aliyuncs.com/images/projects/%E4%BA%A4%E5%8F%89%E5%B8%A6%E6%A0%BC%E5%8F%A3%E5%B0%9D%E8%AF%95/excel%E7%9A%84%E6%A0%BC%E5%8F%A3_compressed.png" alt="真实的交叉带" decoding="async" loading="lazy">
+    <p class="img-caption">他们绘制的格口分布图</p>
+    
+
+
+    <h1>格口基础的排列规则</h1> 
+    <p>为了保证生成的格口存在一定的规律，因为制定了几个前置条件；</p> 
+    <p>1、拐弯的地方放不放格口数：让用户进行选择，拐弯处是否需要放置格口；如果选择需要放时，则制定下放多少个格口数的规则；</p> 
+    <p>2、将拐弯地方去掉后看剩下多少直线段：然后用总格口数去除以直线段，得到每个直线段放多少个格口，这里需考虑除后不为整数的情况；</p> 
+    <p>3、涉及到一些拐角的地方，不需要拐太大的弯，也就是简单示意一下即可；</p>
+
+    <h1>以O型交叉带为例，其基础规则如下：</h1>
+    <p>供包台的格口宽度固定为260px，考虑到交叉带本身的特性，纵向高度为横向高度的1/3，此外在这里面将供件台的位置预留出来，预留的宽度为260px，整体先解决O型交叉带的格口排列问题，目前网点大部分都为O型交叉带；</p>    
+
+    <img src="https://pigpeng-web.oss-cn-hangzhou.aliyuncs.com/images/projects/%E4%BA%A4%E5%8F%89%E5%B8%A6%E6%A0%BC%E5%8F%A3%E5%B0%9D%E8%AF%95/%E5%9F%BA%E7%A1%80%E7%9A%84%E6%8E%92%E5%88%97%E8%A7%84%E5%88%99.png" alt="真实的交叉带" decoding="async" loading="lazy">
+    <p class="img-caption">基础排列规则</p>
+
+
+    <h1>格口的计算规则</h1>
+    <p>1、先将纵向高度设置为x，那么横向宽度为3x；整个交叉带可放置格口的宽度为8x；</p>  
+    <p>2、假设格口数为300个，那么按照每个格口26px的宽度，所需长度为7800px；也就是说8x=7800px，那么x=975px；页面纵向自适应的高度为975px，横向自适应的宽度为2925px；</p>  
+    <p>3、最终矩形的横向宽度为2925px + 260px(此边存在的供件区数量*260) + 2*136px = 3457px；最终矩形的纵向高度为975px + 2*136px = 1247px；</p> 
+    <p>4、按照动态自适应的宽度去计算每个x能放多少个格口，那么纵向单边能放975/26=37.5个；横向单边能放112.5；</p> 
+    <img src="https://pigpeng-web.oss-cn-hangzhou.aliyuncs.com/images/projects/%E4%BA%A4%E5%8F%89%E5%B8%A6%E6%A0%BC%E5%8F%A3%E5%B0%9D%E8%AF%95/%E6%A0%BC%E5%8F%A3%E5%B0%BA%E5%AF%B8.png" alt="真实的交叉带" decoding="async" loading="lazy">
+    <p class="img-caption">整体计算规则</p>
+
+
+    <h1>格口图例类型</h1>
+    <p>1、针对已绑定流向的格口分为(按照总流量除以总格口数减去特殊格口，得出一个平均流量)：分别得到三种：流量大、流量中等、流量较少；用颜色深浅来表达这个强度；</p>  
+    <p>2、除了展示供件区、供包台等，格口图形上需要表达以下几类数据：格口号、流向(段码)、流量、特殊标签格口等；</p>   
+    <img src="https://pigpeng-web.oss-cn-hangzhou.aliyuncs.com/images/projects/%E4%BA%A4%E5%8F%89%E5%B8%A6%E6%A0%BC%E5%8F%A3%E5%B0%9D%E8%AF%95/%E5%9B%BE%E4%BE%8B.png" alt="真实的交叉带" decoding="async" loading="lazy">
+    <p class="img-caption">格口图例类型</p>
+
+
+    <h1>交叉带最终生成的样式</h1>
+    <p>按照上述的规则，最终生成的样式如下，下方展示的为只有一侧的交叉带图；</p>  
+    <img src="https://pigpeng-web.oss-cn-hangzhou.aliyuncs.com/images/projects/%E4%BA%A4%E5%8F%89%E5%B8%A6%E6%A0%BC%E5%8F%A3%E5%B0%9D%E8%AF%95/%E4%BA%A4%E5%8F%89%E5%B8%A6%E6%9C%80%E7%BB%88%E7%94%9F%E6%88%90%E7%9A%84%E6%A0%B7%E5%BC%8F.png" alt="真实的交叉带" decoding="async" loading="lazy">
+    <p class="img-caption">外侧格口示意图</p>
+    
+    <h1>如果格口包含内外侧</h1>
+    <p>一般真实的交叉带都会存在内外侧放置格口，因为这样可以节省空间位置，当包裹在运转过程中能落到格口数也就越多；</p>  
+    <img src="https://pigpeng-web.oss-cn-hangzhou.aliyuncs.com/images/projects/%E4%BA%A4%E5%8F%89%E5%B8%A6%E6%A0%BC%E5%8F%A3%E5%B0%9D%E8%AF%95/%E5%86%85%E5%A4%96%E4%BE%A7%E4%BA%A4%E5%8F%89%E5%B8%A6.png" alt="真实的交叉带" decoding="async" loading="lazy">
+    <p class="img-caption">内外侧都存在格口</p>
+
+    <h1>页面扩展操作</h1>
+    <p>除了查看这些格口的流量分布外，也支持在页面直接调换格口流向，然后重新生成方案，相比纯表格会更加直观一点；</p>  
+    <img src="https://pigpeng-web.oss-cn-hangzhou.aliyuncs.com/images/projects/%E4%BA%A4%E5%8F%89%E5%B8%A6%E6%A0%BC%E5%8F%A3%E5%B0%9D%E8%AF%95/%E8%87%AA%E5%8A%A8%E6%8E%A8%E8%8D%90%E9%9C%80%E6%B3%A8%E6%84%8F%E7%9A%84%E9%97%AE%E9%A2%98.png" alt="真实的交叉带" decoding="async" loading="lazy">
+    <img src="https://pigpeng-web.oss-cn-hangzhou.aliyuncs.com/images/projects/%E4%BA%A4%E5%8F%89%E5%B8%A6%E6%A0%BC%E5%8F%A3%E5%B0%9D%E8%AF%95/%E6%9B%B4%E5%A4%9A%E6%93%8D%E4%BD%9C.png" alt="真实的交叉带" decoding="async" loading="lazy">
+
+    <h1>页面最终样式</h1>
+    <p>嵌入到页面中，为了不改变现有编辑格口配置的交互逻辑，因此设想的是在现有的页面上，增加一个tab，去展示可视化的格口分布与调整建议；原有的表格调整不变，后续对比两个页面的pv/uv，来验证方案的合理性；</p>  
+    <p>在整个页面中，可结合元素进行动态展示，避免用户一次性查看过多的内容，此外，在旁边增加一些教程视频，帮助网点针对性解决问题；</p>  
+    <img src="https://pigpeng-web.oss-cn-hangzhou.aliyuncs.com/images/projects/%E4%BA%A4%E5%8F%89%E5%B8%A6%E6%A0%BC%E5%8F%A3%E5%B0%9D%E8%AF%95/%E6%9C%80%E7%BB%88%E7%94%9F%E6%88%90%E7%9A%84%E9%A1%B5%E9%9D%A2.png" alt="真实的交叉带" decoding="async" loading="lazy">
+    <p class="img-caption">嵌入至系统中的样式</p>
+
+    <h1>持续补充中</h1>
+    <p>其实这只是在短暂的时间中所探索的项目，还有很多细节没有想好，只是当时觉得格口的计算很有意思，便记录下来了，我很喜欢将一件无规律的事情梳理成可复用的逻辑，后续有时间再补充完善；</p>  
+    <img src="https://pigpeng-web.oss-cn-hangzhou.aliyuncs.com/images/article/%E6%8D%A1%E8%B4%9D%E5%A3%B3%E7%9A%84%E7%94%B7%E5%AD%A9/%E6%AD%A3%E5%9C%A8%E4%B9%A6%E5%86%99%E4%B8%AD.png" alt="真实的交叉带" decoding="async" loading="lazy">
+
+</div>
+
+
+
+
+
+
+
+
+  <!-- 页脚 -->
+  <footer class="footer">
+    <div class="container">
+      <p>&copy; Designed and developed by zhu peng.</p>
+        <p>&copy; Copyright © 2022-2025 www.pigpeng.cn. All Rights Reserved.</p>
+    </div>
+  </footer>
+
+
+  <script src="../js/main.js"></script>
+</body>
+</html>

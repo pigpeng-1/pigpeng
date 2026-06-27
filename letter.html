@@ -1,0 +1,300 @@
+<!DOCTYPE html>
+<html lang="zh-CN">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>一封信 - pigpeng</title>
+  <link rel="stylesheet" href="css/style.css">
+  <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/font-awesome@4.7.0/css/font-awesome.min.css">
+
+  <style>
+    .nav-links a {
+      color: rgba(0, 0, 0, 0.65);
+      text-decoration: none;
+      font-size: 16px;
+      font-weight: 400;
+      position: relative;
+      padding: 8px 0;
+      transition: color 0.3s;
+    }
+
+    .nav-links a::after {
+      content: '';
+      position: absolute;
+      bottom: 0;
+      left: 0;
+      width: 0;
+      height: 1px;
+      background-color: #000000;
+      transition: width 0.3s ease;
+    }
+
+    .nav-links a.active {
+      color: #000000;
+      font-weight: 500;
+    }
+
+    .nav-links a.active::after {
+      width: 100%;
+    }
+
+    .nav-links a:hover::after {
+      width: 100%;
+    }
+
+    .nav-links a:hover {
+      color: #1f1f1f;
+    }
+
+    body {
+      background-color: #ffffff;
+      color: #333;
+      font-weight: 400;
+    }
+
+    .frame-1 {
+      position: relative;
+      width: 1280px;
+      margin: 0 auto;
+      min-height: 400px;
+      background: #ffffff;
+    }
+
+    .image {
+      width: 1280px;
+      height: auto;
+      display: block;
+      margin: 120px auto;
+    }
+
+    .frame-2 {
+      max-width: 1000px;
+      margin: 20px auto;
+      padding: 0;
+    }
+
+    .frame-3 {
+      width: 100%;
+      max-width: 1000px;
+      margin: 0;
+      gap: 16px;
+      padding: 240px 0 0 0;
+    }
+
+    .text-wrapper {
+      font-size: 48px;
+      width: 100%;
+      line-height: 150%;
+      font-weight: 600;
+      color: #333;
+      margin-bottom: -10px;
+    }
+
+    .element {
+      font-size: 14px;
+      color: #666;
+      font-weight: 300;
+      max-width: 1280px;
+      margin: 0;
+    }
+
+    .element-2 {
+      font-size: 18px;
+      color: #555;
+      font-weight: 300;
+      max-width: 1280px;
+      margin: 0;
+    }
+
+    .footer {
+      padding-top: 80px;
+      padding-right: 0px;
+      padding-bottom: 60px;
+      padding-left: 0px;
+      background-color: #ffffff;
+      color: #666;
+      font-weight: 300;
+      text-align: center;
+    }
+
+    .footer p {
+      font-size: 12px;
+      line-height: 200%;
+    }
+
+    .blog-content {
+      max-width: 800px;
+      margin: 160px auto;
+      padding: 0;
+      line-height: 1.8;
+      font-size: 16px;
+    }
+
+    .blog-content h1 {
+      font-size: 28px;
+      color: #333;
+      margin: 0 0 25px 0;
+      line-height: 1.3;
+      font-weight: 500;
+      border-bottom: 1px solid #eee;
+      padding-bottom: 10px;
+    }
+
+    .blog-content h2 {
+      font-size: 26px;
+      color: #222;
+      margin: 120px 0 24px 0;
+      font-weight: 400;
+      position: relative;
+      padding-left: 0px;
+    }
+
+    .blog-content h3 {
+      font-size: 18px;
+      color: #222;
+      margin: 25px 0 12px 0;
+      font-weight: 400;
+    }
+
+    .blog-content p {
+      margin: 0 0 24px 0;
+      font-weight: 300;
+      text-align: justify;
+    }
+
+    .blog-content img {
+      max-width: 100%;
+      height: auto;
+      border-radius: 6px;
+      box-shadow: 0 2px 8px rgba(0, 0, 0, 0.08);
+      margin: 20px 0;
+      display: block;
+      margin-left: auto;
+      margin-right: auto;
+    }
+
+    .blog-content .img-caption {
+      text-align: center;
+      font-size: 14px;
+      color: #666;
+      margin: -15px 0 20px 0;
+    }
+
+    .blog-content ul, .blog-content ol {
+      margin: 0 0 18px 30px;
+      padding-left: 10px;
+    }
+
+    .blog-content li {
+      margin: 0 0 8px 0;
+    }
+
+    .blog-content a {
+      color: #4285f4;
+      text-decoration: none;
+      border-bottom: 1px dotted #4285f4;
+    }
+
+    .blog-content a:hover {
+      color: #2d72d9;
+      border-bottom: 1px solid #2d72d9;
+    }
+
+    .blog-content blockquote {
+      border-left: 4px solid #4285f4;
+      padding: 10px 15px;
+      background-color: #f9f9f9;
+      margin: 20px 0;
+      color: #666;
+    }
+
+    @media (max-width: 768px) {
+      .blog-content {
+        padding: 20px 15px;
+        font-size: 15px;
+      }
+      .blog-content h1 {
+        font-size: 24px;
+      }
+      .blog-content h2 {
+        font-size: 20px;
+      }
+    }
+  </style>
+</head>
+<body>
+
+  <nav class="navbar">
+    <a href="index.html" class="logo">
+      <img src="images/logo.png" alt="pigpeng" class="logo-img">
+    </a>
+    <div class="nav-links">
+      <a href="index.html" class="active">主页</a>
+      <a href="projects.html">项目</a>
+      <a href="article.html">文章</a>
+      <a href="photography.html">定格</a>
+      <a href="black.html">黑洞</a>
+    </div>
+  </nav>
+
+  <div class="frame-2">
+    <div class="frame-3">
+      <div class="element">5 min read · 2026年6月</div>
+      <div class="text-wrapper">写给你的一封信</div>
+      <div class="element-2">
+        如果你是从首页那张封面点进来的，那说明我们至少在对视了——谢谢你的停留。
+      </div>
+    </div>
+  </div>
+
+  <div class="frame-1">
+    <img class="image" src="https://pigpeng-web.oss-cn-hangzhou.aliyuncs.com/images/shouye/%E8%A7%86%E9%A2%91%E4%BB%8B%E7%BB%8D%E5%B0%81%E9%9D%A2.png" alt="封面" />
+  </div>
+
+  <div class="blog-content">
+
+    <h2>你好，我是朱鹏</h2>
+
+    <p>97年生，湖南湘潭人。目前在申通快递做体验设计师，主要跟企业级软件打交道——设计系统的搭建、交互逻辑的梳理，是我日常花时间最多的两件事。</p>
+
+    <p>这个网站叫 pigpeng，是我慢慢搭起来的个人空间。没有特别宏大的野心，只是想在一个地方，把做过的东西、写过的东西、拍过的东西，都好好放一放。如果你愿意花点时间逛一逛，大概会看到这些：</p>
+
+    <ul>
+      <li><a href="projects.html">项目</a>：从物流行业的设备分拣系统、设计规范，到医疗领域的病历编辑器，还有一些视频制作和「有趣的尝试」——BIM 软件、格口分布、复杂图表之类，跨度不小，但都是我真实参与过或折腾过的事。</li>
+      <li><a href="article.html">文章</a>：设计方法、产品观察、生活随记都有。有的偏专业，有的纯粹是某个时刻想写下来——比如《太阳照常升起》，跟电影关系不大，更多是借个名字装装样子。</li>
+      <li><a href="photography.html">定格</a>：摄影。快门按下去的那一刻，事情就停在了那里。</li>
+      <li><a href="about.html">交个朋友</a>：如果你想认识我，那里有联系方式和一些私下的爱好——散步、晚场电影、Livehouse、刷 B 站……</li>
+    </ul>
+
+    <h2>我怎么看设计这件事</h2>
+
+    <p>交互设计对我来说，有点像小时候对宇宙的想象——广阔，充满未知，但你可以在里面构建一个个小世界，让用户在其中感受到清晰和美好。企业级软件往往复杂、枯燥，但正因为这样，每一点体验上的改进，都显得格外有意义。</p>
+
+    <p>我做过设计规范，知道跨团队协作有多难；也做过可视化编辑器，明白「让用户少填一个字段」有时候比「做一个漂亮界面」更重要。这些经历让我越来越相信：好的设计不是炫技，而是把复杂的事情，变得可以理解和操作。</p>
+
+    <blockquote>
+      相比于成为专才，我更想要的是，在人生短短几十年里，能领悟到这世间尽可能多的美妙。——这也是我在 <a href="about.html">关于页</a> 里写下的那句话。
+    </blockquote>
+
+    <h2>为什么写这封信</h2>
+
+    <p>首页封面原本只是一张静态图，但我想，每一个点进来的人，都值得知道这背后是谁、在做什么。网站是作品集，也是一面镜子——项目记录我做过什么，文章记录我怎么想，照片记录我看见什么。</p>
+
+    <p>如果你也是设计师，或许我们可以在规范、流程、或者某个难搞的交互上聊几句；如果你只是路过，也欢迎随便看看，没有压力。</p>
+
+    <p>太阳照常升起，日子照常过。希望你在别处忙完一天，来这里翻两页，能觉得还算值得。</p>
+
+    <p>—— 朱鹏<br>写于 2026 年 · 上海</p>
+
+  </div>
+
+  <footer class="footer">
+    <div class="container">
+      <p>&copy; Designed and developed by zhu peng.</p>
+      <p>&copy; Copyright © 2022-2025 www.pigpeng.cn. All Rights Reserved.</p>
+    </div>
+  </footer>
+
+  <script src="js/main.js"></script>
+</body>
+</html>

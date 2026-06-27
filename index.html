@@ -23,16 +23,27 @@
   </nav>
 
 
-   <!-- 顶部说明 -->
-<div class="frame-2">
+   <!-- 顶部说明 + 封面 -->
+<div class="home-hero-zone">
+  <div class="home-aurora-wrap">
+    <div
+      class="aurora-bg aurora-container"
+      data-aurora
+      data-color-stops='["#6dd663","#b088d4","#7d70e8"]'
+      data-blend="0.58"
+      data-amplitude="0.95"
+      data-speed="0.6"
+      aria-hidden="true"
+    ></div>
+    <div class="frame-2 has-split-intro split-pending">
         <div class="frame-3">
           <div class="frame-4">
-            <div class="text-wrapper-3">👋 hi，我叫朱鹏</div>
-            <div class="element-2">
+            <div class="text-wrapper-3" data-split-text data-split-type="chars">👋 hi，我叫朱鹏</div>
+            <div class="element-2" data-split-text data-split-type="words">
               97年生，湖南湘潭人，目前我在申通快递担任体验设计师，主要服务于企业级软件，擅长设计系统的搭建和交互逻辑的梳理；
             </div>
           </div>
-          <div class="frame-5">
+          <div class="frame-5" data-split-fade>
             <div class="element-3">
               <a href="about.html" class="btn">交个朋友</a>
             </div>
@@ -47,66 +58,71 @@
             </a>
           </div>
         </div>
+    </div>
+  </div>
 
   <!-- 封面区域 -->
-  <section id="home" class="hero">
-  </section>
+  <a href="letter.html" class="hero-link" aria-label="阅读介绍信">
+    <section id="home" class="hero">
+    </section>
+  </a>
+</div>
 
  <!-- 项目预览（首页简化版，详情在projects.html） -->
 <section id="projects-preview" class="projects-list">
   <div class="container">
-    <div class="projects-grid">
+    <div class="chroma-grid projects-chroma-grid" data-chroma-grid>
 
-      <div class="project-card">
+      <div class="project-card chroma-card">
         <a href="项目/设备分拣系统.html">
           <div class="card-img">
             <img src="https://pigpeng-web.oss-cn-hangzhou.aliyuncs.com/images/projects/%E8%AE%BE%E5%A4%87%E5%88%86%E6%8B%A3%E7%B3%BB%E7%BB%9F%E5%B0%81%E9%9D%A2.jpg" alt="设备分拣接入系统">
           </div>
           <div class="card-content">
             <h3>设备分拣接入系统</h3>
-            <p>通过可视化设备模型，来复制用户进行内容的填写</p>
+            <p>通过可视化设备模型，来帮助用户进行内容的填写</p>
           </div>
         </a>
       </div>
 
-      <div class="project-card">
+      <div class="project-card chroma-card">
         <a href="项目/病历编辑器的搭建.html">
           <div class="card-img">
             <img src="https://pigpeng-web.oss-cn-hangzhou.aliyuncs.com/images/projects/%E7%94%B5%E5%AD%90%E7%97%85%E5%8E%86%E7%BC%96%E8%BE%91%E5%99%A8.jpg" alt="病历编辑器搭建">
           </div>
           <div class="card-content">
             <h3>病历编辑器搭建</h3>
-            <p>这是我做过最为复杂的系统设计</p>
+            <p>一个主页反复打磨，这是一个低代码平台</p>
           </div>
         </a>
       </div>
 
-    </div>
-    <div class="projects-grid">
-      <div class="project-card">
+      <div class="project-card chroma-card">
         <a href="项目/申通设计规范.html">
           <div class="card-img">
             <img src="https://pigpeng-web.oss-cn-hangzhou.aliyuncs.com/images/projects/%E7%94%B3%E9%80%9A%E8%AE%BE%E8%AE%A1%E8%A7%84%E8%8C%83.png" alt="申通设计规范">
           </div>
           <div class="card-content">
-            <h3>申通设计规范</h3>
-            <p>对于一些复杂图表的自适应以及内容的思考</p>
+            <h3>设计规范</h3>
+            <p>规范跨团队、跨项目的内容设计，在此期间完成了大大小小的修改与迭代</p>
           </div>
         </a>
       </div>
 
-      <div class="project-card">
+      <div class="project-card chroma-card">
         <a href="项目/APP版本升级.html">
           <div class="card-img">
-            <img src="https://pigpeng-web.oss-cn-hangzhou.aliyuncs.com/images/projects/%E4%BA%8C%E7%BA%A7%E5%B0%81%E9%9D%A2/app%E5%8D%87%E7%BA%A7%E5%B0%81%E9%9D%A2.png" alt="APP版本升级视频">
+            <img src="https://pigpeng-web.oss-cn-hangzhou.aliyuncs.com/images/projects/%E4%BA%8C%E7%BA%A7%E5%B0%81%E9%9D%A2/2.0%E5%8D%87%E7%BA%A7%E8%A7%86%E9%A2%91%E5%B0%81%E9%9D%A2.jpg" alt="APP版本升级视频">
           </div>
           <div class="card-content">
             <h3>APP版本升级视频制作</h3>
-            <p>第一次尝试制作手机上竖屏观看的视频，在有限的时长内尽可能将内容展示明白</p>
+            <p>为了加强用户对新版本功能的理解，制作了一个开屏视频，第一次尝试制作竖屏视频</p>
           </div>
         </a>
       </div>
 
+      <div class="chroma-overlay" aria-hidden="true"></div>
+      <div class="chroma-fade" aria-hidden="true"></div>
     </div>
 
     <div class="text-left" style="margin-top: 80px;">
@@ -124,7 +140,7 @@
     <h3>记录一次公司内部的晋升</h3>
     <div class="text-date-wrap">
   <p>在公司入职一年的时候，完成了一次职级的晋升，算是自己第一次在大公司内部的答辩晋升</p>
-  <span class="article-date">2025.10.12</span>
+  <span class="article-date">2025.04.10</span>
   </div>
   </div>
 
@@ -173,6 +189,7 @@
     </div>
   </footer>
 
+  <script type="module" src="js/aurora.js"></script>
   <script src="js/main.js"></script>
 </body>
 </html>

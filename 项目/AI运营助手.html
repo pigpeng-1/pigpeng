@@ -139,7 +139,7 @@
 
     /* 仅正文容器样式 */
     .blog-content {
-        max-width: 800px; /* 最优阅读宽度 */
+        max-width: 1000px; /* 最优阅读宽度 */
         margin: 160px auto;   /* 居中显示 */
         padding: 36;
         line-height: 1.8; /* 舒适的行高 */
@@ -186,8 +186,6 @@
     .blog-content img {
         max-width: 100%; /* 自适应容器宽度 */
         height: auto;    /* 保持宽高比 */
-        border-radius: 6px; /* 轻微圆角，更美观 */
-        box-shadow: 0 2px 8px rgba(0, 0, 0, 0.08); /* 轻微阴影 */
         margin: 20px 0;   /* 上下间距 */
         display: block;   /* 避免图片底部留白 */
         margin-left: auto;
@@ -211,29 +209,7 @@
     .blog-content li {
         margin: 0 0 8px 0;
     }
-
-    /* 代码样式 */
-    .blog-content code {
-        background-color: #f5f5f5;
-        padding: 2px 6px;
-        border-radius: 4px;
-        font-family: "Consolas", "Monaco", monospace;
-        font-size: 14px;
-        color: #d63384;
-    }
-
-    /* 代码块样式 */
-    .blog-content pre {
-        background-color: #f8f8f8;
-        padding: 15px;
-        border-radius: 6px;
-        border: 1px solid #eee;
-        overflow-x: auto; /* 横向滚动 */
-        margin: 20px 0;
-        font-family: "Consolas", "Monaco", monospace;
-        font-size: 14px;
-        line-height: 1.5;
-    }
+ 
 
     /* 链接样式 */
     .blog-content a {
@@ -294,11 +270,11 @@
   <div class="frame-2">
     <div class="frame-3">
         <div class="element">
-            2 min read - 2020年5月～10月
+            10 min read - 2025年9月～2026年2月
         </div>
-        <div class="text-wrapper">怎么给公司带来一些有趣的内容</div>
+        <div class="text-wrapper">一些AI产品的小尝试</div>
         <div class="element-2">
-            因为毕业入职的第一家公司，其几位创始人都是从硅谷回来，所以整体氛围比较自由，在那里我尝试了许多有意思的事情，而正好我也发挥了在大学里面学习到的摄影技巧；
+            助力总部运营人员查看数据，此外还有些针对实操提效的AI功能，算是我第一次尝试制作AI产品。
         </div>
     </div>
   </div>
@@ -307,7 +283,7 @@
 
  <!-- 顶部封面 -->
  <div class="frame-1">
-    <img class="image" src="https://pigpeng-web.oss-cn-hangzhou.aliyuncs.com/images/projects/%E6%9C%89%E8%B6%A3%E7%9A%84%E5%B0%9D%E8%AF%95/%E6%8B%8D%E7%85%A7%E5%B0%9D%E8%AF%95%E4%B8%AD.png" alt="脑洞大开"  decoding="async" fetchpriority="high">
+    <img class="image" src="https://pigpeng-web.oss-cn-hangzhou.aliyuncs.com/images/projects/%E7%94%B3%E9%80%9Aai%E5%B0%81%E9%9D%A2.png" alt="一些AI产品的小尝试" decoding="async" fetchpriority="high">
   </div>
 
 
@@ -315,39 +291,44 @@
 <!-- 仅博客正文容器 -->
 <div class="blog-content">
 
-    <h1>人物形象照</h1>
-    <p>当时想在网站放每个位同事的照片，分为两张，当鼠标切换上去时则自动变成另外一张活泼生动的照片；</p>     
+    <h1>背景介绍</h1>
+    <p>总部运营同学日常需要查滞留率、交货率等指标，传统报表路径长、字段多。我们尝试用对话式 AI 降低查询门槛，并在部分实操场景里加入提效能力，这是我第一次完整参与 AI 产品的设计与迭代。</p>     
 
-    <img src="https://pigpeng-web.oss-cn-hangzhou.aliyuncs.com/images/projects/%E4%BA%BA%E7%89%A9%E5%BD%A2%E8%B1%A1%E7%85%A7.png" decoding="async" loading="lazy">
-
-    <p>每一位同事入职时我都会去进行拍摄，即使后面有些同事离职了，也也私下询问我，拿这个当作头像与形象照使用，其实还是蛮有意思的；</p>  
-
-    <img src="https://pigpeng-web.oss-cn-hangzhou.aliyuncs.com/images/projects/%E6%9C%89%E8%B6%A3%E7%9A%84%E5%B0%9D%E8%AF%95/%E5%90%8C%E4%BA%8B%E7%9A%84%E7%85%A7%E7%89%87.png" decoding="async" loading="lazy">
+    <img src="https://pigpeng-web.oss-cn-hangzhou.aliyuncs.com/images/projects/%E7%94%B3%E9%80%9Aai%E5%B0%81%E9%9D%A2.png" decoding="async" loading="lazy">
 
     
-    <h1>感恩节视频</h1>
-    <p>人事部有时候会拉着我去做一些有意思的活动，比如这次的感恩节视频，一个统一的开头后面接着的每一位领导想对自己团队内成员所说的话；这下面播放的是视频的开头；</p>
+    <h1>整体框架布局</h1>
+    <p>基础对话结构：中间是对话区，扩展操作从右侧滑出，保证主交互区始终可见。</p>     
+    <img src="https://pigpeng-web.oss-cn-hangzhou.aliyuncs.com/images/projects/AI%E5%8A%A9%E6%89%8B/%E5%B0%81%E9%9D%A2.png" decoding="async" loading="lazy">
 
-    <video
-    src="https://pigpeng-web.oss-cn-hangzhou.aliyuncs.com/images/projects/%E6%9C%89%E8%B6%A3%E7%9A%84%E5%B0%9D%E8%AF%95/%E6%84%9F%E6%81%A9%E8%8A%82%E5%BC%80%E5%A4%B4%E8%A7%86%E9%A2%91.mp4"
-    controls 
-    width="100%" 
-    max-width="500px"
-    poster="https://pigpeng-web.oss-cn-hangzhou.aliyuncs.com/images/projects/%E6%84%9F%E6%81%A9%E8%8A%82%E5%B0%81%E9%9D%A2.png"
-    preload="metadata"
-    playsinline
-    style="display: block; margin: 20px auto; border-radius: 8px; border: 1px solid #ececec; height: 450px;">
-    </video> 
+    <p>1、所有的扩展操作都在右侧弹出，中间的对话交互区的宽度自适应，保证对话区始终在可视范围内，方便用户随时进行交互；</p>     
+    <img src="https://pigpeng-web.oss-cn-hangzhou.aliyuncs.com/images/projects/AI%E5%8A%A9%E6%89%8B/%E5%B0%81%E9%9D%A2.png" decoding="async" loading="lazy">
 
+    <p>2、当需要对某个问题进行订阅时，可直接调起右侧面板进行订阅；</p>     
+    <img src="https://pigpeng-web.oss-cn-hangzhou.aliyuncs.com/images/projects/AI%E5%8A%A9%E6%89%8B/%E5%B0%81%E9%9D%A2.png" decoding="async" loading="lazy">
 
-
-    <h1>人物海报</h1>
-    <p>疫情期间，公司希望给员工制作一系列海报，来对抗当时低沉的情绪，发布在老板的朋友圈；</p>
-
-    <img src="https://pigpeng-web.oss-cn-hangzhou.aliyuncs.com/images/projects/%E6%B5%B7%E6%8A%A5%E5%B0%81%E9%9D%A2.png" decoding="async" loading="lazy">
-
+    <p>3、当打开收藏时，在右侧展示对应的模块，方便用户随时使用收藏的问题进行提问；</p>     
+    <img src="https://pigpeng-web.oss-cn-hangzhou.aliyuncs.com/images/projects/AI%E5%8A%A9%E6%89%8B/%E5%B0%81%E9%9D%A2.png" decoding="async" loading="lazy">
 
     
+    <h1>回答文本的结构化</h1>
+    <p>为什么做结构化设计？这里将使用结构化的数据也展示出来；其作用有哪些，如何去帮助用户更好的提问；</p> 
+
+    <p>1、将“时间、组织、匹配条件、汇总维度”等抽离出来，培养用户提问的习惯与话术；</p> 
+    <img src="https://pigpeng-web.oss-cn-hangzhou.aliyuncs.com/images/projects/AI%E5%8A%A9%E6%89%8B/%E7%BB%93%E6%9E%84%E5%8C%961.png" decoding="async" loading="lazy">
+
+    <p>2、所有结构化标签的下拉配置列表，都尽可能拆成最小单元，用户直接点击可对结果进行选择；</p> 
+    <img src="https://pigpeng-web.oss-cn-hangzhou.aliyuncs.com/images/projects/AI%E5%8A%A9%E6%89%8B/%E7%BB%93%E6%9E%84%E5%8C%962.png" decoding="async" loading="lazy">
+
+    <p>3、所有结构化标签的下拉配置列表，都尽可能拆成最小单元，用户直接点击可对结果进行选择；</p> 
+    <img src="https://pigpeng-web.oss-cn-hangzhou.aliyuncs.com/images/projects/AI%E5%8A%A9%E6%89%8B/%E7%BB%93%E6%9E%84%E5%8C%963.png" decoding="async" loading="lazy">
+
+    <p>4、当我们通过结构化的语句，引导用户进行提问与修改对应内容，可以精确的知道并更改问题错在哪，避免因某个字段的错误反复追问；</p> 
+    <img src="https://pigpeng-web.oss-cn-hangzhou.aliyuncs.com/images/projects/AI%E5%8A%A9%E6%89%8B/%E7%BB%93%E6%9E%84%E5%8C%964.png" decoding="async" loading="lazy">
+
+
+    <h1>实操提效功能</h1>
+    <p>除数据查询外，还在部分实操流程里尝试 AI 辅助，减少重复操作。后续会持续补充案例与截图。</p>
 
 </div>
 

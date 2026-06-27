@@ -159,6 +159,59 @@ body {
 
 /* 个人介绍模块样式（黑色背景适配） */
 
+.home-hero-zone {
+  position: relative;
+  width: 100%;
+}
+
+/* 极光区域：intro 文字 + 封面图上方空白区 */
+.home-aurora-wrap {
+  position: relative;
+  width: 100%;
+  overflow: hidden;
+  padding-bottom: 360px;
+}
+
+.aurora-bg,
+.aurora-container {
+  position: absolute;
+  inset: 0;
+  width: 100%;
+  height: 100%;
+  pointer-events: none;
+  z-index: 0;
+  opacity: 0.72;
+}
+
+.aurora-container canvas {
+  width: 100% !important;
+  height: 100% !important;
+  display: block;
+}
+
+.home-aurora-wrap::after {
+  content: '';
+  position: absolute;
+  left: 0;
+  right: 0;
+  bottom: 0;
+  height: 220px;
+  background: linear-gradient(to bottom, transparent, #111111);
+  pointer-events: none;
+  z-index: 1;
+}
+
+.home-aurora-wrap .frame-2 {
+  position: relative;
+  z-index: 2;
+}
+
+@media (max-width: 768px) {
+  .home-aurora-wrap {
+    padding-bottom: 120px;
+  }
+}
+
 .frame-2 {
   width: 100%;
   justify-content: center; 
@@ -329,12 +382,19 @@ body {
 
 
 
+/* 首页封面点击跳转 */
+.hero-link {
+  display: block;
+  text-decoration: none;
+  cursor: pointer;
+}
+
 /* 视频介绍图片 */
 .hero {
   height: 800px; 
   width: auto;
-  background-image: url('https://pigpeng-web.oss-cn-hangzhou.aliyuncs.com/images/shouye/%E9%A6%96%E9%A1%B5%E8%A7%86%E9%A2%91%E4%BB%8B%E7%BB%8D.png');
-  margin: 360px 280px; /* 简化margin写法，等价于原上下左右边距 */
+  background-image: url('https://pigpeng-web.oss-cn-hangzhou.aliyuncs.com/images/shouye/%E8%A7%86%E9%A2%91%E4%BB%8B%E7%BB%8D%E5%B0%81%E9%9D%A2.png');
+  margin: 0 280px 360px;
   /* 2. 关键：改为 contain 保证图片完整显示，不裁剪 */
   background-size: contain;
   background-position: center; /* 图片依然居中 */
@@ -444,6 +504,37 @@ body {
   transform: scale(1.05);
 }
 
+/* 首页聚光灯高亮（仅 hover 交互，不改变卡片原有样式） */
+.projects-chroma-grid {
+  position: relative;
+  width: 100%;
+  display: grid;
+  grid-template-columns: repeat(2, 1fr);
+  gap: 80px;
+  margin-top: 100px;
+  --x: 50%;
+  --y: 50%;
+  --r: 300px;
+}
+
+@media (max-width: 768px) {
+  .projects-chroma-grid {
+    grid-template-columns: 1fr;
+    gap: 40px;
+    --r: 220px;
+  }
+}
+
+.projects-chroma-grid .chroma-card {
+  position: relative;
+  z-index: 1;
+}
+
+.projects-chroma-grid .chroma-overlay,
+.projects-chroma-grid .chroma-fade {
+  display: none;
+}
+
 /* 容器样式（确保居中） */
 .container {
   width: 100%;
@@ -546,7 +637,6 @@ body {
 }
 
 
-/* 工作之余 */
 .work-img {
   margin-top: 60px; /* 可根据需要调整与上方内容的间距 */
   margin-bottom: 60px;
@@ -589,17 +679,15 @@ body {
   text-decoration: none; /* 去除下划线 */
   color: inherit; /* 继承文字颜色 */
 }
-/* 整项 hover 效果（可选，提升交互） */
+/* 整项 hover 效果 */
 .project-link:hover .project-item {
-  opacity: 0.9;
-  transform: translateY(-2px);
-  transition: all 0.2s ease;
+  transform: translateY(-5px);
 }
 
 /* 单个项目：适应grid布局 */
 .project-item {
   width: 100%;
-  transition: all 0.2s ease; /* 配合hover动画 */
+  transition: transform 0.3s ease;
 }
 
 /* 内容封面 */
@@ -608,12 +696,18 @@ body {
   border-radius: 0px;
   overflow: hidden;
   margin-bottom: 24px;
-  cursor: pointer; /* 鼠标悬浮变手型 */
+  cursor: pointer;
 }
 .project-cover img {
   width: 100%;
   height: 300px;
   display: block;
+  object-fit: cover;
+  transition: transform 0.3s ease;
+}
+
+.project-link:hover .project-cover img {
+  transform: scale(1.05);
 }
 
 /* 仅封面跳转的链接样式 */
@@ -689,15 +783,13 @@ body {
 
 /* 整项 hover 效果 */
 .project-link-3col:hover .project-item-3col {
-  opacity: 0.9;
-  transform: translateY(-2px);
-  transition: all 0.2s ease;
+  transform: translateY(-5px);
 }
 
 /* 单个项目：适应grid布局 */
 .project-item-3col {
   width: 100%;
-  transition: all 0.2s ease; /* 配合hover动画 */
+  transition: transform 0.3s ease;
 }
 
 /* 内容封面 */
@@ -706,14 +798,19 @@ body {
   border-radius: 0px;
   overflow: hidden;
   margin-bottom: 20px;
-  cursor: pointer; /* 鼠标悬浮变手型 */
+  cursor: pointer;
 }
 
 .project-cover-3col img {
   width: 100%;
-  height: 200px; /* 固定高度，保持统一 */
-  object-fit: cover; /* 保持比例，裁剪多余部分 */
+  height: 200px;
+  object-fit: cover;
   display: block;
+  transition: transform 0.3s ease;
+}
+
+.project-link-3col:hover .project-cover-3col img {
+  transform: scale(1.05);
 }
 
 /* 内容标题 */
@@ -933,16 +1030,21 @@ body {
 /* --------------------------------以下为定格页面样式-------------------------------- */
 
 .photo-gallery {
-      columns: 3; /* 固定三列 */
-      column-gap: 40px; /* 列之间的间距 */
+      display: flex;
+      align-items: flex-start;
+      gap: 40px;
       max-width: 1280px;
       margin: 0px auto;
       padding: 0 0;
     }
 
-    /* 照片卡片：关键！禁止跨列分割，确保卡片完整显示在一列中 */
+    .photo-column {
+      flex: 1;
+      min-width: 0;
+    }
+
+    /* 照片卡片 */
     .photo-card {
-      break-inside: avoid; /* 核心属性：防止卡片被列分割 */
       margin-bottom: 60px; /* 卡片之间的垂直间距（列内） */
       cursor: pointer;
     }
@@ -1144,6 +1246,18 @@ body {
     .img-modal-close:hover {
       opacity: 0.7;
     }
+
+    /* 博客/项目页：仅放大图片，隐藏右侧摄影信息栏 */
+    .img-modal.img-modal--image-only .img-modal-right {
+      display: none !important;
+    }
+    .img-modal.img-modal--image-only .img-modal-container {
+      justify-content: center;
+    }
+    .img-modal.img-modal--image-only .img-modal-left {
+      flex: 1;
+      max-width: 100%;
+    }
     
     /* 响应式：移动端改为上下布局 */
     @media (max-width: 768px) {
@@ -1164,15 +1278,10 @@ body {
       }
     }
 
-    /* 响应式：移动端自动改为1列，平板2列 */
+    /* 响应式：移动端 1 列、平板 2 列（列数由 JS 创建 .photo-column 数量配合） */
     @media (max-width: 768px) {
       .photo-gallery {
-        columns: 1;
-      }
-    }
-    @media (min-width: 769px) and (max-width: 992px) {
-      .photo-gallery {
-        columns: 2;
+        flex-direction: column;
       }
     }
 
@@ -1368,7 +1477,28 @@ body {
 
 
 
-/* --------------------------------以下为页面加载动画样式-------------------------------- */
+/* SplitText 动效（仅动画层，不改变原有字号/间距） */
+.has-split-intro {
+  opacity: 1 !important;
+  transform: none !important;
+}
+
+.has-split-intro.split-pending .text-wrapper-3,
+.has-split-intro.split-pending .text-wrapper-5,
+.has-split-intro.split-pending .element-2,
+.has-split-intro.split-pending .frame-5 {
+  opacity: 0;
+}
+
+.split-parent {
+  overflow: hidden;
+}
+
+.split-char,
+.split-word {
+  will-change: transform, opacity;
+}
+
 
 /* 动画基础类 - 预先定义在CSS中，避免闪烁 */
 .animate-element {

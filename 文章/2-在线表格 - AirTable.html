@@ -1,0 +1,411 @@
+<!DOCTYPE html>
+<html lang="zh-CN">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>AirTable 的探索与使用 — pigpeng</title>
+  <link rel="stylesheet" href="../css/style.css">
+  <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/font-awesome@4.7.0/css/font-awesome.min.css">
+
+  <style>
+
+
+    /* 单个菜单样式（保留之前的选中线效果） */
+    .nav-links a {
+    color: rgba(0, 0, 0, 0.65);
+    text-decoration: none;
+    font-size: 16px;
+    font-weight: 400;
+    position: relative;
+    padding: 8px 0; /* 预留选中线空间 */
+    transition: color 0.3s;
+    }
+
+    /* 选中线效果（保持之前的逻辑：文字下方8px、同宽） */
+    .nav-links a::after {
+    content: '';
+    position: absolute;
+    bottom: 0;
+    left: 0;
+    width: 0;
+    height: 1px;
+    background-color: #000000;
+    transition: width 0.3s ease;
+    }
+
+    /* 选中菜单样式（核心区分） */
+    .nav-links a.active {
+    color: #000000; /* 选中文字强调色（如金色，与黑色背景强对比） */
+    font-weight: 500; /* 选中字体加粗（700=bold），明显突出 */
+    }
+
+    .nav-links a.active::after {
+    width: 100%; /* 选中时同宽 */
+    }
+    .nav-links a:hover::after {
+    width: 100%; /* hover时显示线（可选） */
+    }
+    .nav-links a:hover {
+    color: #1f1f1f;
+    }
+
+
+
+    body {
+    background-color: #ffffff; /* 背景 */
+    color: #222; /* 全局默认文字白色，确保可读性 */
+    font-weight: 400;
+    }
+
+
+
+    .frame-1 {
+    position: relative; /* 作为子元素绝对定位的参考 */
+    width: 1280px;
+    margin: 0 auto; /* 居中显示 */
+    min-height: 400px; /* 图片加载失败时兜底高度 */
+    background: #ffffff; /* 图片加载失败时的背景色 */
+    }
+
+
+    /* 封面样式 */
+    .image {
+    width: 1280px;
+    height: auto; /* 自适应高度，避免变形 */
+    display: block; /* 去除图片默认的行内空白 */
+    margin: 120px auto;
+    }
+
+
+    .frame-2 {
+    max-width: 1000px;
+    margin: 20px auto;
+    padding: 0;
+    }
+    
+
+    /* 文字区域 */
+    .frame-3 {
+    width: 100%;
+    max-width: 1000px;
+    margin: 0;
+    gap: 16px;
+    padding: 240px 0 0 0;
+    }
+    
+
+    .text-wrapper {
+    font-size: 48px;
+    width: 100%;
+    line-height:150%;
+    font-weight: 600;
+    color: #333; /* 白色标题，突出名字 */
+    margin-bottom: -10px;
+    }
+
+    .element {
+    font-size: 14px;
+    color: #666; /* 浅灰文字，黑色背景下可读性强 */
+    font-weight: 300;
+    max-width: 1360px; /* 限制文字宽度，避免换行太丑 */
+    margin: 0 0 0 0;
+    }
+
+    .element-2 {
+    font-size: 18px;
+    color: #555; /* 浅灰文字，黑色背景下可读性强 */
+    font-weight: 300;
+    max-width: 1360px; /* 限制文字宽度，避免换行太丑 */
+    margin: 0 0 0 0;
+    }
+
+
+    /* 页脚样式 */
+    .footer {
+    padding-top: 80px;
+    padding-right: 0px;
+    padding-bottom: 60px;
+    padding-left: 0px;
+    background-color: #ffffff;
+    color: #333;
+    text-align: center;
+    }
+    .footer p {
+    font-size: 12px;
+    line-height:200%;
+    }
+
+
+    /* 仅正文容器样式 */
+    .blog-content {
+        max-width: 1000px; /* 最优阅读宽度 */
+        margin: 160px auto;   /* 居中显示 */
+        padding: 0;
+        line-height: 1.8; /* 舒适的行高 */
+        font-size: 16px;
+    }
+
+    /* 一级标题 */
+    .blog-content h1 {
+        font-size: 28px;
+        color: #333;
+        margin: 120px 0 24px 0;
+        line-height: 1.3;
+        font-weight: 500;
+        border-bottom: 1px solid #eee;
+        padding-bottom: 10px;
+    }
+
+    /* 二级标题 */
+    .blog-content h2 {
+        font-size: 22px;
+        color: #333;
+        margin: 48px 0 24px 0;
+        font-weight: 400;
+        position: relative;
+        padding-left: 0px;
+    }
+
+    /* 三级标题（可选） */
+    .blog-content h3 {
+        font-size: 18px;
+        color: #222;
+        margin: 25px 0 12px 0;
+        font-weight: 400;
+    }
+
+    /* 正文段落 */
+    .blog-content p {
+        margin: 0 0 24px 0;
+        font-weight: 300;
+        text-align: justify; /* 两端对齐，提升阅读体验 */
+    }
+
+    /* 图片样式 */
+    .blog-content img {
+        max-width: 100%; /* 自适应容器宽度 */
+        height: auto;    /* 保持宽高比 */
+        border-radius: 6px; /* 轻微圆角，更美观 */
+        box-shadow: 0 2px 8px rgba(0, 0, 0, 0.08); /* 轻微阴影 */
+        margin: 20px 0;   /* 上下间距 */
+        display: block;   /* 避免图片底部留白 */
+        margin-left: auto;
+        margin-right: auto; /* 图片居中 */
+    }
+
+    /* 图片说明文字（可选） */
+    .blog-content .img-caption {
+        text-align: center;
+        font-size: 14px;
+        color: #666;
+        margin: -15px 0 20px 0;
+    }
+
+    /* 列表样式 */
+    .blog-content ul, .blog-content ol {
+        margin: 0 0 18px 30px;
+        padding-left: 10px;
+    }
+
+    .blog-content li {
+        margin: 0 0 8px 0;
+    }
+
+    /* 代码样式 */
+    .blog-content code {
+        background-color: #f5f5f5;
+        padding: 2px 6px;
+        border-radius: 4px;
+        font-family: "Consolas", "Monaco", monospace;
+        font-size: 14px;
+        color: #d63384;
+    }
+
+    /* 代码块样式 */
+    .blog-content pre {
+        background-color: #f8f8f8;
+        padding: 15px;
+        border-radius: 6px;
+        border: 1px solid #eee;
+        overflow-x: auto; /* 横向滚动 */
+        margin: 20px 0;
+        font-family: "Consolas", "Monaco", monospace;
+        font-size: 14px;
+        line-height: 1.5;
+    }
+
+    /* 链接样式 */
+    .blog-content a {
+        color: #4285f4;
+        text-decoration: none;
+        border-bottom: 1px dotted #4285f4;
+    }
+
+    .blog-content a:hover {
+        color: #2d72d9;
+        border-bottom: 1px solid #2d72d9;
+    }
+
+    /* 引用样式（可选） */
+    .blog-content blockquote {
+        border-left: 4px solid #4285f4;
+        padding: 10px 15px;
+        background-color: #f9f9f9;
+        margin: 20px 0;
+        color: #666;
+    }
+
+    /* 移动端适配 */
+    @media (max-width: 768px) {
+        .blog-content {
+            padding: 20px 15px;
+            font-size: 15px;
+        }
+        .blog-content h1 {
+            font-size: 24px;
+        }
+        .blog-content h2 {
+            font-size: 20px;
+        }
+    }
+</style>
+
+</head>
+<body>
+    
+  <!-- 右上角导航栏（5个菜单+选中下划线） -->
+  <nav class="navbar">
+    <a href="../index.html" class="logo">
+  <img src="../images/logo.png" alt="pigpeng" class="logo-img">
+</a>
+    <div class="nav-links">
+      <a href="../index.html">主页</a>
+      <a href="../projects.html">项目</a>
+      <a href="../article.html" class="active">文章</a>
+      <a href="../photography.html">定格</a>
+      <a href="../black.html">黑洞</a>
+    </div>
+  </nav>
+
+
+
+ <!-- 顶部标题 -->
+  <div class="frame-2">
+    <div class="frame-3">
+        <div class="element">
+        5 min read - 2022年
+        </div>
+        <div class="text-wrapper">AirTable 的探索与使用</div>
+        <div class="element-2">
+        记录当时使用时的一些截图与设计点
+        </div>
+    </div>
+  </div>
+
+
+
+
+
+<!-- 仅博客正文容器 -->
+<div class="blog-content">
+
+
+    <h2>1、工具类产品按钮尽量用黑色的为主，不必加入过多的边框；</h2>
+    <img src="https://pigpeng-web.oss-cn-hangzhou.aliyuncs.com/images/article/%E4%BA%A7%E5%93%81%E4%BD%93%E9%AA%8C/AirTable/resource_1.png" alt="配图 1" loading="lazy">
+
+    <h2>2、在保持系统风格的前提下，可以尝试一些新的 tab，比如下方这个弹窗的右侧；</h2>
+    <img src="https://pigpeng-web.oss-cn-hangzhou.aliyuncs.com/images/article/%E4%BA%A7%E5%93%81%E4%BD%93%E9%AA%8C/AirTable/resource_2.png" alt="配图 2" loading="lazy">
+
+    <h2>3、像「电子邮件邀请」、「创建链接」这种 tabs，未点击的选项下有条下划线，可以更加直观表明这属于 tab，支持点击；</h2>
+    <img src="https://pigpeng-web.oss-cn-hangzhou.aliyuncs.com/images/article/%E4%BA%A7%E5%93%81%E4%BD%93%E9%AA%8C/AirTable/resource_3.png" alt="配图 3" loading="lazy">
+
+    <h2>4、对于一排可点击的菜单，可以通过在后面加上具体的图标来表明哪些是在系统内打开，哪些是打开一个新页签；</h2>
+    <img src="https://pigpeng-web.oss-cn-hangzhou.aliyuncs.com/images/article/%E4%BA%A7%E5%93%81%E4%BD%93%E9%AA%8C/AirTable/resource_4.png" alt="配图 4" loading="lazy">
+
+    <h2>5、左侧的创建，无论是视图还是对应的组件，都可以在鼠标 hover 上去时展示对应的缩略预览图，方便用户了解具体的内容，同时也能很直观的看到这个组件是什么样式；</h2>
+    <img src="https://pigpeng-web.oss-cn-hangzhou.aliyuncs.com/images/article/%E4%BA%A7%E5%93%81%E4%BD%93%E9%AA%8C/AirTable/resource_5.png" alt="配图 5" loading="lazy">
+
+    <h2>6、通过交互流程中刻意制造的「卡点」，避免用户形成知识整理的惰性。在一些大的知识记录模块，强制让用户先命名比直接新建一个无标题文档更好；但是一些备忘录等轻记类软件则不适合；</h2>
+    <img src="https://pigpeng-web.oss-cn-hangzhou.aliyuncs.com/images/article/%E4%BA%A7%E5%93%81%E4%BD%93%E9%AA%8C/AirTable/resource_6.png" alt="配图 6" loading="lazy">
+
+    <h2>7、有时候「隐藏折叠」功能放在内容的中间也挺不错，可以充当分割区域的同时也直观展现功能；</h2>
+    <img src="https://pigpeng-web.oss-cn-hangzhou.aliyuncs.com/images/article/%E4%BA%A7%E5%93%81%E4%BD%93%E9%AA%8C/AirTable/resource_7.png" alt="配图 7" loading="lazy">
+
+    <h2>8、一些常见的功能模块可以采用图标进行简化展示，同时鼠标 hover 上去后展示具体的内容；</h2>
+    <img src="https://pigpeng-web.oss-cn-hangzhou.aliyuncs.com/images/article/%E4%BA%A7%E5%93%81%E4%BD%93%E9%AA%8C/AirTable/resource_9.png" alt="配图 9" loading="lazy">
+
+    <h2>9、条件组的添加交互，将关系栏位拎出来，看起来更加直观；前面关系，后面的条件的具体内容；</h2>
+    <img src="https://pigpeng-web.oss-cn-hangzhou.aliyuncs.com/images/article/%E4%BA%A7%E5%93%81%E4%BD%93%E9%AA%8C/AirTable/resource_10.png" alt="配图 10" loading="lazy">
+
+    <h2>10、当卡片最小化后，不一定需要一个最大化的按钮，可以直接点击卡片即为展开；</h2>
+    <img src="https://pigpeng-web.oss-cn-hangzhou.aliyuncs.com/images/article/%E4%BA%A7%E5%93%81%E4%BD%93%E9%AA%8C/AirTable/resource_11.png" alt="配图 11" loading="lazy">
+
+    <h2>11、根据不同的单元格类型展示不同的快捷操作按钮，比如文本框则展示放大按钮，下拉组件则展示下拉箭头，项目类则展示文档上传按钮；</h2>
+    <img src="https://pigpeng-web.oss-cn-hangzhou.aliyuncs.com/images/article/%E4%BA%A7%E5%93%81%E4%BD%93%E9%AA%8C/AirTable/resource_12.png" alt="配图 12" loading="lazy">
+    <img src="https://pigpeng-web.oss-cn-hangzhou.aliyuncs.com/images/article/%E4%BA%A7%E5%93%81%E4%BD%93%E9%AA%8C/AirTable/resource_13.png" alt="配图 13" loading="lazy">
+
+    <h2>12、下载按钮可以直接在按钮上进行衍生，去实时展示其下载进度条；</h2>
+    <img src="https://pigpeng-web.oss-cn-hangzhou.aliyuncs.com/images/article/%E4%BA%A7%E5%93%81%E4%BD%93%E9%AA%8C/AirTable/resource_14.png" alt="配图 14" loading="lazy">
+   
+
+    <h2>13、这种布局挺好的，将中间编辑区域进行分割，四周留有灰色间距，然后其余的内容则不需要和页面四周再留有间距了，这样的布局简单直观，有利于操作；</h2>
+    <img src="https://pigpeng-web.oss-cn-hangzhou.aliyuncs.com/images/article/%E4%BA%A7%E5%93%81%E4%BD%93%E9%AA%8C/AirTable/resource_15.png" alt="配图 15" loading="lazy">
+
+    <h2>14、组件的区域限制一个最小宽度，当拖拽至最小宽度则不允许继续拖拽；</h2>
+    <img src="https://pigpeng-web.oss-cn-hangzhou.aliyuncs.com/images/article/%E4%BA%A7%E5%93%81%E4%BD%93%E9%AA%8C/AirTable/resource_16.png" alt="配图 16" loading="lazy">
+
+    <h2>15、右侧简单的缺省图；</h2>
+    <img src="https://pigpeng-web.oss-cn-hangzhou.aliyuncs.com/images/article/%E4%BA%A7%E5%93%81%E4%BD%93%E9%AA%8C/AirTable/resource_17.png" alt="配图 17" loading="lazy">
+
+    <h2>16、简约的弹窗，将 tab 融合在一起，能够有效的减少高度；</h2>
+    <img src="https://pigpeng-web.oss-cn-hangzhou.aliyuncs.com/images/article/%E4%BA%A7%E5%93%81%E4%BD%93%E9%AA%8C/AirTable/resource_18.png" alt="配图 18" loading="lazy">
+
+    <h2>17、椭圆的拖拽方式，鼠标 hover 上去时，不仅线变明显了；</h2>
+    <img src="https://pigpeng-web.oss-cn-hangzhou.aliyuncs.com/images/article/%E4%BA%A7%E5%93%81%E4%BD%93%E9%AA%8C/AirTable/resource_19.png" alt="配图 19" loading="lazy">
+
+    <h2>18、相比以前的界面，更加的清爽了；</h2>
+    <img src="https://pigpeng-web.oss-cn-hangzhou.aliyuncs.com/images/article/%E4%BA%A7%E5%93%81%E4%BD%93%E9%AA%8C/AirTable/resource_20.png" alt="配图 20" loading="lazy">
+
+    <h2>19、比较常见的搜索，当用户点击后，弹出更大的区域供其使用；</h2>
+    <img src="https://pigpeng-web.oss-cn-hangzhou.aliyuncs.com/images/article/%E4%BA%A7%E5%93%81%E4%BD%93%E9%AA%8C/AirTable/resource_21.png" alt="配图 21" loading="lazy">
+    <img src="https://pigpeng-web.oss-cn-hangzhou.aliyuncs.com/images/article/%E4%BA%A7%E5%93%81%E4%BD%93%E9%AA%8C/AirTable/resource_22.png" alt="配图 22" loading="lazy">
+
+    <h2>20、对于一些 web 端的编辑器而言，有时候要时刻告诉其当前的保存状态比较好；</h2>
+    <img src="https://pigpeng-web.oss-cn-hangzhou.aliyuncs.com/images/article/%E4%BA%A7%E5%93%81%E4%BD%93%E9%AA%8C/AirTable/resource_23.png" alt="配图 23" loading="lazy">
+
+    <h2>21、加入的天数在一些 web 端应用也是比较常见的，情感化设计；</h2>
+    <img src="https://pigpeng-web.oss-cn-hangzhou.aliyuncs.com/images/article/%E4%BA%A7%E5%93%81%E4%BD%93%E9%AA%8C/AirTable/resource_24.png" alt="配图 24" loading="lazy">
+
+    <h2>22、项目外面列表的颜色和项目里面的抬头是一致的，这样辨识度也比较高；</h2>
+    <img src="https://pigpeng-web.oss-cn-hangzhou.aliyuncs.com/images/article/%E4%BA%A7%E5%93%81%E4%BD%93%E9%AA%8C/AirTable/resource_25.png" alt="配图 25" loading="lazy">
+    <img src="https://pigpeng-web.oss-cn-hangzhou.aliyuncs.com/images/article/%E4%BA%A7%E5%93%81%E4%BD%93%E9%AA%8C/AirTable/resource_26.png" alt="配图 26" loading="lazy">
+
+    <h2>23、当只有几个常用导航时，且不需要页签这种模式时，可以采用左侧导航栏；而当功能模块比较多，那么可以采用顶部导航栏+页签的形式；或者可以采用左侧导航栏+页签的形式，但是左侧不要占据过多的面积；</h2>
+    <img src="https://pigpeng-web.oss-cn-hangzhou.aliyuncs.com/images/article/%E4%BA%A7%E5%93%81%E4%BD%93%E9%AA%8C/AirTable/resource_27.png" alt="配图 27" loading="lazy">
+
+    <h2>24、对于可编辑表单时，这种勾选的样式可以采取这种：</h2>
+    <img src="https://pigpeng-web.oss-cn-hangzhou.aliyuncs.com/images/article/%E4%BA%A7%E5%93%81%E4%BD%93%E9%AA%8C/AirTable/resource_28.png" alt="配图 28" loading="lazy">
+    <img src="https://pigpeng-web.oss-cn-hangzhou.aliyuncs.com/images/article/%E4%BA%A7%E5%93%81%E4%BD%93%E9%AA%8C/AirTable/resource_29.png" alt="配图 29" loading="lazy">
+
+    <h2>25、对于一个浮窗上面的行新增而言，其按钮可以在底部展示；</h2>
+    <img src="https://pigpeng-web.oss-cn-hangzhou.aliyuncs.com/images/article/%E4%BA%A7%E5%93%81%E4%BD%93%E9%AA%8C/AirTable/resource_30.png" alt="配图 30" loading="lazy">
+    
+
+</div>
+
+
+
+
+
+  <!-- 页脚 -->
+  <footer class="footer">
+    <div class="container">
+      <p>&copy; Designed and developed by zhu peng.</p>
+        <p>&copy; Copyright © 2022-2025 www.pigpeng.cn. All Rights Reserved.</p>
+    </div>
+  </footer>
+
+
+  <script src="../js/main.js"></script>
+</body>
+</html>
