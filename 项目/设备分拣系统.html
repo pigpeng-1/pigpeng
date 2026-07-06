@@ -138,12 +138,141 @@
 
 
     /* 仅正文容器样式 */
+    .blog-layout {
+        max-width: 1000px;
+        margin: 160px auto;
+        padding: 0 24px;
+    }
+
     .blog-content {
-        max-width: 1000px; /* 最优阅读宽度 */
-        margin: 160px auto;   /* 居中显示 */
-        padding: 36;
-        line-height: 1.8; /* 舒适的行高 */
+        max-width: 1000px;
+        margin: 0;
+        padding: 0;
+        line-height: 1.8;
         font-size: 16px;
+    }
+
+    .blog-toc-wrap {
+        position: fixed;
+        top: 96px;
+        right: 0;
+        width: 32px;
+        height: calc(100vh - 120px);
+        z-index: 10;
+        transition: width 0.25s ease;
+    }
+
+    .blog-toc-wrap:hover {
+        width: 252px;
+    }
+
+    .blog-toc-wrap::before {
+        content: '';
+        position: absolute;
+        top: 0;
+        right: 0;
+        width: 32px;
+        height: 100%;
+        cursor: default;
+        background: linear-gradient(to left, rgba(0, 0, 0, 0.04), transparent);
+    }
+
+    .blog-toc-hint {
+        position: absolute;
+        top: 50%;
+        right: 8px;
+        transform: translateY(-50%);
+        display: flex;
+        align-items: center;
+        justify-content: center;
+        width: 16px;
+        height: 28px;
+        color: #bbb;
+        font-size: 14px;
+        pointer-events: none;
+        transition: color 0.2s ease, opacity 0.2s ease;
+    }
+
+    .blog-toc-wrap:hover .blog-toc-hint {
+        opacity: 0;
+    }
+
+    .blog-toc-hint .fa {
+        line-height: 1;
+    }
+
+    .blog-toc {
+        position: absolute;
+        top: 0;
+        right: 32px;
+        width: 220px;
+        max-height: calc(100vh - 120px);
+        overflow-y: auto;
+        padding: 16px 0 16px 20px;
+        border-left: 1px solid #eee;
+        scrollbar-width: thin;
+        background: #fff;
+        opacity: 0;
+        pointer-events: none;
+        transform: translateX(8px);
+        transition: opacity 0.25s ease, transform 0.25s ease;
+    }
+
+    .blog-toc-wrap:hover .blog-toc {
+        opacity: 1;
+        pointer-events: auto;
+        transform: translateX(0);
+    }
+
+    .blog-toc-title {
+        font-size: 13px;
+        font-weight: 500;
+        color: #333;
+        margin: 0 0 12px 0;
+        letter-spacing: 0.02em;
+    }
+
+    .blog-toc-list {
+        list-style: none;
+        margin: 0;
+        padding: 0;
+    }
+
+    .blog-toc-list li {
+        margin: 0 0 6px 0;
+    }
+
+    .blog-toc-list a {
+        display: block;
+        font-size: 13px;
+        line-height: 1.5;
+        color: #888;
+        text-decoration: none;
+        border-bottom: none;
+        transition: color 0.2s;
+        overflow: hidden;
+        text-overflow: ellipsis;
+        white-space: nowrap;
+    }
+
+    .blog-toc-list a:hover {
+        color: #333;
+        border-bottom: none;
+    }
+
+    .blog-toc-list a.active {
+        color: #333;
+        font-weight: 500;
+    }
+
+    .blog-toc-list .toc-h1 { padding-left: 0; }
+    .blog-toc-list .toc-h2 { padding-left: 12px; }
+    .blog-toc-list .toc-h3 { padding-left: 24px; font-size: 12px; }
+
+    .blog-content h1,
+    .blog-content h2,
+    .blog-content h3 {
+        scroll-margin-top: 96px;
     }
 
     /* 一级标题 */
@@ -160,19 +289,19 @@
     /* 二级标题 */
     .blog-content h2 {
         font-size: 26px;
-        color: #222;
+        color: #333;
         margin: 120px 0 24px 0;
-        font-weight: 400;
+        font-weight: 500;
         position: relative;
         padding-left: 0px;
     }
 
     /* 三级标题（可选） */
     .blog-content h3 {
-        font-size: 18px;
-        color: #222;
-        margin: 25px 0 12px 0;
-        font-weight: 400;
+        font-size: 22px;
+        color: #333;
+        margin: 80px 0 12px 0;
+        font-weight: 500;
     }
 
     /* 正文段落 */
@@ -203,6 +332,7 @@
     /* 列表样式 */
     .blog-content ul, .blog-content ol {
         margin: 0 0 18px 30px;
+        font-weight: 300;
         padding-left: 10px;
     }
 
@@ -223,6 +353,19 @@
         border-bottom: 1px solid #2d72d9;
     }
 
+    .blog-content a.text-link {
+        color: #000;
+        font-weight: 500;
+        text-decoration: underline;
+        border-bottom: none;
+    }
+
+    .blog-content a.text-link:hover {
+        color: #000;
+        border-bottom: none;
+        opacity: 0.75;
+    }
+
     /* 引用样式（可选） */
     .blog-content blockquote {
         border-left: 4px solid #4285f4;
@@ -234,8 +377,11 @@
 
     /* 移动端适配 */
     @media (max-width: 768px) {
+        .blog-layout {
+            margin: 120px auto;
+            padding: 0 15px;
+        }
         .blog-content {
-            padding: 20px 15px;
             font-size: 15px;
         }
         .blog-content h1 {
@@ -243,6 +389,12 @@
         }
         .blog-content h2 {
             font-size: 20px;
+        }
+    }
+
+    @media (max-width: 1280px) {
+        .blog-toc-wrap {
+            display: none;
         }
     }
 </style>
@@ -270,7 +422,7 @@
   <div class="frame-2">
     <div class="frame-3">
         <div class="element">
-            10 min read - 2024年7月～2025年5月
+            10 min read - 2025年3月～2025年10月
         </div>
         <div class="text-wrapper">设备分拣系统</div>
         <div class="element-2">
@@ -283,33 +435,154 @@
 
  <!-- 顶部封面 -->
  <div class="frame-1">
-    <img class="image" src="https://pigpeng-web.oss-cn-hangzhou.aliyuncs.com/images/projects/%E8%AE%BE%E5%A4%87%E5%88%86%E6%8B%A3%E7%B3%BB%E7%BB%9F%E5%B0%81%E9%9D%A2.jpg" alt="设备分拣系统" decoding="async" fetchpriority="high">
+    <img class="image" src="https://pigpeng-web.oss-cn-hangzhou.aliyuncs.com/images/projects/%E8%AE%BE%E5%A4%87%E5%88%86%E6%8B%A3%E7%B3%BB%E7%BB%9F/%E9%87%8C%E9%9D%A2%E8%AE%BE%E5%A4%87%E5%B0%81%E9%9D%A2.png" alt="设备分拣系统" decoding="async" fetchpriority="high">
   </div>
 
 
 
-<!-- 仅博客正文容器 -->
+<!-- 正文 + 目录 -->
+<div class="blog-layout">
 <div class="blog-content">
 
-    <h1>背景介绍</h1>
-    <p>网点分拣场景里，交叉带、摆轮等设备类型多、参数杂，一线同事往往需要在多个系统页面之间来回切换才能完成接入配置。我们希望把设备结构「画」出来，让用户对着模型填参数，而不是对着表格猜含义。</p>
+    <h1>一、什么是设备分拣系统</h1>
+    <p>设备配置产品主要是帮助网点将自动化设备接入至申通系统。但实际对接中多数网点无专业设备管理员，而配置参数多且复杂，专业名词理解门槛高，导致用户无法正确填写，配置效率低、错误率高。整体系统由我担任设计师。</p>
 
-    <img src="https://pigpeng-web.oss-cn-hangzhou.aliyuncs.com/images/projects/%E8%AE%BE%E5%A4%87%E5%88%86%E6%8B%A3%E7%B3%BB%E7%BB%9F%E5%B0%81%E9%9D%A2.jpg" decoding="async" loading="lazy">
+    <p>这是一个迭代的项目，我在2025年6月~2025年10月期间负责编辑器整体的“交互及UI设计”以及模型设计，此外和我对接的为两位产品经理;</p>
 
-    <h1>可视化设备模型</h1>
-    <p>整体采用「左侧设备树 + 中间可视化画布 + 右侧属性面板」的布局。选中某个设备节点后，画布高亮对应模块，右侧同步展示可配置字段。</p>
-    <img src="https://pigpeng-web.oss-cn-hangzhou.aliyuncs.com/images/projects/%E8%AE%BE%E5%A4%87%E5%88%86%E6%8B%A3%E7%B3%BB%E7%BB%9F%E5%B0%81%E9%9D%A2.jpg" decoding="async" loading="lazy">
+    <h3>主要用户</h3>
+    <p>设备配置产品主要面向一线设备管理员，他们需要对设备进行配置，但往往缺乏专业知识，导致配置效率低、错误率高。而我们这套系统的主要目标则是提高用户每次更改配置的效率；</p>
 
-    <p>1、设备拓扑以环形 / 直线等常见形态抽象展示，流向用箭头标注，减少纯文字说明带来的理解成本；</p>
-    <img src="https://pigpeng-web.oss-cn-hangzhou.aliyuncs.com/images/projects/%E8%AE%BE%E5%A4%87%E5%88%86%E6%8B%A3%E7%B3%BB%E7%BB%9F%E5%B0%81%E9%9D%A2.jpg" decoding="async" loading="lazy">
+    <h3>设备配置整体步骤</h3>
+    <p>整体设备配置分为6大步，本文将重点围绕 “注册设备信息”“维护分拣方案” 两个高频操作页面，讲述设备配置的设计模式；</p>
+    <img src="https://pigpeng-web.oss-cn-hangzhou.aliyuncs.com/images/projects/%E8%AE%BE%E5%A4%87%E5%88%86%E6%8B%A3%E7%B3%BB%E7%BB%9F/%E6%95%B4%E4%BD%93%E6%B5%81%E7%A8%8B.png" decoding="async" loading="lazy">
 
-    <p>2、格口、供包台等关键节点支持点击下钻，在画布内完成局部放大与参数编辑；</p>
-    <img src="https://pigpeng-web.oss-cn-hangzhou.aliyuncs.com/images/projects/%E8%AE%BE%E5%A4%87%E5%88%86%E6%8B%A3%E7%B3%BB%E7%BB%9F%E5%B0%81%E9%9D%A2.jpg" decoding="async" loading="lazy">
+    <p>当用户将对应的快递编码维护到对应的格口时，而每个格口背后都绑定了对应的地址，只要维护的准确则可让分拣的地址准确无误，而这套系统则是帮助用户将格口、包裹、派送地址所关联起来的一个系统；</p>
+    <img src="https://pigpeng-web.oss-cn-hangzhou.aliyuncs.com/images/projects/%E8%AE%BE%E5%A4%87%E5%88%86%E6%8B%A3%E7%B3%BB%E7%BB%9F/%E4%BA%A4%E5%8F%89%E5%B8%A6%E7%9A%84%E8%A7%A3%E9%87%8A.png" decoding="async" loading="lazy">
 
-    <h1>配置与校验</h1>
-    <p>配置完成后需要一键校验：必填项、设备连通性、格口编号重复等问题在提交前给出明确提示，避免上线后才发现配置错误。</p>
-    <img src="https://pigpeng-web.oss-cn-hangzhou.aliyuncs.com/images/projects/%E8%AE%BE%E5%A4%87%E5%88%86%E6%8B%A3%E7%B3%BB%E7%BB%9F%E5%B0%81%E9%9D%A2.jpg" decoding="async" loading="lazy">
+    
+    
+    <h1>二、前期现场调研</h1>
+    <p>现场调研主要是了解设备配置的实际操作流程，以及用户的使用习惯，为后续的设计提供参考。我们找了几个带有大型自动化设备，且配置比较复杂的网点，进行现场调研，了解并获取各同行在运营板块的功能，以设备和现场实操为主，分析优劣点，评估后取长补短；</p>
+    
+    <h3>制定访谈问题</h3>
+    <p>我制定了访谈问题的大纲，主要围绕着整体分拣系统进行展开，但也不局限于用户的一些发散讨论，甚至有些关键性的结论都来源于发散性问题。因为是现场访谈，并且总部已打好招呼，所以整体的内容会比较多，持续的时间比较久；</p>
+    <img src="https://pigpeng-web.oss-cn-hangzhou.aliyuncs.com/images/projects/%E8%AE%BE%E5%A4%87%E5%88%86%E6%8B%A3%E7%B3%BB%E7%BB%9F/%E8%AE%BF%E8%B0%88%E8%84%9A%E6%9C%AC.png" decoding="async" loading="lazy">
+    
+    <h3>现场访谈</h3>
+    <p>我们主要跑了四个网点，对整体的采访流程以及用户操作系统的路径都采用录屏进行了记录。因为和现场实操相关，所以除了系统本身的操作外，我们也对现场设备以及实操环境进行记录；</p>
+    <img src="https://pigpeng-web.oss-cn-hangzhou.aliyuncs.com/images/projects/%E8%AE%BE%E5%A4%87%E5%88%86%E6%8B%A3%E7%B3%BB%E7%BB%9F/%E7%8E%B0%E5%9C%BA%E5%9B%BE%E7%89%87.png" decoding="async" loading="lazy">
 
+    <p>并且将用户所回答的问题都采用文档进行记录，以及一些用户开放的想法；</p>
+    <img src="https://pigpeng-web.oss-cn-hangzhou.aliyuncs.com/images/projects/%E8%AE%BE%E5%A4%87%E5%88%86%E6%8B%A3%E7%B3%BB%E7%BB%9F/%E8%AE%BF%E8%B0%88%E8%AE%B0%E5%BD%95.png" decoding="async" loading="lazy">
+
+    <h3>同行对比</h3>
+    <p>除了对用户的访谈外，我们也进行了简单的竞品调研。设备配置产品在行业内属于较为成熟的产品，但各个公司的产品形态与设计理念不尽相同，因此需要进行对比，找出差异点，为后续的设计提供参考。</p>
+    <img src="https://pigpeng-web.oss-cn-hangzhou.aliyuncs.com/images/projects/%E8%AE%BE%E5%A4%87%E5%88%86%E6%8B%A3%E7%B3%BB%E7%BB%9F/%E5%90%8C%E8%A1%8C%E5%AF%B9%E6%AF%94.png" decoding="async" loading="lazy">
+
+    <h3>初步调研的结论：</h3>
+    <p>同行之间有几处地方是值得参考的</p>
+    <ul>
+        <li>中通中有个异常待办能将闲置格口和无效分拣码，直接展示出来，并且支持格口的快速对调，能够将一个格口的数据移动至另外一个格口上，这样格口的批量对换位置会更加快速；</li>
+        <li>同行系统存在按照派件员汇总，但目前不支持批量快速调整派件员，而派件员离职率比较高，当一个派件员负责多个格口时，需要重复进行更改，而且容易溜掉，比较麻烦；</li>
+        </ul>
+    
+    <p>核心的问题主要是以下三个方面，接下来我将基于“注册设备信息”、“维护分拣方案”这两个步骤详细讲下</p>
+    <ul>
+    <li>现场的设备编号与系统上映射关系对应不上，所以导致配置时无法联想起来；</li>
+    <li>同步维护 MasterGo 组件库与配套文档，方便设计与产品随时查阅；</li>
+    <li>推动规范宣发，并搭建面向产品经理的原型模版——让规范不只停留在文档里，而是能被日常设计和协作真正用起来。</li>
+    </ul>
+    <p>接下来我将基于“注册设备信息”、“维护分拣方案”这两个步骤详细讲下基于上述三点是如何在功能交互上进行优化的。</p>
+
+
+    <h1>三、注册设备信息：可视化设备</h1>
+    <p>当我们碰到一些复杂概念难以理解时，线下真实的设备与线上展示需匹配上，让用户配置时 “可见即可得”，提升配置准确率；</p>
+    <h3>1、旧版：注册设备需要填写的基础字段</h3>
+    <img src="https://pigpeng-web.oss-cn-hangzhou.aliyuncs.com/images/projects/%E8%AE%BE%E5%A4%87%E5%88%86%E6%8B%A3%E7%B3%BB%E7%BB%9F/1.png" decoding="async" loading="lazy">
+
+    <h3>2、可视化格口配置</h3>
+    <p>旧版方案使用表格组件进行填写时，用户无法和真实的格口分布对应上；</p>
+    <img src="https://pigpeng-web.oss-cn-hangzhou.aliyuncs.com/images/projects/%E8%AE%BE%E5%A4%87%E5%88%86%E6%8B%A3%E7%B3%BB%E7%BB%9F/%E6%A0%BC%E5%8F%A3%E6%97%A0%E6%B3%95%E5%AF%B9%E5%BA%94%E4%B8%8A.png" decoding="async" loading="lazy">
+
+    <p>新版方案采用3d建模的形式，将现实中的交叉带映射到配置页面中，保证用户在填写时能够与网点实际的那个交叉带一一对应，特别是顺逆时针这种隐晦的配置；</p>
+    <img src="https://pigpeng-web.oss-cn-hangzhou.aliyuncs.com/images/projects/%E8%AE%BE%E5%A4%87%E5%88%86%E6%8B%A3%E7%B3%BB%E7%BB%9F/%E6%A0%BC%E5%8F%A3%E6%97%A0%E6%B3%95%E5%AF%B9%E5%BA%94.png" decoding="async" loading="lazy">
+
+    <p>此外，考虑到有不同种类的交叉带，也绘制了市面上存在的各类其他形状交叉带，以及对应形状在不同供件区下的样式，，满足所有网点的配置需求；</p>
+    <img src="https://pigpeng-web.oss-cn-hangzhou.aliyuncs.com/images/projects/%E8%AE%BE%E5%A4%87%E5%88%86%E6%8B%A3%E7%B3%BB%E7%BB%9F/%E6%A0%BC%E5%8F%A3%E6%97%A0%E6%B3%95%E5%AF%B9%E5%BA%94.png" decoding="async" loading="lazy">
+
+    
+    <h1>四、维护分拣方案：配置与校验</h1>
+    <p>设备方案配置中派件员、格口流向等信息的调整较为频繁。整体围绕 “调整前 - 调整中 - 调整后”的步骤 ，提供针对性优化方案，解决旧版操作隐藏深、批量调整难、验证麻烦等问题；</p>
+
+    <h3>旧版方案页面</h3>
+    <p>设备配置产品主要面向一线设备管理员，他们需要对设备进行配置，但往往缺乏专业知识，导致配置效率低、错误率高；</p>
+    <img src="https://pigpeng-web.oss-cn-hangzhou.aliyuncs.com/images/projects/%E8%AE%BE%E5%A4%87%E5%88%86%E6%8B%A3%E7%B3%BB%E7%BB%9F/%E6%97%A7%E7%89%88%E5%88%86%E6%8B%A3%E6%96%B9%E6%A1%88.png" decoding="async" loading="lazy">
+
+    <h3>调整方案的行为路径</h3>
+    <p>以实际网点的操作步骤为例，大概分为以下几个行为节点。整体涉及到线上配置调整方案后，线下生效与验证的逻辑，整体的调整思路则按照流程进行，而基于用户的流程则可以一一进行优化；</p>
+    <img src="https://pigpeng-web.oss-cn-hangzhou.aliyuncs.com/images/projects/%E8%AE%BE%E5%A4%87%E5%88%86%E6%8B%A3%E7%B3%BB%E7%BB%9F/%E8%B0%83%E6%95%B4%E6%96%B9%E6%A1%88%E8%B7%AF%E5%BE%84.png" decoding="async" loading="lazy">
+
+    <h3>新版方案页面</h3>
+    <p>分拣方案页面按 “调整前 - 调整中 - 调整后” 逻辑从上到下布局，符合用户操作习惯。接下来，我将按照整体模块及流程讲述一些背后的优化点，以及如何去提升整体的配置效率；</p>
+    <img src="https://pigpeng-web.oss-cn-hangzhou.aliyuncs.com/images/projects/%E8%AE%BE%E5%A4%87%E5%88%86%E6%8B%A3%E7%B3%BB%E7%BB%9F/%E9%A1%B5%E9%9D%A2%E6%A1%86%E6%9E%B6.png" decoding="async" loading="lazy">
+
+    <h3>1.【初始化方案】首次新增分拣方案的步骤较多</h3>
+    <p>除了调整配置外，我们也更改了默认方案配置的逻辑。现有的交互方案中，在首次接入时需要用户手动新增进出港方案，每新增一个方案则需三步。而且在快递行业分为进出港，对应的是不同的方案，用户手动新增时容易搞混；</p>
+    <img src="https://pigpeng-web.oss-cn-hangzhou.aliyuncs.com/images/projects/%E8%AE%BE%E5%A4%87%E5%88%86%E6%8B%A3%E7%B3%BB%E7%BB%9F/%E5%88%9D%E5%A7%8B%E5%8C%96%E6%96%B9%E6%A1%88.png" decoding="async" loading="lazy">
+    <p>但我们通过导出后台的数据，大部分网点用户因为体量的限制，一般都只有配置1～2套方案，因此我们之前给多方案卡片占页面较多比重的方案，其实对用户首次添加的帮助不是很大；</p>
+    <img src="https://pigpeng-web.oss-cn-hangzhou.aliyuncs.com/images/projects/%E8%AE%BE%E5%A4%87%E5%88%86%E6%8B%A3%E7%B3%BB%E7%BB%9F/%E6%89%80%E5%8D%A0%E6%AF%94%E4%BE%8B.png" decoding="async" loading="lazy">
+    <p>去掉手动新增方案的步骤，减少用户配置字段的成本，去掉左侧占比面积较大的方案列表模块，并在用户进入此页面时，默认提供方案可供维护，用户即可专注于方案内容的本身；</p>
+    <img src="https://pigpeng-web.oss-cn-hangzhou.aliyuncs.com/images/projects/%E8%AE%BE%E5%A4%87%E5%88%86%E6%8B%A3%E7%B3%BB%E7%BB%9F/%E6%93%8D%E4%BD%9C%E6%88%90%E6%9C%AC.png" decoding="async" loading="lazy">
+
+    <h3>2.【调整方案前】主动推送诊断提醒</h3>
+    <p>增加通用的提示模块：进入调整页面时，系统自动推送诊断结果，明确待优化项，辅助网点针对性调整，避免盲目操作；</p>
+    <img src="https://pigpeng-web.oss-cn-hangzhou.aliyuncs.com/images/projects/%E8%AE%BE%E5%A4%87%E5%88%86%E6%8B%A3%E7%B3%BB%E7%BB%9F/%E8%B0%83%E6%95%B4%E6%96%B9%E6%A1%88%E5%89%8D.png" decoding="async" loading="lazy">
+
+    <h3>3.【调整方案中】平铺更多配置，提供快捷操作</h3>
+    <p>提供快捷方式：针对进出港的场景配置进行提效，对于调整格口流向、派件员配置增加一键替换，满足高频操作场景；</p>
+    <img src="https://pigpeng-web.oss-cn-hangzhou.aliyuncs.com/images/projects/%E8%AE%BE%E5%A4%87%E5%88%86%E6%8B%A3%E7%B3%BB%E7%BB%9F/%E8%B0%83%E6%95%B4%E6%96%B9%E6%A1%88%E4%B8%AD.png" decoding="async" loading="lazy">
+
+    <p>平铺异常件格口和特殊标签：早期维护特殊格口，需要在二级抽屉里面去找，导致配置率较低；</p>
+    <img src="https://pigpeng-web.oss-cn-hangzhou.aliyuncs.com/images/projects/%E8%AE%BE%E5%A4%87%E5%88%86%E6%8B%A3%E7%B3%BB%E7%BB%9F/%E9%9A%90%E8%97%8F%E5%A4%AA%E6%B7%B1.png" decoding="async" loading="lazy">
+
+    <p>将异常件格口和特殊标签直接展示在页面第一层，当网点配置的特殊标签较少时或为空时，展示对应的引导内容，提高空间利用率；</p>
+    <img src="https://pigpeng-web.oss-cn-hangzhou.aliyuncs.com/images/projects/%E8%AE%BE%E5%A4%87%E5%88%86%E6%8B%A3%E7%B3%BB%E7%BB%9F/%E4%B8%80%E7%BA%A7%E9%A1%B5%E9%9D%A2%E7%9B%B4%E6%8E%A5%E9%85%8D%E7%BD%AE.png" decoding="async" loading="lazy">
+
+    <p>将异常件格口和特殊标签直接展示在页面第一层，当网点配置的特殊标签较少时或为空时，展示对应的引导内容，提高空间利用率；</p>
+    <img src="https://pigpeng-web.oss-cn-hangzhou.aliyuncs.com/images/projects/%E8%AE%BE%E5%A4%87%E5%88%86%E6%8B%A3%E7%B3%BB%E7%BB%9F/%E5%9C%BA%E6%99%AF%E5%BC%95%E5%AF%BC.png" decoding="async" loading="lazy">
+
+    <p>对于里面的标签，将“超重件、超时件...”等更加个性化分拣格口的维护，从“下拉选择”改成“平铺展示”，因为早期是下拉选项，用户不去点击则不清楚有哪些标签，每次都会问超重件在哪里设置。</p>
+    <p>新版平铺后特殊类型一目了然，并且在每个标签后面增加热度排名排名，帮助网点更好的利用个性化分拣能力，从而提升最终的分拣效率，而不是找不到这些功能在哪里。</p>
+    <img src="https://pigpeng-web.oss-cn-hangzhou.aliyuncs.com/images/projects/%E8%AE%BE%E5%A4%87%E5%88%86%E6%8B%A3%E7%B3%BB%E7%BB%9F/%E6%A0%87%E7%AD%BE%E7%9A%84%E8%A7%A3%E9%87%8A.png" decoding="async" loading="lazy">
+
+    <h3>4.【调整方案后】助力方案验证，保证线下运行</h3>
+    <p>本次发布内容展示：对于影响实操的后台配置类，需要给到本次修改影响到的范围，用户才能“放心”的进行版本发布；</p>
+    <p>对现场影响比较大，我们无法做实时生效的逻辑，并且由于整体修改的内容占页面比例增加，也能一定程度提醒用户点击下发，避免询问修改后为啥没实时生效的问题；</p>
+    <img src="https://pigpeng-web.oss-cn-hangzhou.aliyuncs.com/images/projects/%E8%AE%BE%E5%A4%87%E5%88%86%E6%8B%A3%E7%B3%BB%E7%BB%9F/%E8%B0%83%E6%95%B4%E6%96%B9%E6%A1%88%E5%90%8E.png" decoding="async" loading="lazy">
+
+
+
+    <h1>五、持续观察以及后续问题收集</h1>
+    <p>除了之外，我们也有个服务群，里面也会存在比较多的问题，我们都将定期进行收集并采用；</p>
+
+    <p>我们也有个后台会持续记录用户所询问的问题，当新版方案上线后，在稳定后其用户咨询配置问题的数量下降xxxxx，当然这一块不全是页面交互改动的结果，还有些产品层面的改动，以及用户习惯的养成，熟悉整体系统后自然而然问题会变少；</p>
+
+
+    <h1>六、除此之外，还有个未开发的探索项目</h1>
+    <p>其实就是我们在现场采访时，发现一些对整套分拣方案玩的比较熟的老用户，会希望能够更专业的可视方案，当时我出了一些demo，但后续在公司产品方向的调整下，也就没有步入开发中了；</p>
+    <p>详情可以 <a href="2-交叉带的格口分布.html" class="text-link">点此传送过去</a></p>
+    <img src="https://pigpeng-web.oss-cn-hangzhou.aliyuncs.com/images/projects/%E4%BA%A4%E5%8F%89%E5%B8%A6%E6%A0%BC%E5%8F%A3%E5%B0%9D%E8%AF%95/%E6%9C%80%E7%BB%88%E7%94%9F%E6%88%90%E7%9A%84%E9%A1%B5%E9%9D%A2.png" decoding="async" loading="lazy">
+    <p>此外，对于这类后台配置页，其实也很适合通过自然语言进行配置。借助AI的能力，当用户需要更改某个格口时，直接进行对话即可进行修改。不过这个项目后续AI那块的迭代主要是产品在主导了。</p>
+
+</div>
+
+<div class="blog-toc-wrap">
+<span class="blog-toc-hint" aria-hidden="true"><i class="fa fa-list-ul"></i></span>
+<aside class="blog-toc" aria-label="页面目录">
+    <p class="blog-toc-title">目录</p>
+    <nav id="blog-toc-nav"></nav>
+</aside>
+</div>
 </div>
 
 
@@ -329,5 +602,55 @@
 
 
   <script src="../js/main.js"></script>
+  <script>
+    (function () {
+      var content = document.querySelector('.blog-content');
+      var nav = document.getElementById('blog-toc-nav');
+      if (!content || !nav) return;
+
+      var headings = content.querySelectorAll('h1, h2, h3');
+      if (!headings.length) return;
+
+      var list = document.createElement('ul');
+      list.className = 'blog-toc-list';
+      var links = [];
+
+      headings.forEach(function (heading, index) {
+        if (!heading.id) heading.id = 'section-' + (index + 1);
+
+        var item = document.createElement('li');
+        item.className = 'toc-' + heading.tagName.toLowerCase();
+
+        var link = document.createElement('a');
+        link.href = '#' + heading.id;
+        link.textContent = heading.textContent.trim();
+        link.title = heading.textContent.trim();
+        item.appendChild(link);
+        list.appendChild(item);
+        links.push({ link: link, heading: heading });
+      });
+
+      nav.appendChild(list);
+
+      function setActive(id) {
+        links.forEach(function (entry) {
+          entry.link.classList.toggle('active', entry.heading.id === id);
+        });
+      }
+
+      var observer = new IntersectionObserver(function (entries) {
+        var visible = entries
+          .filter(function (entry) { return entry.isIntersecting; })
+          .sort(function (a, b) { return a.boundingClientRect.top - b.boundingClientRect.top; });
+        if (visible.length) setActive(visible[0].target.id);
+      }, {
+        rootMargin: '-20% 0px -70% 0px',
+        threshold: 0
+      });
+
+      headings.forEach(function (heading) { observer.observe(heading); });
+      setActive(headings[0].id);
+    })();
+  </script>
 </body>
 </html>

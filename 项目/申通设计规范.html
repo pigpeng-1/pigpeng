@@ -138,19 +138,148 @@
 
 
     /* 仅正文容器样式 */
+    .blog-layout {
+        max-width: 1000px;
+        margin: 160px auto;
+        padding: 0 24px;
+    }
+
     .blog-content {
-        max-width: 1000px; /* 最优阅读宽度 */
-        margin: 160px auto;   /* 居中显示 */
-        padding: 36;
-        line-height: 1.8; /* 舒适的行高 */
+        max-width: 1000px;
+        margin: 0;
+        padding: 0;
+        line-height: 1.8;
         font-size: 16px;
+    }
+
+    .blog-toc-wrap {
+        position: fixed;
+        top: 96px;
+        right: 0;
+        width: 32px;
+        height: calc(100vh - 120px);
+        z-index: 10;
+        transition: width 0.25s ease;
+    }
+
+    .blog-toc-wrap:hover {
+        width: 252px;
+    }
+
+    .blog-toc-wrap::before {
+        content: '';
+        position: absolute;
+        top: 0;
+        right: 0;
+        width: 32px;
+        height: 100%;
+        cursor: default;
+        background: linear-gradient(to left, rgba(0, 0, 0, 0.04), transparent);
+    }
+
+    .blog-toc-hint {
+        position: absolute;
+        top: 50%;
+        right: 8px;
+        transform: translateY(-50%);
+        display: flex;
+        align-items: center;
+        justify-content: center;
+        width: 16px;
+        height: 28px;
+        color: #bbb;
+        font-size: 14px;
+        pointer-events: none;
+        transition: color 0.2s ease, opacity 0.2s ease;
+    }
+
+    .blog-toc-wrap:hover .blog-toc-hint {
+        opacity: 0;
+    }
+
+    .blog-toc-hint .fa {
+        line-height: 1;
+    }
+
+    .blog-toc {
+        position: absolute;
+        top: 0;
+        right: 32px;
+        width: 220px;
+        max-height: calc(100vh - 120px);
+        overflow-y: auto;
+        padding: 16px 0 16px 20px;
+        border-left: 1px solid #eee;
+        scrollbar-width: thin;
+        background: #fff;
+        opacity: 0;
+        pointer-events: none;
+        transform: translateX(8px);
+        transition: opacity 0.25s ease, transform 0.25s ease;
+    }
+
+    .blog-toc-wrap:hover .blog-toc {
+        opacity: 1;
+        pointer-events: auto;
+        transform: translateX(0);
+    }
+
+    .blog-toc-title {
+        font-size: 13px;
+        font-weight: 500;
+        color: #333;
+        margin: 0 0 12px 0;
+        letter-spacing: 0.02em;
+    }
+
+    .blog-toc-list {
+        list-style: none;
+        margin: 0;
+        padding: 0;
+    }
+
+    .blog-toc-list li {
+        margin: 0 0 6px 0;
+    }
+
+    .blog-toc-list a {
+        display: block;
+        font-size: 13px;
+        line-height: 1.5;
+        color: #888;
+        text-decoration: none;
+        border-bottom: none;
+        transition: color 0.2s;
+        overflow: hidden;
+        text-overflow: ellipsis;
+        white-space: nowrap;
+    }
+
+    .blog-toc-list a:hover {
+        color: #333;
+        border-bottom: none;
+    }
+
+    .blog-toc-list a.active {
+        color: #333;
+        font-weight: 500;
+    }
+
+    .blog-toc-list .toc-h1 { padding-left: 0; }
+    .blog-toc-list .toc-h2 { padding-left: 12px; }
+    .blog-toc-list .toc-h3 { padding-left: 24px; font-size: 12px; }
+
+    .blog-content h1,
+    .blog-content h2,
+    .blog-content h3 {
+        scroll-margin-top: 96px;
     }
 
     /* 一级标题 */
     .blog-content h1 {
         font-size: 28px;
         color: #333;
-        margin: 120px 0 24px 0;
+        margin: 160px 0 24px 0;
         line-height: 1.3;
         font-weight: 500;
         border-bottom: 1px solid #eee;
@@ -159,9 +288,9 @@
 
     /* 二级标题 */
     .blog-content h2 {
-        font-size: 26px;
+        font-size: 24px;
         color: #222;
-        margin: 120px 0 24px 0;
+        margin: 100px 0 24px 0;
         font-weight: 500;
         position: relative;
         padding-left: 0px;
@@ -202,14 +331,14 @@
 
     /* 列表样式 */
     .blog-content ul, .blog-content ol {
-        margin: 0 0 18px 30px;
-        padding-left: 10px;
+        margin: 0 0 12px 16px;
+        padding-left: 8px;
     }
 
     .blog-content li {
         font-size: 16px;
         font-weight: 300;
-        margin: 0 0 8px 0;
+        margin: 0 0 4px 0;
     }
  
 
@@ -236,8 +365,11 @@
 
     /* 移动端适配 */
     @media (max-width: 768px) {
+        .blog-layout {
+            margin: 120px auto;
+            padding: 0 15px;
+        }
         .blog-content {
-            padding: 20px 15px;
             font-size: 15px;
         }
         .blog-content h1 {
@@ -245,6 +377,12 @@
         }
         .blog-content h2 {
             font-size: 20px;
+        }
+    }
+
+    @media (max-width: 1280px) {
+        .blog-toc-wrap {
+            display: none;
         }
     }
 </style>
@@ -285,22 +423,28 @@
 
  <!-- 顶部封面 -->
  <div class="frame-1">
-    <img class="image" src="https://pigpeng-web.oss-cn-hangzhou.aliyuncs.com/images/projects/%E7%94%B3%E9%80%9A%E8%AE%BE%E8%AE%A1%E8%A7%84%E8%8C%83.png" alt="申通设计规范" decoding="async" fetchpriority="high">
+    <img class="image" src="https://pigpeng-web.oss-cn-hangzhou.aliyuncs.com/images/projects/%E7%BB%84%E4%BB%B6%E8%A7%84%E8%8C%83/%E5%B0%81%E9%9D%A2%E6%9B%BF%E6%8D%A2.png" alt="申通设计规范" decoding="async" fetchpriority="high">
   </div>
 
 
 
-<!-- 仅博客正文容器 -->
+<!-- 正文 + 目录 -->
+<div class="blog-layout">
 <div class="blog-content">
 
-    <h1>背景介绍</h1>
-    <p>随着业务线增多，各团队独立推进界面时，按钮样式、表格密度、反馈方式逐渐「各写各的」。设计规范的目标，是在不扼杀业务灵活性的前提下，提供一套可复用、可检索、可落地的基础组件与使用说明。</p>
-    <img src="https://pigpeng-web.oss-cn-hangzhou.aliyuncs.com/images/projects/%E7%94%B3%E9%80%9A%E8%AE%BE%E8%AE%A1%E8%A7%84%E8%8C%83.png" decoding="async" loading="lazy">
+    <h1>我在其中的定位</h1>
+    <p>整体规范搭建主要由三位设计同学负责，我主要负责以下几类事情</p>
+    <ul>
+    <li>PC端与移动端组件白皮书的撰写，沉淀卡片容器、Tab 层级等代表性规则；</li>
+    <li>同步维护 MasterGo 组件库与配套文档，方便设计与产品随时查阅；</li>
+    <li>推动规范宣发，并搭建面向产品经理的原型模版——让规范不只停留在文档里，而是能被日常设计和协作真正用起来。</li>
+    </ul>
 
-
-    <h1>那组件规范的产出流程是什么样子的？又是怎么去思考的？</h1>
-    <p>我的习惯并不是先写规范，而是先去收集页面，归纳总结对应的规律，保证交互流畅性，且符合各类业务需求，具有一定的扩展性；</p>
-    <img src="https://pigpeng-web.oss-cn-hangzhou.aliyuncs.com/images/projects/%E7%94%B3%E9%80%9A%E8%AE%BE%E8%AE%A1%E8%A7%84%E8%8C%83.png" decoding="async" loading="lazy">
+    <h1>前置工作</h1>
+    <p>那组件规范的产出流程是什么样子的？又是怎么去思考的？我的习惯并不是先写规范，而是先去收集页面，归纳总结对应的规律，保证交互流畅性，且符合各类业务需求，具有一定的扩展性；</p>
+    <img src="https://pigpeng-web.oss-cn-hangzhou.aliyuncs.com/images/projects/%E7%BB%84%E4%BB%B6%E8%A7%84%E8%8C%83/%E6%80%9D%E8%B7%AF.png" decoding="async" loading="lazy">
+    <p>我的习惯抽象一下，其整体简单明了的流程大概如下：</p>
+    <img src="https://pigpeng-web.oss-cn-hangzhou.aliyuncs.com/images/projects/%E7%BB%84%E4%BB%B6%E8%A7%84%E8%8C%83/%E6%80%9D%E8%B7%AF2.png" decoding="async" loading="lazy">
 
 
 
@@ -309,38 +453,174 @@
     <h1>PC端组件白皮书</h1>
     <p>公用常见的组件规范就不再列出，这里主要讲两个有代表性的组件；</p>
 
-    <h2>1、pc端的卡片容器</h2>
     
-    <p>卡片头部元素基础排列如下：当对应的元素内容缺失时，按照下方的排列顺序进行自适应填满剩余空间。</p>
-    <img src="https://pigpeng-web.oss-cn-hangzhou.aliyuncs.com/images/projects/%E7%BB%84%E4%BB%B6%E8%A7%84%E8%8C%83/%E8%A7%84%E5%88%99.png" decoding="async" loading="lazy">
     
-    <p>文字注释信息”、“内容切换器”、“功能按钮”、“快捷筛选项”每个都作为一个元素，一共四个元素；标题不作为一个独立元素；</p>
-    <img src="https://pigpeng-web.oss-cn-hangzhou.aliyuncs.com/images/projects/%E7%BB%84%E4%BB%B6%E8%A7%84%E8%8C%83/%E7%A4%BA%E4%BE%8B.png" decoding="async" loading="lazy">
+    <h2>1、信息卡片容器头部排列规则</h2>
 
     <h3>元素排列规则</h3>
-    <p>那么基于这个规则，我们可以得到一个基础的卡片容器样式，当对应的内容缺失时，会按照下方的排列顺序进行自适应填满剩余空间。</p>
     
+    <p>卡片头部元素基础排列如下：当对应的元素内容缺失时，按照下方的排列顺序进行自适应填满剩余空间。</p>
+    <img src="https://pigpeng-web.oss-cn-hangzhou.aliyuncs.com/images/projects/%E7%BB%84%E4%BB%B6%E8%A7%84%E8%8C%83/%E5%8D%A1%E7%89%87%E6%8E%92%E5%88%97/%E8%A7%84%E5%88%99.png" decoding="async" loading="lazy">
+    
+    <p>文字注释信息”、“内容切换器”、“功能按钮”、“快捷筛选项”每个都作为一个元素，一共四个元素；标题不作为一个独立元素；</p>
+    <img src="https://pigpeng-web.oss-cn-hangzhou.aliyuncs.com/images/projects/%E7%BB%84%E4%BB%B6%E8%A7%84%E8%8C%83/%E5%8D%A1%E7%89%87%E6%8E%92%E5%88%97/%E7%A4%BA%E4%BE%8B.png" decoding="async" loading="lazy">
+
+    <p>那么基于这个规则，我们可以得到一个基础的卡片容器样式，当对应的内容缺失时，会按照下方的排列顺序进行自适应填满剩余空间。</p>
     <h3>当元素数量为1时</h3>
-    <li>当元素数量为1时，此外当卡片顶部只有右侧元素时，可在左侧增加一个标题，来平衡页面元素。</li>
-    <img src="https://pigpeng-web.oss-cn-hangzhou.aliyuncs.com/images/projects/%E7%BB%84%E4%BB%B6%E8%A7%84%E8%8C%83/%E7%A4%BA%E4%BE%8B.png" decoding="async" loading="lazy">
+    <img src="https://pigpeng-web.oss-cn-hangzhou.aliyuncs.com/images/projects/%E7%BB%84%E4%BB%B6%E8%A7%84%E8%8C%83/%E5%8D%A1%E7%89%87%E6%8E%92%E5%88%97/%E5%85%83%E7%B4%A0%E4%B8%BA1.png" decoding="async" loading="lazy">
+
+    <h3>当元素数量为2时</h3>
+    <img src="https://pigpeng-web.oss-cn-hangzhou.aliyuncs.com/images/projects/%E7%BB%84%E4%BB%B6%E8%A7%84%E8%8C%83/%E5%8D%A1%E7%89%87%E6%8E%92%E5%88%97/%E5%85%83%E7%B4%A0%E4%B8%BA2.png" decoding="async" loading="lazy">
+
+    <h3>当元素数量为3时</h3>
+    <img src="https://pigpeng-web.oss-cn-hangzhou.aliyuncs.com/images/projects/%E7%BB%84%E4%BB%B6%E8%A7%84%E8%8C%83/%E5%8D%A1%E7%89%87%E6%8E%92%E5%88%97/%E5%85%83%E7%B4%A0%E4%B8%BA3.png" decoding="async" loading="lazy">
+    
+    <h3>当元素数量为4时</h3>
+    <img src="https://pigpeng-web.oss-cn-hangzhou.aliyuncs.com/images/projects/%E7%BB%84%E4%BB%B6%E8%A7%84%E8%8C%83/%E5%8D%A1%E7%89%87%E6%8E%92%E5%88%97/%E5%85%83%E7%B4%A0%E4%B8%BA4.png" decoding="async" loading="lazy">
+    
 
     
-    <h2>2、pc端的tab层级等内容</h2>
+    <h2>2、卡片容器的包裹规则</h2>
+
+    <h3>基本原则</h3>
+    <p>对于存在明显边界的元素模块，则无需使用卡片进行包裹；</p>
+    <p>存在嵌套子卡片时，如果整个模块没有明显的边界，或者需要突出不同模块之间的区分度时，则需要使用卡片进行二次包裹；</p>
+    
+    <h3>通栏布局的指标卡组</h3>
+    <p>无论是独占一个卡片，还是存在其余内容，都只需要将指标卡本身使用卡片进行包裹，无需对整体使用卡片进行二次包裹；</p>
+    <img src="https://pigpeng-web.oss-cn-hangzhou.aliyuncs.com/images/projects/%E7%BB%84%E4%BB%B6%E8%A7%84%E8%8C%83/%E5%8D%A1%E7%89%87%E6%8E%92%E5%88%97/1.png" decoding="async" loading="lazy">
+    <p>示例如下：</p>
+    <img src="https://pigpeng-web.oss-cn-hangzhou.aliyuncs.com/images/projects/%E7%BB%84%E4%BB%B6%E8%A7%84%E8%8C%83/%E5%8D%A1%E7%89%87%E6%8E%92%E5%88%97/2.png" decoding="async" loading="lazy">
+
+    <h3>非通栏布局的指标卡组</h3>
+    <p>首先需要将指标卡本身使用卡片进行包裹，其次若无需区分不同模块时，则不需要对整体进行二次包裹；</p>
+    <img src="https://pigpeng-web.oss-cn-hangzhou.aliyuncs.com/images/projects/%E7%BB%84%E4%BB%B6%E8%A7%84%E8%8C%83/%E5%8D%A1%E7%89%87%E6%8E%92%E5%88%97/3.png" decoding="async" loading="lazy">
+    <p>示例如下：</p>
+    <img src="https://pigpeng-web.oss-cn-hangzhou.aliyuncs.com/images/projects/%E7%BB%84%E4%BB%B6%E8%A7%84%E8%8C%83/%E5%8D%A1%E7%89%87%E6%8E%92%E5%88%97/4.png" decoding="async" loading="lazy">
+
+    <p>如果需要使用标题去突出不同模块之间的区分度时，则需要对整体进行二次包裹；</p>
+    <img src="https://pigpeng-web.oss-cn-hangzhou.aliyuncs.com/images/projects/%E7%BB%84%E4%BB%B6%E8%A7%84%E8%8C%83/%E5%8D%A1%E7%89%87%E6%8E%92%E5%88%97/5.png" decoding="async" loading="lazy">
+    <p>示例如下：</p>
+    <img src="https://pigpeng-web.oss-cn-hangzhou.aliyuncs.com/images/projects/%E7%BB%84%E4%BB%B6%E8%A7%84%E8%8C%83/%E5%8D%A1%E7%89%87%E6%8E%92%E5%88%97/6.png" decoding="async" loading="lazy">
+
+    <p>如果该模块内除了指标卡外，在下方还有其余内容时，想要去突出不同模块之间的区分度时，则需要对整体进行二次包裹；</p>
+    <img src="https://pigpeng-web.oss-cn-hangzhou.aliyuncs.com/images/projects/%E7%BB%84%E4%BB%B6%E8%A7%84%E8%8C%83/%E5%8D%A1%E7%89%87%E6%8E%92%E5%88%97/7.png" decoding="async" loading="lazy">
+    <p>示例如下：</p>
+    <img src="https://pigpeng-web.oss-cn-hangzhou.aliyuncs.com/images/projects/%E7%BB%84%E4%BB%B6%E8%A7%84%E8%8C%83/%E5%8D%A1%E7%89%87%E6%8E%92%E5%88%97/8.png" decoding="async" loading="lazy">
+
+    <h3>通栏布局&非通栏布局同时存在</h3>
+    <p>为了保持一致性，如果某一列已经包裹起来时，则对于通栏的那一列也需要用卡片进行二次包裹；</p>
+    <img src="https://pigpeng-web.oss-cn-hangzhou.aliyuncs.com/images/projects/%E7%BB%84%E4%BB%B6%E8%A7%84%E8%8C%83/%E5%8D%A1%E7%89%87%E6%8E%92%E5%88%97/9.png" decoding="async" loading="lazy">
+    <p>示例如下：</p>
+    <img src="https://pigpeng-web.oss-cn-hangzhou.aliyuncs.com/images/projects/%E7%BB%84%E4%BB%B6%E8%A7%84%E8%8C%83/%E5%8D%A1%E7%89%87%E6%8E%92%E5%88%97/10.png" decoding="async" loading="lazy">
+
+    <h3>特殊场景：单个指标卡的二次包裹样式</h3>
+    <p>场景说明：当父指标的标题没办法作为这个指标卡的标题时，此时需要增加一个标题进行整体包裹时</p>
+    <p>1、单个指标卡内允许放多个父级指标，所以下面这两种情况都属于单个指标卡；</p>
+    <img src="https://pigpeng-web.oss-cn-hangzhou.aliyuncs.com/images/projects/%E7%BB%84%E4%BB%B6%E8%A7%84%E8%8C%83/%E5%8D%A1%E7%89%87%E6%8E%92%E5%88%97/11.png" decoding="async" loading="lazy">
+    <p>2、单个指标卡中次级指标可点击的样式；</p>
+    <img src="https://pigpeng-web.oss-cn-hangzhou.aliyuncs.com/images/projects/%E7%BB%84%E4%BB%B6%E8%A7%84%E8%8C%83/%E5%8D%A1%E7%89%87%E6%8E%92%E5%88%97/12.png" decoding="async" loading="lazy">
+    <p>3、如果这种支持整个选中时，则整个卡片都变成选中态；</p>
+    <img src="https://pigpeng-web.oss-cn-hangzhou.aliyuncs.com/images/projects/%E7%BB%84%E4%BB%B6%E8%A7%84%E8%8C%83/%E5%8D%A1%E7%89%87%E6%8E%92%E5%88%97/13.png" decoding="async" loading="lazy">
+
+
+    
+    <h2>2、三级Tab层级规范</h2>
    
-    <p>收集页面，归纳总结对应的规律，保证交互流畅性，且符合各类业务需求，具有一定的扩展性；</p>
-    <img src="https://pigpeng-web.oss-cn-hangzhou.aliyuncs.com/images/projects/%E4%BA%8C%E7%BA%A7%E5%B0%81%E9%9D%A2/%E8%A7%84%E8%8C%83%E8%A7%86%E9%A2%91%E5%B0%81%E9%9D%A2.png" decoding="async" loading="lazy">
+    <p>tab本质上是对下方内容进行切换，而内容量的多少和复杂程度，决定了使用哪种tab，这是我们一个潜在的逻辑；但是这里存在一个模凌两可的点：“内容本身是否复杂是没有一个明确标准的”。所以当使用此规范时，发现在一些场景下使用某个选项卡对下方内容的“控制力”不够时，建议按照实际的业务来，灵活使用；</p>
+    <img src="https://pigpeng-web.oss-cn-hangzhou.aliyuncs.com/images/projects/%E7%BB%84%E4%BB%B6%E8%A7%84%E8%8C%83/tab/1.png" decoding="async" loading="lazy">
+
+    <h3>基础布局</h3>
+    <p>页面提供最多三级的选项卡切换，如果超出这个层级会大量增加用户的学习成本，尽量将相关内容聚合到同一个页面中，避免使用过多选项卡切换。按照不同的容器框架，可以将整体的布局分为页面、卡片、弹窗、抽屉：</p>
+    <img src="https://pigpeng-web.oss-cn-hangzhou.aliyuncs.com/images/projects/%E7%BB%84%E4%BB%B6%E8%A7%84%E8%8C%83/tab/2.png" decoding="async" loading="lazy">
+
+    <h3>以下主要讲下页面级的tab规范</h3>
+    <p>由默认选项卡(大) & 次级选项卡搭配而成。根据页面本身的结构，可将场景分为以下几类：</p>
+    <img src="https://pigpeng-web.oss-cn-hangzhou.aliyuncs.com/images/projects/%E7%BB%84%E4%BB%B6%E8%A7%84%E8%8C%83/tab/3.png" decoding="async" loading="lazy">
+
+    <h3>单卡片布局</h3>
+    <p><strong>一层tab</strong>：采用“默认选项卡”，展示在页面区域卡片内的最顶部，支持吸顶；</p>
+    <img src="https://pigpeng-web.oss-cn-hangzhou.aliyuncs.com/images/projects/%E7%BB%84%E4%BB%B6%E8%A7%84%E8%8C%83/tab/4.png" decoding="async" loading="lazy">
+    <p>⚠️特殊说明：如果碰到一层tab在筛选的下面时，此时建议根据以下两种情况将tab提到最上面一层，更加直观；如果tab下筛选栏发生了变化，此时也需要将tab采用页面级的形式进行切换；如果tab下内容形式差异较大，哪怕筛选栏没变，此时也需要将tab采用页面级的形式进行切换，并且按照需求是否需要将筛选项的内容带到另一个tab中；</p>
+    <img src="https://pigpeng-web.oss-cn-hangzhou.aliyuncs.com/images/projects/%E7%BB%84%E4%BB%B6%E8%A7%84%E8%8C%83/tab/5.png" decoding="async" loading="lazy">
+    <p><strong>两层tab</strong>：采用“默认选项卡”+“文字选项卡”结合使用，支持吸顶；</p>
+    <img src="https://pigpeng-web.oss-cn-hangzhou.aliyuncs.com/images/projects/%E7%BB%84%E4%BB%B6%E8%A7%84%E8%8C%83/tab/6.png" decoding="async" loading="lazy">
+    <p><strong>一层&两层tab</strong>：当页面一级tab下的内容，有的直接是内容，有的还存在tab时，请采用左侧样式；对于无二级tab的页面内容往上进行自适应；</p>
+    <img src="https://pigpeng-web.oss-cn-hangzhou.aliyuncs.com/images/projects/%E7%BB%84%E4%BB%B6%E8%A7%84%E8%8C%83/tab/7.png" decoding="async" loading="lazy">
+
+    <h3>堆叠卡片（纵向&横向）布局</h3>
+    <p>以下示例图只放了纵向排列的卡片布局，其横向的也都遵循该原则；</p>
+    <p><strong>一层tab</strong>：1、无全局筛选时：采用“默认选项卡”，独立成一个单独卡片，不附属到某个内容卡片上；2、存在全局筛选时：可将筛选栏和tab合在一个卡片上；</p>
+    <img src="https://pigpeng-web.oss-cn-hangzhou.aliyuncs.com/images/projects/%E7%BB%84%E4%BB%B6%E8%A7%84%E8%8C%83/tab/8.png" decoding="async" loading="lazy">
+    <p><strong>两层tab</strong>：1、无全局筛选时：采用“默认选项卡”+文字选项卡组合使用，独立成一个单独卡片，不附属到某个内容卡片上；2、存在全局筛选时：可将筛选栏和tab合在一个卡片上；</p>
+    <img src="https://pigpeng-web.oss-cn-hangzhou.aliyuncs.com/images/projects/%E7%BB%84%E4%BB%B6%E8%A7%84%E8%8C%83/tab/9.png" decoding="async" loading="lazy">
+    <p><strong>一层&两层tab</strong>：当页面一级tab下的内容，有的直接是内容，有的还存在tab时，请采用左侧样式；对于无二级tab的页面内容往上进行自适应；对于存在全局筛选的可与tab合在一个卡片上；</p>
+    <img src="https://pigpeng-web.oss-cn-hangzhou.aliyuncs.com/images/projects/%E7%BB%84%E4%BB%B6%E8%A7%84%E8%8C%83/tab/10.png" decoding="async" loading="lazy">
+
+
+
+
+
 
 
 
     <h1>移动端组件白皮书</h1>
-    <p>公用常见的组件规范就不再列出，这里主要讲一下特殊样式规范；</p>
+    <p>对于移动端而言，其规范制度方法与pc端一致。一些细节性的组件就不一一列出，这里主要讲下“下拉选择器”组件</p>
 
 
-    <h1>钉钉详细的组件文档</h1>
-    <p>除了在mastergo里面的文件外，我们还会在钉钉上进行详细的组件文档说明，方便对细节进行查阅；但是我们后面发现大多人都习惯在mastergo上进行查阅，所以后续也同步更新到了mastergo中；</p>
-    <img src="https://pigpeng-web.oss-cn-hangzhou.aliyuncs.com/images/projects/%E4%BA%8C%E7%BA%A7%E5%B0%81%E9%9D%A2/%E8%A7%84%E8%8C%83%E8%A7%86%E9%A2%91%E5%B0%81%E9%9D%A2.png" decoding="async" loading="lazy">
+    <h2>基础选择器</h2>
+
+    <h3>1、滚轮选择器</h3>
+    <p>用于可枚举的选项，且数量较少的单选（不建议超过12个），对选项的排列顺序要求较高，需要根据上下文情境做出符合用户心理预期的合理排序，建议使用滚轮选择器，以便用户可以快速判断需要从当前位置上滑还是下滑。比如：时间、尺寸、年级、性别等；点击外面蒙层可收起抽屉；</p>
+    <img src="https://pigpeng-web.oss-cn-hangzhou.aliyuncs.com/images/projects/%E7%BB%84%E4%BB%B6%E8%A7%84%E8%8C%83/%E7%A7%BB%E5%8A%A8%E7%AB%AF%E7%BB%84%E4%BB%B6/1.png" decoding="async" loading="lazy">
 
 
+    <h3>2、下拉单选</h3>
+    <p>筛选框（当数量较少时可以不需要筛选框）和注释信息可选，击外面蒙层可收起抽屉；对于每行选项而言，可以选择展示标签和描述文本，主要分为以下几类样式：</p>
+    <img src="https://pigpeng-web.oss-cn-hangzhou.aliyuncs.com/images/projects/%E7%BB%84%E4%BB%B6%E8%A7%84%E8%8C%83/%E7%A7%BB%E5%8A%A8%E7%AB%AF%E7%BB%84%E4%BB%B6/2.png" decoding="async" loading="lazy">
+
+    <h3>3、下拉多选</h3>
+    <p>筛选框（当数量较少时可以不需要筛选框）和注释信息可选，击外面蒙层可收起抽屉；对于每行选项而言，可以选择展示标签和描述文本，主要分为以下几类样式：</p>
+    <img src="https://pigpeng-web.oss-cn-hangzhou.aliyuncs.com/images/projects/%E7%BB%84%E4%BB%B6%E8%A7%84%E8%8C%83/%E7%A7%BB%E5%8A%A8%E7%AB%AF%E7%BB%84%E4%BB%B6/3.png" decoding="async" loading="lazy">
+
+    <h3>4、下拉级联单选/多选</h3>
+    <p>当存在多级选择时，目前支持两级和三级，使用此级联组件的好处在于可以直接看到每一层级的内容，但是需要主要每个字段的长度不易太长；</p>
+    <img src="https://pigpeng-web.oss-cn-hangzhou.aliyuncs.com/images/projects/%E7%BB%84%E4%BB%B6%E8%A7%84%E8%8C%83/%E7%A7%BB%E5%8A%A8%E7%AB%AF%E7%BB%84%E4%BB%B6/4.png" decoding="async" loading="lazy">
+
+    <h3>5、标签选择器</h3>
+    <p>当选项数量比较少，且每个选项的字段长度比较固定时，可以采用tags去展示对应的选项；标题和对应的tags为上下布局；</p>
+    <img src="https://pigpeng-web.oss-cn-hangzhou.aliyuncs.com/images/projects/%E7%BB%84%E4%BB%B6%E8%A7%84%E8%8C%83/%E7%A7%BB%E5%8A%A8%E7%AB%AF%E7%BB%84%E4%BB%B6/5.png" decoding="async" loading="lazy">
+   
+    <h2>选择与搜索交互说明</h2>
+
+    <h3>1、搜索交互-下拉单选</h3>
+    <p>这里已选标签超出后左右滚动，默认定位到刚刚最新选择的那一项，滑动时或者点击其余空白处都收起键盘</p>
+    <img src="https://pigpeng-web.oss-cn-hangzhou.aliyuncs.com/images/projects/%E7%BB%84%E4%BB%B6%E8%A7%84%E8%8C%83/%E7%A7%BB%E5%8A%A8%E7%AB%AF%E7%BB%84%E4%BB%B6/6.png" decoding="async" loading="lazy">
+
+    <h3>2、搜索交互-下拉多选</h3>
+    <p>这里已选标签超出后左右滚动，默认定位到刚刚最新选择的那一项，滑动时或者点击其余空白处都收起键盘</p>
+    <img src="https://pigpeng-web.oss-cn-hangzhou.aliyuncs.com/images/projects/%E7%BB%84%E4%BB%B6%E8%A7%84%E8%8C%83/%E7%A7%BB%E5%8A%A8%E7%AB%AF%E7%BB%84%E4%BB%B6/7.png" decoding="async" loading="lazy">
+
+
+    <h2>关于选择器从下方/上方的场景选择</h2>
+
+    <h3>1、从上方弹出的场景</h3>
+    <p>从上方弹出的标签筛选器适用于轻量级的快速过滤；以下条件若有一项不满足时，则不可使用从上方弹出的交互；</p>
+    <p>1、只允许使用在头部导航处，且该筛选项位于头部白底上才允许使用。</p>
+    <img src="https://pigpeng-web.oss-cn-hangzhou.aliyuncs.com/images/projects/%E7%BB%84%E4%BB%B6%E8%A7%84%E8%8C%83/%E7%A7%BB%E5%8A%A8%E7%AB%AF%E7%BB%84%E4%BB%B6/8.png" decoding="async" loading="lazy">
+
+    <p>2、考虑到标签选择器本身的特性，只适用于选项内容较少、且能枚举完、每一项名称不长(不宜超过8个字)的场景。选项数量高度不宜超出页面高度的50%；</p>
+    <img src="https://pigpeng-web.oss-cn-hangzhou.aliyuncs.com/images/projects/%E7%BB%84%E4%BB%B6%E8%A7%84%E8%8C%83/%E7%A7%BB%E5%8A%A8%E7%AB%AF%E7%BB%84%E4%BB%B6/9.png" decoding="async" loading="lazy">
+
+    <p>3、所弹出的筛选只允许存在一个模块。多个模块时如果内容较多时，建议从下方弹出</p>
+    <img src="https://pigpeng-web.oss-cn-hangzhou.aliyuncs.com/images/projects/%E7%BB%84%E4%BB%B6%E8%A7%84%E8%8C%83/%E7%A7%BB%E5%8A%A8%E7%AB%AF%E7%BB%84%E4%BB%B6/10.png" decoding="async" loading="lazy">
+
+    <h3>2、从下方弹出的场景</h3>
+    <p>除了上述的场景，其余场景都从下方弹出对应的抽屉；此外所有的表单填写类都使用从下方弹出的交互。</p>
+    <img src="https://pigpeng-web.oss-cn-hangzhou.aliyuncs.com/images/projects/%E7%BB%84%E4%BB%B6%E8%A7%84%E8%8C%83/%E7%A7%BB%E5%8A%A8%E7%AB%AF%E7%BB%84%E4%BB%B6/11.png" decoding="async" loading="lazy">
+   
+   
+   
     <h1>那搭建的设计体系如何“落到业务”当中？</h1>
     <p>其实后面发现有效落地的原因在于：随着时间的积累，大家对规范越来越熟悉；而熟悉后就不会按照以往的习惯去做了；</p>
     <img src="https://pigpeng-web.oss-cn-hangzhou.aliyuncs.com/images/projects/%E7%BB%84%E4%BB%B6%E8%A7%84%E8%8C%83/%E6%9B%B4%E6%96%B0%E6%B5%81%E7%A8%8B.png" decoding="async" loading="lazy">
@@ -350,8 +630,8 @@
     <p>整体规范除了给我们设计师用，也开放给到产品经理去用。因为我们提升产品团队的整体原型绘制水平，同时也避免设计师被一些常规后台页面所困住，所以开发了对应的模版，方便产品经理进行使用；同时当产品想要进行一些修改时，也可以直接在模版上进行修改，方便快捷</p>
     
     <h3>1、宣发组件规范</h3>
-    <p>每次更新规范后，我们每个月都会通过钉钉机器人发送订阅卡片，书写对应的介绍文档，向产品介绍新的规范内容；</p>
-    <img src="https://pigpeng-web.oss-cn-hangzhou.aliyuncs.com/images/projects/%E4%BA%8C%E7%BA%A7%E5%B0%81%E9%9D%A2/%E8%A7%84%E8%8C%83%E8%A7%86%E9%A2%91%E5%B0%81%E9%9D%A2.png" decoding="async" loading="lazy">
+    <p>每次更新规范后，我们每个月都会通过钉钉机器人发送订阅卡片，通过一些有趣的配图以及书写对应的介绍文档，向产品介绍新的规范内容；</p>
+    <img src="https://pigpeng-web.oss-cn-hangzhou.aliyuncs.com/images/projects/%E7%BB%84%E4%BB%B6%E8%A7%84%E8%8C%83/%E9%92%89%E9%92%89%E5%86%85%E5%AE%A3%E5%8F%91%E5%8D%A1%E7%89%87.gif" decoding="async" loading="lazy">
     
     <h3>2、PC端模版&移动端模版</h3>
     <p>在和产品对接的过程中，持续收集产品使用需求，将一些可复用的页面，完善到通用和业务模版中，例如多样化的指标卡组合和表格的扩展样式等。此外为了方便产品进行调用，将模版封装成原子组件；</p>
@@ -371,6 +651,15 @@
 
 </div>
 
+<div class="blog-toc-wrap">
+<span class="blog-toc-hint" aria-hidden="true"><i class="fa fa-list-ul"></i></span>
+<aside class="blog-toc" aria-label="页面目录">
+    <p class="blog-toc-title">目录</p>
+    <nav id="blog-toc-nav"></nav>
+</aside>
+</div>
+</div>
+
 
 
 
@@ -388,5 +677,55 @@
 
 
   <script src="../js/main.js"></script>
+  <script>
+    (function () {
+      var content = document.querySelector('.blog-content');
+      var nav = document.getElementById('blog-toc-nav');
+      if (!content || !nav) return;
+
+      var headings = content.querySelectorAll('h1, h2, h3');
+      if (!headings.length) return;
+
+      var list = document.createElement('ul');
+      list.className = 'blog-toc-list';
+      var links = [];
+
+      headings.forEach(function (heading, index) {
+        if (!heading.id) heading.id = 'section-' + (index + 1);
+
+        var item = document.createElement('li');
+        item.className = 'toc-' + heading.tagName.toLowerCase();
+
+        var link = document.createElement('a');
+        link.href = '#' + heading.id;
+        link.textContent = heading.textContent.trim();
+        link.title = heading.textContent.trim();
+        item.appendChild(link);
+        list.appendChild(item);
+        links.push({ link: link, heading: heading });
+      });
+
+      nav.appendChild(list);
+
+      function setActive(id) {
+        links.forEach(function (entry) {
+          entry.link.classList.toggle('active', entry.heading.id === id);
+        });
+      }
+
+      var observer = new IntersectionObserver(function (entries) {
+        var visible = entries
+          .filter(function (entry) { return entry.isIntersecting; })
+          .sort(function (a, b) { return a.boundingClientRect.top - b.boundingClientRect.top; });
+        if (visible.length) setActive(visible[0].target.id);
+      }, {
+        rootMargin: '-20% 0px -70% 0px',
+        threshold: 0
+      });
+
+      headings.forEach(function (heading) { observer.observe(heading); });
+      setActive(headings[0].id);
+    })();
+  </script>
 </body>
 </html>
