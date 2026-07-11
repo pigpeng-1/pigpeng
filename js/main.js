@@ -1,3 +1,11 @@
+// 页脚版权年份：2022-当前年
+document.addEventListener('DOMContentLoaded', function() {
+  var year = new Date().getFullYear();
+  document.querySelectorAll('.copyright-year-end').forEach(function(el) {
+    el.textContent = String(year);
+  });
+});
+
 // 导航栏滚动效果（滚动时改变样式，可选）
 window.addEventListener('scroll', function() {
   const navbar = document.querySelector('.navbar');
