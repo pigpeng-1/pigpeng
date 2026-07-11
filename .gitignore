@@ -1,0 +1,5 @@
+# Dependencies (install locally: npm install)
+node_modules/
+
+# macOS
+.DS_Store
