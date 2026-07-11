@@ -149,6 +149,24 @@ body {
   color: #ffffff; /* 白色标题，突出名字 */
 }
 
+/* 首页模块标题区 */
+.home-section-header {
+  max-width: 1280px;
+  margin: 160px auto 0;
+}
+
+.home-section-header .text-title {
+  margin-bottom: 12px;
+}
+
+.section-desc {
+  font-size: 14px;
+  font-weight: 300;
+  color: rgb(255, 255, 255, 65%);
+  line-height: 1.6;
+  margin: 0;
+}
+
 
 
 /* --------------------------------以下为首页样式-------------------------------- */
@@ -431,12 +449,21 @@ body {
   margin-left: auto;
   padding: 0;
 }
+
+.index-article-list .home-section-header {
+  margin-top: 0;
+  margin-bottom: 80px;
+}
 /* 仅首页文章列表的上下间距，不影响其他页面 */
 .index-article-list .article-item {
   margin: 40px 0; /* 上下各30px，总间距约80px */
 }
 @media (max-width: 768px) {
   .index-article-list {
+    padding: 0 20px;
+  }
+
+  .home-section-header {
     padding: 0 20px;
   }
 }
@@ -519,7 +546,7 @@ body {
   display: grid;
   grid-template-columns: repeat(2, 1fr);
   gap: 80px;
-  margin-top: 100px;
+  margin-top: 80px;
   --x: 50%;
   --y: 50%;
   --r: 300px;
