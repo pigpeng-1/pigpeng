@@ -1,0 +1,486 @@
+<!DOCTYPE html>
+<html lang="zh-CN">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>pigpneg</title>
+  <link rel="stylesheet" href="../css/style.css">
+  <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/font-awesome@4.7.0/css/font-awesome.min.css">
+
+  <style>
+
+
+    /* 单个菜单样式（保留之前的选中线效果） */
+    .nav-links a {
+    color: rgba(0, 0, 0, 0.65);
+    text-decoration: none;
+    font-size: 16px;
+    font-weight: 400;
+    position: relative;
+    padding: 8px 0; /* 预留选中线空间 */
+    transition: color 0.3s;
+    }
+
+    /* 选中线效果（保持之前的逻辑：文字下方8px、同宽） */
+    .nav-links a::after {
+    content: '';
+    position: absolute;
+    bottom: 0;
+    left: 0;
+    width: 0;
+    height: 1px;
+    background-color: #000000;
+    transition: width 0.3s ease;
+    }
+
+    /* 选中菜单样式（核心区分） */
+    .nav-links a.active {
+    color: #000000; /* 选中文字强调色（如金色，与黑色背景强对比） */
+    font-weight: 500; /* 选中字体加粗（700=bold），明显突出 */
+    }
+
+    .nav-links a.active::after {
+    width: 100%; /* 选中时同宽 */
+    }
+    .nav-links a:hover::after {
+    width: 100%; /* hover时显示线（可选） */
+    }
+    .nav-links a:hover {
+    color: #1f1f1f;
+    }
+
+
+
+    body {
+    background-color: #ffffff; /* 背景 */
+    color: #333; /* 全局默认文字白色，确保可读性 */
+    font-weight: 400;
+    }
+
+
+
+    .frame-1 {
+    position: relative; /* 作为子元素绝对定位的参考 */
+    width: 1280px;
+    margin: 0 auto; /* 居中显示 */
+    min-height: 400px; /* 图片加载失败时兜底高度 */
+    background: #ffffff; /* 图片加载失败时的背景色 */
+    }
+
+
+    /* 封面样式 */
+    .image {
+    width: 1280px;
+    height: auto; /* 自适应高度，避免变形 */
+    display: block; /* 去除图片默认的行内空白 */
+    margin: 120px auto;
+    }
+
+
+    .frame-2 {
+    max-width: 1000px;
+    margin: 20px auto;
+    padding: 0;
+    }
+    
+
+    /* 文字区域 */
+    .frame-3 {
+    width: 100%;
+    max-width: 1000px;
+    margin: 0;
+    gap: 16px;
+    padding: 240px 0 0 0;
+    }
+    
+
+    .text-wrapper {
+    font-size: 48px;
+    width: 100%;
+    line-height:150%;
+    font-weight: 600;
+    color: #333; /* 白色标题，突出名字 */
+    margin-bottom: -10px;
+    }
+
+    .element {
+    font-size: 14px;
+    color: #666; /* 浅灰文字，黑色背景下可读性强 */
+    font-weight: 300;
+    max-width: 1280px; /* 限制文字宽度，避免换行太丑 */
+    margin: 0 0 0 0;
+    }
+
+    .element-2 {
+    font-size: 18px;
+    color: #555; /* 浅灰文字，黑色背景下可读性强 */
+    font-weight: 300;
+    max-width: 1280px; /* 限制文字宽度，避免换行太丑 */
+    margin: 0 0 0 0;
+    }
+
+
+    /* 页脚样式 */
+    .footer {
+    padding-top: 80px;
+    padding-right: 0px;
+    padding-bottom: 60px;
+    padding-left: 0px;
+    background-color: #ffffff;
+    color: #666;
+    font-weight: 300;
+    text-align: center;
+    }
+    .footer p {
+    font-size: 12px;
+    line-height:200%;
+    }
+
+
+    /* 仅正文容器样式 */
+    .blog-content {
+        max-width: 1000px; /* 最优阅读宽度 */
+        margin: 160px auto;   /* 居中显示 */
+        padding: 36;
+        line-height: 1.8; /* 舒适的行高 */
+        font-size: 16px;
+    }
+
+    /* 一级标题 */
+    .blog-content h1 {
+        font-size: 32px;
+        color: #333;
+        margin: 160px 0 24px 0;
+        line-height: 1.3;
+        font-weight: 500;
+        border-bottom: 1px solid #eee;
+        padding-bottom: 10px;
+    }
+
+    /* 二级标题 */
+    .blog-content h2 {
+        font-size: 22px;
+        color: #222;
+        margin: 60px 0 24px 0;
+        font-weight: 500;
+        position: relative;
+        padding-left: 0px;
+    }
+
+    /* 三级标题（可选） */
+    .blog-content h3 {
+        font-size: 18px;
+        color: #222;
+        margin: 25px 0 12px 0;
+        font-weight: 500;
+    }
+
+    /* 正文段落 */
+    .blog-content p {
+        margin: 0 0 12px 0;
+        font-weight: 300;
+        text-align: justify; /* 两端对齐，提升阅读体验 */
+    }
+
+    /* 图片样式 */
+    .blog-content img {
+        max-width: 100%; /* 自适应容器宽度 */
+        height: auto;    /* 保持宽高比 */
+        margin: 20px 0;   /* 上下间距 */
+        display: block;   /* 避免图片底部留白 */
+        margin-left: auto;
+        margin-right: auto; /* 图片居中 */
+    }
+
+    /* 图片说明文字（可选） */
+    .blog-content .img-caption {
+        text-align: center;
+        font-size: 14px;
+        color: #666;
+        margin: -15px 0 20px 0;
+    }
+
+    /* 列表样式 */
+    .blog-content ul, .blog-content ol {
+        margin: 0 0 18px 30px;
+        padding-left: 10px;
+    }
+
+    .blog-content li {
+        margin: 0 0 8px 0;
+    }
+
+    .blog-content table {
+        width: 100%;
+        border-collapse: collapse;
+        margin: 24px 0 36px 0;
+        font-size: 14px;
+        line-height: 1.7;
+    }
+
+    .blog-content th,
+    .blog-content td {
+        border: 1px solid #e8e8e8;
+        padding: 12px 14px;
+        vertical-align: top;
+        text-align: left;
+        font-weight: 300;
+    }
+
+    .blog-content th {
+        background-color: #fafafa;
+        color: #333;
+        font-weight: 500;
+    }
+
+    .blog-content td:first-child,
+    .blog-content th:first-child {
+        white-space: nowrap;
+    }
+
+    .blog-content td:last-child {
+        color: #444;
+    }
+
+    .blog-content .survey-note {
+        font-size: 13px;
+        color: #888;
+        margin: 0 0 16px 0;
+    }
+
+    .blog-content .redacted {
+        filter: blur(4px);
+        -webkit-filter: blur(4px);
+        user-select: none;
+        cursor: default;
+    }
+
+    /* 链接样式 */
+    .blog-content a {
+        color: #4285f4;
+        text-decoration: none;
+        border-bottom: 1px dotted #4285f4;
+    }
+
+    .blog-content a:hover {
+        color: #2d72d9;
+        border-bottom: 1px solid #2d72d9;
+    }
+
+    /* 引用样式（可选） */
+    .blog-content blockquote {
+        border-left: 4px solid #FF6F00;
+        padding: 10px 15px;
+        background-color: #f9f9f9;
+        margin: 20px 0;
+        color: #666;
+    }
+
+    .blog-content blockquote ol {
+        margin: 0 0 0 20px;
+        padding-left: 10px;
+    }
+
+    .blog-content blockquote li {
+        margin: 0 0 8px 0;
+    }
+
+    .blog-content blockquote li:last-child {
+        margin-bottom: 0;
+    }
+
+    /* 移动端适配 */
+    @media (max-width: 768px) {
+        .blog-content {
+            padding: 20px 15px;
+            font-size: 15px;
+        }
+        .blog-content h1 {
+            font-size: 24px;
+        }
+        .blog-content h2 {
+            font-size: 20px;
+        }
+    }
+</style>
+
+</head>
+<body>
+    
+  <!-- 右上角导航栏（5个菜单+选中下划线） -->
+  <nav class="navbar">
+    <a href="../index.html" class="logo">
+  <img src="../images/logo.png" alt="pigpeng" class="logo-img" decoding="async" fetchpriority="high">
+</a>
+    <div class="nav-links">
+      <a href="../index.html">主页</a>
+      <a href="../projects.html"class="active">项目</a>
+      <a href="../article.html">文章</a>
+      <a href="../photography.html">定格</a>
+      <a href="../black.html">黑洞</a>
+    </div>
+  </nav>
+
+
+
+ <!-- 顶部标题 -->
+  <div class="frame-2">
+    <div class="frame-3">
+        <div class="element">
+            10 min read - 2026年1月～至今
+        </div>
+        <div class="text-wrapper">一些AI产品的小尝试</div>
+        <div class="element-2">
+            围绕实操提效探索AI拍照等能力。产品侧做了竞品与用户调研、场景梳理和需求撰写；前端侧用Cursor尝试可交付的页面开发。算是我第一次同时以产品和前端两个角色，完整走一遍AI功能从想法到落地的过程。
+        </div>
+    </div>
+  </div>
+
+
+
+ <!-- 顶部封面 -->
+ <div class="frame-1">
+    <img class="image" src="https://pigpeng-web.oss-cn-hangzhou.aliyuncs.com/images/projects/AI%E7%9A%84%E4%B8%80%E4%BA%9B%E5%B0%9D%E8%AF%95/4b3f7d5f40b404c912fc55e7ac87c126.png" alt="一些AI产品的小尝试" decoding="async" fetchpriority="high">
+  </div>
+
+
+
+<!-- 仅博客正文容器 -->
+<div class="blog-content">
+
+
+    <h1>1、AI助力实操提效</h1>
+    <p>这一部分，我想回答一个问题：AI 拍照能力，在快递一线实操里到底能帮上什么忙？网点现场常要拍照留证、发起投诉、上传凭证，重复操作多、场景也碎。于是我先从市面 AI 应用、一线用户调研和场景梳理入手，逐步找出值得用 AI 提效的环节，并收敛成可落地的需求方向。</p>
+
+    <h2>市面上AI应用的拍照收集</h2>
+    <p>调研了市面上常见的5个应用app，当前核心的能力类型：AI 多模态识图 + OCR + 场景化智能解析</p>
+
+    <h2>简单的用户调研</h2>
+    <p>我通过在线询问的办法，收集了一些现场使用拍照工具较多的工种。以下为运营投诉&协作任务相关的用户询问记录。</p>
+    <p>在调研过程中，我发现在移动端主要是使用发起投诉的功能，因为涉及到现场拍照，需要用到手机，偶尔不在电脑前会去查查投诉的进度，但大部分查询与处理信息还是在电脑上完成。</p>
+
+    <h3>问题内容</h3>
+    <blockquote>
+      <ol>
+        <p>您好，我是总部的技术人员，非常冒昧打扰你一下～近期看您有使用过我们运营投诉，想电话了解下您对运营投诉有哪些使用诉求，耽误您几分钟时间问几个问题。</p>
+        <p>可以简单介绍一下你平时在什么情况下会用到这个功能吗？</p>
+        <p>您在使用过程有遇到过哪些问题或障碍？</p>
+        <p>目前运营投诉应用中所展示的信息是否满足你的需求？</p>
+        <p>您认为运营投诉有哪些不足的地方需要改进？</p>
+      </ol>
+    </blockquote>
+
+    <p class="survey-note">以下调研记录已脱敏：人员以代号展示，部分涉及内部流程与原话的句子已做模糊处理。</p>
+
+    <table>
+      <thead>
+        <tr>
+          <th>人员</th>
+          <th>职位</th>
+          <th>询问结果</th>
+        </tr>
+      </thead>
+      <tbody>
+        <tr>
+          <td>用户 A</td>
+          <td>网点客服</td>
+          <td><span class="redacted">处理现场的客服，使用手机版去发起对别的网点的投诉，在现场拿手机方便一点，偶尔也会在手机上去看看投诉的进展，但想知道投诉结果是在电脑（客服-发起的投诉菜单）上去查。</span><br>主要是关心最后结果的钱，以及投诉有没有通过，每个月到月底都会做一个统计。<span class="redacted">（统计人员主要是在电脑上去统计）。</span><br><span class="redacted">手机上导出不方便，只能一条条去看，所以一般每月底都会在电脑端上去进行导出。</span><br>手机端没有展示处理进度的进度条，不像电脑端可以有这个的展示，更加直观。</td>
+        </tr>
+        <tr>
+          <td>用户 B</td>
+          <td>网点客服</td>
+          <td>下班时想起要投诉时，手机上更方便；手机上使用发起投诉多一点，很少在手机上看进度，看看是成功了还是失败了。<br><span class="redacted">下班时有时候快递员会打电话给我，去查看一下某个包裹是否有被投诉。一般是口述告诉快递员对应的情况。</span><br>电脑端无法撤销。</td>
+        </tr>
+        <tr>
+          <td>用户 C</td>
+          <td>网点客服经理</td>
+          <td>因为要拍活物的照片，所以发起投诉会使用的多一点。<br>希望能直接拍照，视频和照片能共存，目前不能。<br><span class="redacted">主要是在电脑端去查看进度，然后移动端看实时的结果不太方便，有时候查不到。在我投诉的里面列表里面不展示，必须录入单号才展示。</span><br>主要关心进度、以及判罚金额等内容。</td>
+        </tr>
+        <tr>
+          <td>用户 D</td>
+          <td>网点客服</td>
+          <td>只在发起投诉时才会在移动端使用，因为涉及到拍照，而处理结果主要是在电脑上去看。<br>主要关心处理结果，以及有没有罚款，投诉成没成功。<br><span class="redacted">暂时没有使用过申诉功能，很少被别人投诉。不着急的投诉单一般等处理完结后才会去看。</span><br>每天主动去看，没有主动推送，但是觉得推送功能也不是很重要，时不时去看一下就可以了。</td>
+        </tr>
+        <tr>
+          <td>用户 E</td>
+          <td>网点业务员</td>
+          <td>主要是在移动端的发起投诉，在现场使用比较多。<br>选择投诉的明细，一级、二级类别太多了，不好翻，能否提供关键词的搜索。<br>会在移动端查看信息，看审核进度，处理结果，判罚金额之类的。<br><span class="redacted">基础信息都是自己上传的，不需要看。</span><br>投诉我的一般在电脑上去处理，不会在手机上进行申诉。<br>手机端的凭证希望能在手机上打开（目前打不开）。</td>
+        </tr>
+        <tr>
+          <td>用户 F</td>
+          <td>网点业务员</td>
+          <td>去看「投诉我的」单子，偶尔用一用申诉功能，但基本都是在电脑上去使用，在手机上只是偶尔去看下进度，时不时去翻一下。</td>
+        </tr>
+        <tr>
+          <td>用户 G</td>
+          <td>网点客服经理</td>
+          <td>在场地里面，主要使用发起投诉功能。<br>会在移动端查看信息，主要关心有没有处理完成，有没有收款。<br>「投诉我的、我投诉的」分不同的人去处理，我只关心我投诉的，一般「投诉我的」都在电脑上去处理。<br><span class="redacted">下班的时候、不在电脑前会去使用移动端，觉得比较方便，可以随时随地的去用，目前觉得该有的信息都能看到，和电脑端差不多。</span></td>
+        </tr>
+        <tr>
+          <td>用户 H</td>
+          <td>网点专员</td>
+          <td>查询快递单号的话，最多的就是查询物流、问题件处理进展、是否理赔、是否有运营类的投诉，甚至是否有工单投诉、工单罚款这些。运营投诉与协作任务功能对齐。<br>特别关注快件是否产生罚款及罚款原因；若已产生罚款，则需明确原因。<br><span class="redacted">协作任务模块可展示问题件全流程记录（如破损件登记、修复等），此前通过网点管家查看，最关心处理结果、处理进度及处理人。</span>对于协作任务，展示回复全过程，据此可自主判断当前处理阶段与最终状态内容。<br>理赔模块需求：核心关注点为是否已生成理赔单、赔付金额、当前处理阶段（如仲裁中/已赔付），投诉人信息等非关键字段可弱化。</td>
+        </tr>
+        <tr>
+          <td>用户 I</td>
+          <td>网点人员</td>
+          <td>查询功能多加些，协作信息、工单信息等也能查询，最好能帮忙分析出单号出现的投诉问题及解决方案：协作任务如果能回复信息最好。<br><span class="redacted">能查看送错地方，或者是因为他们虚假电联，或者是什么原因造成的投诉。</span><br><span class="redacted">我们这边查询这个单号，它出现了一些虚假签收任务或者其他的问题都展示出来，然后能给一些解决方案，就是说如何去避免这些问题发生，让他们规范去操作之类的。</span><br>查看理赔的处理进度、处理结果之类的。</td>
+        </tr>
+        <tr>
+          <td>用户 J</td>
+          <td>网点客服副经理</td>
+          <td>查询功能多加些，协作信息、工单信息等也能查询，最好能帮忙分析出单号出现的投诉问题及解决方案。</td>
+        </tr>
+      </tbody>
+    </table>
+
+
+    <h2>头脑风暴</h2>
+    <p>通过收集先有的一些流程，总结ai拍照能在哪些场景下进行提效，探索下来主要是想利用ai的能力对一些包裹图片的识别，然后再去分发对应的操作；</p>
+    <img src="https://pigpeng-web.oss-cn-hangzhou.aliyuncs.com/images/projects/AI%E7%9A%84%E4%B8%80%E4%BA%9B%E5%B0%9D%E8%AF%95/%E6%8E%A2%E7%B4%A2%E4%B8%80%E4%BA%9B%E5%9C%BA%E6%99%AF.png" decoding="async" loading="lazy">
+
+    <h2>部分需求设计</h2>
+    <p>在一些基础的结论调研后，我产出了两个模块的需求，这也是我第一当简单的“产品经理”，完成需求文档的撰写</p>
+
+    <p>并书写了对应的页面设计</p>
+
+
+
+    <h1>2、Channel端需求规划与设计</h1>
+    <p>除数据查询外，还在部分实操流程里尝试 AI 辅助，减少重复操作。后续会持续补充案例与截图。</p>
+
+    <h2>定时任务</h2>
+    <p>除数据查询外，还在部分实操流程里尝试 AI 辅助，减少重复操作。后续会持续补充案例与截图。</p>
+
+    <h2>定时任务</h2>
+    <p>除数据查询外，还在部分实操流程里尝试 AI 辅助，减少重复操作。后续会持续补充案例与截图。</p>
+
+
+    <h1>3、前端开发的尝试</h1>
+    <p>主要是讲述通过cursor进行可交付与上线的前端代码开发。</p>
+
+
+    <h1>4、部分AI规范的梳理</h1>
+    <p>主要是讲述通过cursor进行可交付与上线的前端代码开发。</p>
+
+</div>
+
+
+
+
+
+
+
+
+  <!-- 页脚 -->
+  <footer class="footer">
+    <div class="container">
+      <p>&copy; Designed and developed by zhu peng.</p>
+        <p>&copy; Copyright © 2022-2025 www.pigpeng.cn. All Rights Reserved.</p>
+    </div>
+  </footer>
+
+
+  <script src="../js/main.js"></script>
+</body>
+</html>

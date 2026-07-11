@@ -209,7 +209,7 @@ function initPhotographyProgressiveLoad() {
 
   function setLoading(loading) {
     loadMoreBtn.disabled = loading;
-    loadMoreBtn.textContent = loading ? 'Loading...' : 'Load More';
+    loadMoreBtn.textContent = loading ? 'Loading...' : '查看更多';
     loadingSkeleton.classList.toggle('active', loading);
   }
 

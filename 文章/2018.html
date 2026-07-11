@@ -1,9 +1,9 @@
 <!DOCTYPE html>
-<html lang="en">
+<html lang="zh-CN">
 <head>
   <meta charset="UTF-8">
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
-  <title>pigpneg</title>
+  <title>pigpeng</title>
   <link rel="stylesheet" href="../css/style.css">
   <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/font-awesome@4.7.0/css/font-awesome.min.css">
 
@@ -139,9 +139,9 @@
 
     /* 仅正文容器样式 */
     .blog-content {
-        max-width: 1000px; /* 最优阅读宽度 */
+        max-width: 800px; /* 最优阅读宽度 */
         margin: 160px auto;   /* 居中显示 */
-        padding: 36;
+        padding: 0;
         line-height: 1.8; /* 舒适的行高 */
         font-size: 16px;
     }
@@ -150,7 +150,7 @@
     .blog-content h1 {
         font-size: 28px;
         color: #333;
-        margin: 120px 0 24px 0;
+        margin: 0 0 25px 0;
         line-height: 1.3;
         font-weight: 500;
         border-bottom: 1px solid #eee;
@@ -177,7 +177,7 @@
 
     /* 正文段落 */
     .blog-content p {
-        margin: 0 0 12px 0;
+        margin: 0 0 24px 0;
         font-weight: 300;
         text-align: justify; /* 两端对齐，提升阅读体验 */
     }
@@ -186,6 +186,8 @@
     .blog-content img {
         max-width: 100%; /* 自适应容器宽度 */
         height: auto;    /* 保持宽高比 */
+        border-radius: 6px; /* 轻微圆角，更美观 */
+        box-shadow: 0 2px 8px rgba(0, 0, 0, 0.08); /* 轻微阴影 */
         margin: 20px 0;   /* 上下间距 */
         display: block;   /* 避免图片底部留白 */
         margin-left: auto;
@@ -209,7 +211,29 @@
     .blog-content li {
         margin: 0 0 8px 0;
     }
- 
+
+    /* 代码样式 */
+    .blog-content code {
+        background-color: #f5f5f5;
+        padding: 2px 6px;
+        border-radius: 4px;
+        font-family: "Consolas", "Monaco", monospace;
+        font-size: 14px;
+        color: #d63384;
+    }
+
+    /* 代码块样式 */
+    .blog-content pre {
+        background-color: #f8f8f8;
+        padding: 15px;
+        border-radius: 6px;
+        border: 1px solid #eee;
+        overflow-x: auto; /* 横向滚动 */
+        margin: 20px 0;
+        font-family: "Consolas", "Monaco", monospace;
+        font-size: 14px;
+        line-height: 1.5;
+    }
 
     /* 链接样式 */
     .blog-content a {
@@ -253,12 +277,12 @@
   <!-- 右上角导航栏（5个菜单+选中下划线） -->
   <nav class="navbar">
     <a href="../index.html" class="logo">
-  <img src="../images/logo.png" alt="pigpeng" class="logo-img" decoding="async" fetchpriority="high">
+  <img src="../images/logo.png" alt="pigpeng" class="logo-img">
 </a>
     <div class="nav-links">
       <a href="../index.html">主页</a>
-      <a href="../projects.html"class="active">项目</a>
-      <a href="../article.html">文章</a>
+      <a href="../projects.html">项目</a>
+      <a href="../article.html"class="active">文章</a>
       <a href="../photography.html">定格</a>
       <a href="../black.html">黑洞</a>
     </div>
@@ -270,69 +294,86 @@
   <div class="frame-2">
     <div class="frame-3">
         <div class="element">
-            10 min read - 2025年9月～2026年2月
+            3 min read - 2018年2月23日
         </div>
-        <div class="text-wrapper">一些AI产品的小尝试</div>
+        <div class="text-wrapper">18年寄语</div>
         <div class="element-2">
-            助力总部运营人员查看数据，此外还有些针对实操提效的AI功能，算是我第一次尝试制作AI产品。
+            青年的动人之处，就在于勇气，和他们的远大前程。
         </div>
     </div>
   </div>
 
 
-
- <!-- 顶部封面 -->
- <div class="frame-1">
-    <img class="image" src="https://pigpeng-web.oss-cn-hangzhou.aliyuncs.com/images/projects/%E7%94%B3%E9%80%9Aai%E5%B0%81%E9%9D%A2.png" alt="一些AI产品的小尝试" decoding="async" fetchpriority="high">
+  <!-- 顶部封面 -->
+  <div class="frame-1">
+    <img class="image" src="../images/article/18年寄语/1.jpeg" alt="18年寄语" />
   </div>
+
 
 
 
 <!-- 仅博客正文容器 -->
 <div class="blog-content">
 
-    <h1>背景介绍</h1>
-    <p>总部运营同学日常需要查滞留率、交货率等指标，传统报表路径长、字段多。我们尝试用对话式 AI 降低查询门槛，并在部分实操场景里加入提效能力，这是我第一次完整参与 AI 产品的设计与迭代。</p>     
+    <p>青年的动人之处，就在于勇气，和他们的远大前程。</p>
 
-    <img src="https://pigpeng-web.oss-cn-hangzhou.aliyuncs.com/images/projects/%E7%94%B3%E9%80%9Aai%E5%B0%81%E9%9D%A2.png" decoding="async" loading="lazy">
+    <p>2017年就过去了，真的不敢相信，就如同现在的我不相信自己已经20岁了，这种不相信是从肉体到灵魂的深切怀疑。</p>
 
-    
-    <h1>整体框架布局</h1>
-    <p>基础对话结构：中间是对话区，扩展操作从右侧滑出，保证主交互区始终可见。</p>     
-    <img src="https://pigpeng-web.oss-cn-hangzhou.aliyuncs.com/images/projects/AI%E5%8A%A9%E6%89%8B/%E5%B0%81%E9%9D%A2.png" decoding="async" loading="lazy">
+    <p>类似于开个玩笑，我突然忘却了自己的年龄，站在镜子面前的我，试图揣测着自己。</p>
 
-    <p>1、所有的扩展操作都在右侧弹出，中间的对话交互区的宽度自适应，保证对话区始终在可视范围内，方便用户随时进行交互；</p>     
-    <img src="https://pigpeng-web.oss-cn-hangzhou.aliyuncs.com/images/projects/AI%E5%8A%A9%E6%89%8B/%E5%B0%81%E9%9D%A2.png" decoding="async" loading="lazy">
+    <p>我的皮肤是如此的光滑细嫩，我的眼睛是那么的清澈透明，我的内心依旧单纯无暇。</p>
 
-    <p>2、当需要对某个问题进行订阅时，可直接调起右侧面板进行订阅；</p>     
-    <img src="https://pigpeng-web.oss-cn-hangzhou.aliyuncs.com/images/projects/AI%E5%8A%A9%E6%89%8B/%E5%B0%81%E9%9D%A2.png" decoding="async" loading="lazy">
+    <p>按照这一切所推断，我该十二三岁才对。。。。。。</p>
 
-    <p>3、当打开收藏时，在右侧展示对应的模块，方便用户随时使用收藏的问题进行提问；</p>     
-    <img src="https://pigpeng-web.oss-cn-hangzhou.aliyuncs.com/images/projects/AI%E5%8A%A9%E6%89%8B/%E5%B0%81%E9%9D%A2.png" decoding="async" loading="lazy">
+    <p>无论真假，这个结论让我高兴了一回。但我不能再装嫩了，新的一年到来，还是得真诚待人。</p>
 
-    
-    <h1>回答文本的结构化</h1>
-    <p>为什么做结构化设计？这里将使用结构化的数据也展示出来；其作用有哪些，如何去帮助用户更好的提问；</p> 
+    <img src="../images/article/18年寄语/1.jpeg">
 
-    <p>1、将“时间、组织、匹配条件、汇总维度”等抽离出来，培养用户提问的习惯与话术；</p> 
-    <img src="https://pigpeng-web.oss-cn-hangzhou.aliyuncs.com/images/projects/AI%E5%8A%A9%E6%89%8B/%E7%BB%93%E6%9E%84%E5%8C%961.png" decoding="async" loading="lazy">
+    <p>那么，现在所拍，所写都需归到2018年了，</p>
 
-    <p>2、所有结构化标签的下拉配置列表，都尽可能拆成最小单元，用户直接点击可对结果进行选择；</p> 
-    <img src="https://pigpeng-web.oss-cn-hangzhou.aliyuncs.com/images/projects/AI%E5%8A%A9%E6%89%8B/%E7%BB%93%E6%9E%84%E5%8C%962.png" decoding="async" loading="lazy">
+    <p>对于17年，存在的只是些过去式，</p>
 
-    <p>3、所有结构化标签的下拉配置列表，都尽可能拆成最小单元，用户直接点击可对结果进行选择；</p> 
-    <img src="https://pigpeng-web.oss-cn-hangzhou.aliyuncs.com/images/projects/AI%E5%8A%A9%E6%89%8B/%E7%BB%93%E6%9E%84%E5%8C%963.png" decoding="async" loading="lazy">
+    <p>在去年未完成之事，当然是可以放入18年，或者更长，19、20年都是正常的。</p>
 
-    <p>4、当我们通过结构化的语句，引导用户进行提问与修改对应内容，可以精确的知道并更改问题错在哪，避免因某个字段的错误反复追问；</p> 
-    <img src="https://pigpeng-web.oss-cn-hangzhou.aliyuncs.com/images/projects/AI%E5%8A%A9%E6%89%8B/%E7%BB%93%E6%9E%84%E5%8C%964.png" decoding="async" loading="lazy">
+    <p>又或者，你的想法变了，这些事全部换掉，也是不错的选择。但啥事都不准备干，那就有点过分了。</p>
 
+    <p>那样，便是在劫难逃，你终究成为了生活的奴隶。</p>
 
-    <h1>实操提效功能</h1>
-    <p>除数据查询外，还在部分实操流程里尝试 AI 辅助，减少重复操作。后续会持续补充案例与截图。</p>
+    <img src="../images/article/18年寄语/2.jpeg">
+
+    <h2>2018年，在这剩下的三百多天里。</h2>
+
+    <p>我有想过干哪些事情，但最终干的如何，就只等19年再看了。</p>
+
+    <p>这并不是我缺乏自信心的表现，而是成熟了点，大话不敢轻易放。知道生活不易后，才会懂得啥事都无需急，慢慢来便是最好。</p>
+
+    <p>我总觉得，这不短不长的二十年中，树立目标的最后往往不切实际，走一步看一步却显得更加对自己负责些。</p>
+
+    <p>人世间无时无刻不在变化，一眼将一年，甚至一辈子望到尽头，是很难做到的。当然，我也不会去做，这是庸俗无趣的表现，我提醒着自己要尽量远离。</p>
+
+    <img src="../images/article/18年寄语/3.jpeg">
+
+    <p>在这一年里，我觉得我应该将自己最真挚的心献给所爱之人，好好珍惜属于我俩的一切，这是其一。</p>
+
+    <p>另外也得有些勇气，去做一番斗争来维护自己的爱好，虽说下半年得实习工作，但再忙爱好不能丢，这是其二。</p>
+
+    <p>有了想做之事是好的，但也不能缺乏乐趣的存在。记得前些年，当自己还懵懂无知时，"乐趣"是很容易获得的。</p>
+
+    <p>放学后网吧的一个通宵，上课时的一本知音漫客，甚至是吃饭前老师的一句提前下课，总能让我兴奋不已，感受到乐趣的存在。</p>
+
+    <p>当时就是这样，以"乐趣"为主题都能写成一本书，而现在便不同了，薄薄的几页纸都得东凑西补。尽管这样，我们也不能轻易丢弃寻找乐趣的那腔热血。</p>
+
+    <p>这便是其三，是深深贯彻在其一、其二之中的。现实的生活中，增添了点梦幻色彩，那其一与其二使我获得了其三。</p>
+
+    <p>以上，便是我对这一年的寄语，</p>
+
+    <p>最后，用一句俗话收尾：虽然人生在世会有种种的不如意，但你仍可以在幸福与不幸中做出选择。</p>
+
+    <p>祝大家在新的一年里能实现自己所想做之事。明年的此时，如果我能说句"挺好"，那时，我一定难以抑制住自己内心的喜悦而蹦蹦跳跳起来。</p>
+
+    <p>新的一年里，愿大家开开心心的，能像个小孩子一样。</p>
 
 </div>
-
-
 
 
 
