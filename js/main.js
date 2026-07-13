@@ -496,35 +496,91 @@ async function initSplitTextSections() {
 
 document.addEventListener('DOMContentLoaded', initSplitTextSections);
 
-// 图片点击效果：定格页 .photo-card；正文内带 .is-zoomable 的 img（排除轮播内图片）
-const modal = document.getElementById('imgModal');
-const modalImg = document.getElementById('modalImg');
-const closeBtn = document.getElementById('closeBtn');
-const photoLocation = document.getElementById('photoLocation');
-const photoTitle = document.getElementById('photoTitle');
-const photoCamera = document.getElementById('photoCamera');
-const photoDesc = document.getElementById('photoDesc');
+function ensureImgModal() {
+  if (document.getElementById('imgModal')) return;
 
-function closeImgModal() {
-  if (!modal) return;
-  modal.style.display = 'none';
-  modal.classList.remove('img-modal--image-only');
-  const modalRight = modal.querySelector('.img-modal-right');
-  if (modalRight) modalRight.style.display = '';
+  var modal = document.createElement('div');
+  modal.className = 'img-modal';
+  modal.id = 'imgModal';
+  modal.innerHTML =
+    '<span class="img-modal-close" id="closeBtn" aria-label="关闭">&times;</span>' +
+    '<div class="img-modal-container">' +
+      '<div class="img-modal-left">' +
+        '<img class="img-modal-content" id="modalImg" alt="" decoding="async">' +
+      '</div>' +
+      '<div class="img-modal-right">' +
+        '<div class="photo-info-location" id="photoLocation"></div>' +
+        '<h2 class="photo-info-title" id="photoTitle"></h2>' +
+        '<div class="photo-info-camera" id="photoCamera"></div>' +
+        '<p class="photo-info-desc" id="photoDesc"></p>' +
+      '</div>' +
+    '</div>';
+  document.body.appendChild(modal);
 }
 
-if (modal && modalImg && closeBtn) {
-  document.addEventListener('click', (e) => {
-    const card = e.target.closest('.photo-card');
+function shouldSkipZoomableImage(img) {
+  var src = (img.getAttribute('src') || '').trim();
+  if (!src) return true;
+  if (img.classList.contains('logo-img')) return true;
+  if (img.closest('.navbar') || img.closest('.logo') || img.closest('#imgModal')) return true;
+  return false;
+}
+
+function markProjectImagesZoomable() {
+  document.querySelectorAll('.blog-content img, .frame-1 img').forEach(function(img) {
+    if (shouldSkipZoomableImage(img)) return;
+    img.classList.add('is-zoomable');
+  });
+}
+
+function initImageLightbox() {
+  ensureImgModal();
+  markProjectImagesZoomable();
+
+  var modal = document.getElementById('imgModal');
+  var modalImg = document.getElementById('modalImg');
+  var closeBtn = document.getElementById('closeBtn');
+  var photoLocation = document.getElementById('photoLocation');
+  var photoTitle = document.getElementById('photoTitle');
+  var photoCamera = document.getElementById('photoCamera');
+  var photoDesc = document.getElementById('photoDesc');
+
+  if (!modal || !modalImg || !closeBtn || modal.dataset.lightboxReady === 'true') return;
+  modal.dataset.lightboxReady = 'true';
+
+  function closeImgModal() {
+    modal.style.display = 'none';
+    modal.classList.remove('img-modal--image-only');
+    document.body.style.overflow = '';
+    var modalRight = modal.querySelector('.img-modal-right');
+    if (modalRight) modalRight.style.display = '';
+  }
+
+  function openImageOnly(src, alt) {
+    modal.classList.add('img-modal--image-only');
+    var modalRight = modal.querySelector('.img-modal-right');
+    if (modalRight) modalRight.style.display = 'none';
+    modalImg.src = src;
+    modalImg.alt = alt || '';
+    if (photoLocation) photoLocation.textContent = '';
+    if (photoTitle) photoTitle.textContent = '';
+    if (photoCamera) photoCamera.textContent = '';
+    if (photoDesc) photoDesc.textContent = '';
+    modal.style.display = 'flex';
+    document.body.style.overflow = 'hidden';
+  }
+
+  document.addEventListener('click', function(e) {
+    var card = e.target.closest('.photo-card');
     if (card) {
-      const imgSrc = card.getAttribute('data-img') || card.querySelector('.photo-img')?.getAttribute('src') || '';
-      const location = card.getAttribute('data-location') || '';
-      const title = card.getAttribute('data-title') || card.querySelector('.photo-title')?.textContent || '';
-      const camera = card.getAttribute('data-camera') || '';
-      const desc = card.getAttribute('data-desc') || '';
+      var imgSrc = card.getAttribute('data-img') || (card.querySelector('.photo-img') && card.querySelector('.photo-img').getAttribute('src')) || '';
+      var location = card.getAttribute('data-location') || '';
+      var title = card.getAttribute('data-title') || (card.querySelector('.photo-title') && card.querySelector('.photo-title').textContent) || '';
+      var camera = card.getAttribute('data-camera') || '';
+      var desc = card.getAttribute('data-desc') || '';
 
       modal.classList.remove('img-modal--image-only');
-      const modalRight = modal.querySelector('.img-modal-right');
+      var modalRight = modal.querySelector('.img-modal-right');
       if (modalRight) modalRight.style.display = '';
 
       modalImg.src = imgSrc;
@@ -534,34 +590,30 @@ if (modal && modalImg && closeBtn) {
       if (photoCamera) photoCamera.textContent = camera;
       if (photoDesc) photoDesc.textContent = desc;
       modal.style.display = 'flex';
+      document.body.style.overflow = 'hidden';
       return;
     }
 
-    const zoomImg = e.target.closest('img.is-zoomable');
+    var zoomImg = e.target.closest('img.is-zoomable');
     if (!zoomImg) return;
 
-    const src = zoomImg.currentSrc || zoomImg.getAttribute('src');
+    var src = zoomImg.currentSrc || zoomImg.getAttribute('src');
     if (!src) return;
 
-    modal.classList.add('img-modal--image-only');
-    const modalRight = modal.querySelector('.img-modal-right');
-    if (modalRight) modalRight.style.display = 'none';
-
-    modalImg.src = src;
-    modalImg.alt = zoomImg.getAttribute('alt') || '';
-    if (photoLocation) photoLocation.textContent = '';
-    if (photoTitle) photoTitle.textContent = '';
-    if (photoCamera) photoCamera.textContent = '';
-    if (photoDesc) photoDesc.textContent = '';
-    modal.style.display = 'flex';
+    e.preventDefault();
+    openImageOnly(src, zoomImg.getAttribute('alt') || '');
   });
 
   closeBtn.addEventListener('click', closeImgModal);
-  modal.addEventListener('click', (e) => {
+  modal.addEventListener('click', function(e) {
     if (e.target === modal) closeImgModal();
   });
-  document.addEventListener('keydown', (e) => e.key === 'Escape' && closeImgModal());
+  document.addEventListener('keydown', function(e) {
+    if (e.key === 'Escape' && modal.style.display === 'flex') closeImgModal();
+  });
 }
+
+document.addEventListener('DOMContentLoaded', initImageLightbox);
   
   
 

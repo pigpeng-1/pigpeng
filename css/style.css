@@ -144,8 +144,8 @@ body {
 /* 标题文本样式 */
 .text-title {
   font-size: 28px;
-  line-height:150%
-  font-weight 400;
+  line-height: 150%;
+  font-weight: 400;
   color: #ffffff; /* 白色标题，突出名字 */
 }
 
@@ -287,7 +287,7 @@ body {
 
 .text-wrapper-3 {
   font-size: 36px;
-  line-height:150%
+  line-height: 150%;
   font-weight: 500;
   color: #ffffff; /* 白色标题，突出名字 */
   margin-bottom: 20px;
@@ -295,8 +295,8 @@ body {
 
 .text-wrapper-5 {
   font-size: 36px;
-  line-height:150%
-  font-weight 600;
+  line-height: 150%;
+  font-weight: 600;
   color: #ffffff; /* 白色标题，突出名字 */
   margin-bottom: 40px;
 }
@@ -638,6 +638,16 @@ body {
 /* 右侧二维码的左边距：40px（核心间距控制） */
 .ml-40 {
   margin-left: 40px;
+}
+
+.resume-pdf-link {
+  display: block;
+  cursor: pointer;
+  text-decoration: none;
+}
+
+.resume-pdf-link:hover img {
+  opacity: 0.88;
 }
 
 
@@ -1293,6 +1303,10 @@ body {
       flex: 1;
       max-width: 100%;
     }
+
+    img.is-zoomable {
+      cursor: zoom-in;
+    }
     
     /* 响应式：移动端改为上下布局 */
     @media (max-width: 768px) {
@@ -1521,7 +1535,8 @@ body {
 .has-split-intro.split-pending .text-wrapper-3,
 .has-split-intro.split-pending .text-wrapper-5,
 .has-split-intro.split-pending .element-2,
-.has-split-intro.split-pending .frame-5 {
+.has-split-intro.split-pending .frame-5,
+.has-split-intro.split-pending .qrcode-group {
   opacity: 0;
 }
 

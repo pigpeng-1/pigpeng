@@ -247,6 +247,15 @@
         margin: 0 0 16px 0;
     }
 
+    .blog-content table code {
+        font-family: "SF Mono", "Menlo", "Monaco", "Consolas", monospace;
+        font-size: 13px;
+        color: #c7254e;
+        background: #f6f6f6;
+        padding: 2px 6px;
+        border-radius: 4px;
+    }
+
     .blog-content .redacted {
         filter: blur(4px);
         -webkit-filter: blur(4px);
@@ -269,14 +278,14 @@
     /* 引用样式（可选） */
     .blog-content blockquote {
         border-left: 4px solid #FF6F00;
-        padding: 10px 15px;
+        padding: 10px 10px;
         background-color: #f9f9f9;
-        margin: 20px 0;
+        margin: 10px 0;
         color: #666;
     }
 
     .blog-content blockquote ol {
-        margin: 0 0 0 20px;
+        margin: 0 0 0 12px;
         padding-left: 10px;
     }
 
@@ -286,6 +295,130 @@
 
     .blog-content blockquote li:last-child {
         margin-bottom: 0;
+    }
+
+    .blog-toc-wrap {
+        position: fixed;
+        top: 96px;
+        right: 0;
+        width: 32px;
+        height: calc(100vh - 120px);
+        z-index: 10;
+        transition: width 0.25s ease;
+    }
+
+    .blog-toc-wrap:hover {
+        width: 252px;
+    }
+
+    .blog-toc-wrap::before {
+        content: '';
+        position: absolute;
+        top: 0;
+        right: 0;
+        width: 32px;
+        height: 100%;
+        cursor: default;
+        background: linear-gradient(to left, rgba(0, 0, 0, 0.04), transparent);
+    }
+
+    .blog-toc-hint {
+        position: absolute;
+        top: 50%;
+        right: 8px;
+        transform: translateY(-50%);
+        display: flex;
+        align-items: center;
+        justify-content: center;
+        width: 16px;
+        height: 28px;
+        color: #bbb;
+        font-size: 14px;
+        pointer-events: none;
+        transition: color 0.2s ease, opacity 0.2s ease;
+    }
+
+    .blog-toc-wrap:hover .blog-toc-hint {
+        opacity: 0;
+    }
+
+    .blog-toc-hint svg {
+        display: block;
+        line-height: 1;
+    }
+
+    .blog-toc {
+        position: absolute;
+        top: 0;
+        right: 32px;
+        width: 220px;
+        max-height: calc(100vh - 120px);
+        overflow-y: auto;
+        padding: 16px 0 16px 20px;
+        border-left: 1px solid #eee;
+        scrollbar-width: thin;
+        background: #fff;
+        opacity: 0;
+        pointer-events: none;
+        transform: translateX(8px);
+        transition: opacity 0.25s ease, transform 0.25s ease;
+    }
+
+    .blog-toc-wrap:hover .blog-toc {
+        opacity: 1;
+        pointer-events: auto;
+        transform: translateX(0);
+    }
+
+    .blog-toc-title {
+        font-size: 13px;
+        font-weight: 500;
+        color: #333;
+        margin: 0 0 12px 0;
+        letter-spacing: 0.02em;
+    }
+
+    .blog-toc-list {
+        list-style: none;
+        margin: 0;
+        padding: 0;
+    }
+
+    .blog-toc-list li {
+        margin: 0 0 6px 0;
+    }
+
+    .blog-toc-list a {
+        display: block;
+        font-size: 13px;
+        line-height: 1.5;
+        color: #888;
+        text-decoration: none;
+        border-bottom: none;
+        transition: color 0.2s;
+        overflow: hidden;
+        text-overflow: ellipsis;
+        white-space: nowrap;
+    }
+
+    .blog-toc-list a:hover {
+        color: #333;
+        border-bottom: none;
+    }
+
+    .blog-toc-list a.active {
+        color: #333;
+        font-weight: 500;
+    }
+
+    .blog-toc-list .toc-h1 { padding-left: 0; }
+    .blog-toc-list .toc-h2 { padding-left: 12px; }
+    .blog-toc-list .toc-h3 { padding-left: 24px; font-size: 12px; }
+
+    .blog-content h1,
+    .blog-content h2,
+    .blog-content h3 {
+        scroll-margin-top: 96px;
     }
 
     /* 移动端适配 */
@@ -299,6 +432,12 @@
         }
         .blog-content h2 {
             font-size: 20px;
+        }
+    }
+
+    @media (max-width: 1280px) {
+        .blog-toc-wrap {
+            display: none;
         }
     }
 </style>
@@ -330,7 +469,7 @@
         </div>
         <div class="text-wrapper">一些AI产品的小尝试</div>
         <div class="element-2">
-            围绕实操提效探索AI拍照等能力。产品侧做了竞品与用户调研、场景梳理和需求撰写；前端侧用Cursor尝试可交付的页面开发。算是我第一次同时以产品和前端两个角色，完整走一遍AI功能从想法到落地的过程。
+            第一次尝试产品需求的撰写，第一次尝试前端开发并上线，在AI的加持下，扩展自己的能力边界；
         </div>
     </div>
   </div>
@@ -352,23 +491,21 @@
     <p>这一部分，我想回答一个问题：AI 拍照能力，在快递一线实操里到底能帮上什么忙？网点现场常要拍照留证、发起投诉、上传凭证，重复操作多、场景也碎。于是我先从市面 AI 应用、一线用户调研和场景梳理入手，逐步找出值得用 AI 提效的环节，并收敛成可落地的需求方向。</p>
 
     <h2>市面上AI应用的拍照收集</h2>
-    <p>首页调研了市面上常见的5个应用app，当前核心的能力类型：AI 多模态识图 + OCR + 场景化智能解析；</p>
-    <p>其实对照到我们的业务而言，便是通过AI对图片本身的理解，然后分发对应的场景操作，帮助现在那些操作人员只需从一个入口便完成所有的操作；其实这个出发点本身没问题，但是这势必会触发到其余各个业务产品部分的利益，因此我们后续推进比较复杂，在规划的场景内，我们只推进了几个基础操作。 </p>
+    <p>首页调研了市面上常见的5个应用app，他们核心的能力类型主要可以概括为：AI 多模态识图 + OCR + 场景化智能解析；</p>
+    <img src="https://pigpeng-web.oss-cn-hangzhou.aliyuncs.com/images/projects/AI%E7%9A%84%E4%B8%80%E4%BA%9B%E5%B0%9D%E8%AF%95/%E5%B8%82%E9%9D%A2%E4%B8%8AAI%E7%9A%84%E7%9B%B8%E6%9C%BA.jpg" decoding="async" loading="lazy">
 
     <h2>前期的用户调研</h2>
-    <p>我通过简单的在线询问办法，收集了一些现场使用拍照工具较多的业务场景，以下为运营投诉&协作任务相关的用户询问记录。</p>
-    <p>在调研过程中，我发现在移动端主要是使用发起投诉的功能，因为涉及到现场拍照，需要用到手机，偶尔不在电脑前会去查查投诉的进度，但大部分查询与处理信息还是在电脑上完成。</p>
-
-    <h3>问题内容</h3>
+    <p>然后我通过简单的在线询问办法，收集了一些现场使用拍照工具较多的业务场景，以下是用户的一些询问记录。</p>
     <blockquote>
       <ol>
-        <p>您好，我是总部的技术人员，非常冒昧打扰你一下～近期看您有使用过我们运营投诉，想电话了解下您对运营投诉有哪些使用诉求，耽误您几分钟时间问几个问题。</p>
+        <p>您好，我是总部的技术人员，非常冒昧打扰你一下～近期看您有使用过我们XXX功能，想电话了解下您对其有哪些使用诉求，耽误您几分钟时间问几个问题。</p>
         <p>可以简单介绍一下你平时在什么情况下会用到这个功能吗？</p>
         <p>您在使用过程有遇到过哪些问题或障碍？</p>
         <p>目前运营投诉应用中所展示的信息是否满足你的需求？</p>
         <p>您认为运营投诉有哪些不足的地方需要改进？</p>
       </ol>
     </blockquote>
+    <p>在调研过程中，我发现在移动端主要是使用发起投诉的功能，因为涉及到现场拍照，需要用到手机，偶尔不在电脑前会去查查投诉的进度，但大部分查询与处理信息还是在电脑上完成。</p>
 
     <p class="survey-note">以下调研记录已脱敏：人员以代号展示，部分涉及内部流程与原话的句子已做模糊处理。</p>
 
@@ -435,40 +572,168 @@
     </table>
 
 
-    <h2>头脑风暴</h2>
-    <p>通过收集先有的一些流程，总结ai拍照能在哪些场景下进行提效，整体探索下来主要是想利用ai的能力对一些包裹图片的识别，然后再去分发对应的操作，因为我们公司对于包裹本身会有很多拍照工作，以前是需要一个个打开不同的应用才能完成对应的操作；</p>
+    <h2>场景梳理</h2>
+    <p>其实对照到我们的业务而言，便是通过AI对图片本身的理解，然后分发对应的场景操作，帮助现在那些操作人员只需从一个入口便完成所有的操作；其实这个出发点本身没问题，但是这势必会触发到其余各个业务产品部分的利益，因此我们后续推进比较复杂，在规划的场景内，我们只推进了几个基础操作。 </p>
+    <img src="https://pigpeng-web.oss-cn-hangzhou.aliyuncs.com/images/projects/AI%E7%9A%84%E4%B8%80%E4%BA%9B%E5%B0%9D%E8%AF%95/%E8%B7%AF%E5%BE%84%E6%8E%A8%E8%BF%9B.png" decoding="async" loading="lazy">
+    <p>我首先对“面单破损程度”这个方向进行梳理，基于“无破损、破损一部分、完全破损”等，总结出来以下几个方向：</p>
     <img src="https://pigpeng-web.oss-cn-hangzhou.aliyuncs.com/images/projects/AI%E7%9A%84%E4%B8%80%E4%BA%9B%E5%B0%9D%E8%AF%95/%E6%8E%A2%E7%B4%A2%E4%B8%80%E4%BA%9B%E5%9C%BA%E6%99%AF.png" decoding="async" loading="lazy">
 
     <h2>部分需求设计</h2>
-    <p>在一些基础的结论调研后，我产出了两个模块的需求，这也是我第一当简单的“产品经理”，完成需求文档的撰写</p>
+    <p>在一些基础的方向后，我产出了两个模块的需求，这也是我第一次当的“产品经理”，完成需求文档的撰写。在这个过程中我体验了一波自己即是产品又是设计师的快感，似乎所有方案都在自己的掌握之中；</p>
+    <img src="https://pigpeng-web.oss-cn-hangzhou.aliyuncs.com/images/projects/AI%E7%9A%84%E4%B8%80%E4%BA%9B%E5%B0%9D%E8%AF%95/%E9%9C%80%E6%B1%82%E6%96%87%E6%A1%A3%E6%92%B0%E5%86%99.jpg" decoding="async" loading="lazy">
 
-    <p>并书写了对应的页面设计</p>
-
-
+    <h2>除了面单破损外，我也尝试了其余几个场景</h2>
+    <p>这几个场景因为涉及到了其他部门的业务，所以最终并未真正推进下去；</p>
+    <p>应用场景一：主要解决通过文字询问不方便，需要配合各类图像进行提问的场景,从而帮助网点自主解决大部分问题，无需等待总部技术人员的介入。场景比如：1、面单信息看是否落格、分拣等。2、各类实操设备（申易扫、巴抢等）的报错。3、PC端的屏幕截图，比如各类操作维护、报错等，以及名词解释。</p>
+    <img src="https://pigpeng-web.oss-cn-hangzhou.aliyuncs.com/images/projects/AI%E7%9A%84%E4%B8%80%E4%BA%9B%E5%B0%9D%E8%AF%95/%E6%A1%88%E4%BE%8B%E4%B8%80.jpg" decoding="async" loading="lazy">
+    <p>应用场景二：网点录入问题件是高频操作，目前用户需要先选择类型描述，然后再去拍照扫描单号，然后再录入对应的信息，整个过程比较繁琐；接入ai的能力，识别单号、面单纸上面的类型字段以及收件、寄件地址，用户拍照后只需简单修改与确认，便可提交问题件；</p>
+    <img src="https://pigpeng-web.oss-cn-hangzhou.aliyuncs.com/images/projects/AI%E7%9A%84%E4%B8%80%E4%BA%9B%E5%B0%9D%E8%AF%95/%E6%A1%88%E4%BE%8B%E4%BA%8C.jpg" decoding="async" loading="lazy">
 
     <h1>Channel端需求规划与设计</h1>
-    <p>除数据查询外，还在部分实操流程里尝试 AI 辅助，减少重复操作。后续会持续补充案例与截图。</p>
+    <p>这段时间我也在 Channel 端尝试把 AI 能力嵌进真实业务里，从需求规划到交互设计都跟着走了一遍。下面记录的是其中几块我印象比较深的探索。</p>
+
+    <h2>输出内容优化</h2>
+    <p>因为内容本身是模型决定的，不像GUI那样可以人为的进行约束，从而保证展示的内容与自己设计的一样。而模型主要是通过更改系统提示词来约束最终内容的整体格式，此外再配合基础的MD渲染，便能优化一部分内容；</p>
+    <p>优化System Prompt：这是一个长期的工作，在调整时我不断的尝试，才发现一些简单的话术，对模型输出的影响有多大；此外因为文本本身带有一定的模糊性，因此调整时需要反复打磨，这和平时做设计不太一样；</p>
+    <img src="https://pigpeng-web.oss-cn-hangzhou.aliyuncs.com/images/projects/AI%E7%9A%84%E4%B8%80%E4%BA%9B%E5%B0%9D%E8%AF%95/%E5%9F%BA%E7%A1%80%E6%8F%90%E7%A4%BA%E8%AF%8D.jpg" decoding="async" loading="lazy">
 
     <h2>定时任务</h2>
-    <p>除数据查询外，还在部分实操流程里尝试 AI 辅助，减少重复操作。后续会持续补充案例与截图。</p>
+    <p>首先我梳理了市面上比较主流的平台，如Manus、Codex、飞书 Aily等其余ai平台关于定时任务相关的设置与触发流程；</p>
+    <img src="https://pigpeng-web.oss-cn-hangzhou.aliyuncs.com/images/projects/AI%E7%9A%84%E4%B8%80%E4%BA%9B%E5%B0%9D%E8%AF%95/%E5%AE%9A%E6%97%B6%E4%BB%BB%E5%8A%A1%E7%AB%9E%E5%93%81%E8%B0%83%E7%A0%94.jpg" decoding="async" loading="lazy">
 
-    <h2>定时任务</h2>
-    <p>除数据查询外，还在部分实操流程里尝试 AI 辅助，减少重复操作。后续会持续补充案例与截图。</p>
+    <p>在这里平台里面，我发现了一些共性以及值得参考的关键点，其内容如下：</p>
+    <table>
+      <thead>
+        <tr>
+          <th>设计决策点</th>
+          <th>采用方向</th>
+          <th>依据</th>
+        </tr>
+      </thead>
+      <tbody>
+        <tr>
+          <td>配置方式</td>
+          <td>自然语言配置 + 任务入口手动配置</td>
+          <td>所有主流平台都支持这两类配置方式，暂无应用会在对话内容后增加配置入口；</td>
+        </tr>
+        <tr>
+          <td>自然语言追问方式</td>
+          <td>当模型不明确用户的时间和推送提示词，主动进行追问</td>
+          <td>Gemini、ChatGPT、元宝在时间不明确时，会自动设置一个合理的时间，并将定时任务一次性执行完；对于Claude则会弹出表单让用户进行选择，考虑到我们总部人员所看的数据时效涵盖 t-1、t-2 等复杂场景，提示词含各类总部/省区等各类纬度，因此对于推送内容将主动进行询问，不会给用户设置一个模糊的定时任务；</td>
+        </tr>
+        <tr>
+          <td>任务内容模块</td>
+          <td>标题、提示词、任务计划</td>
+          <td>目前 Gemini 的定时任务配置最为简单直观，只包含最主要的三个字段：标题、提示词、任务计划；Manus 最为复杂，含有一些高级配置。此外还有些含有模型、工作空间的选择，目前我们不需要，所以我们一期只保留最关键的字段，降低用户的上手成本；</td>
+        </tr>
+        <tr>
+          <td>通知方式</td>
+          <td>系统级应用推送，应用内小红点提示</td>
+          <td>目前应用的推送除了本身的应用通知推送外，其他扩展推送如邮件推荐等，都是放在提示词内，用户录入后可实现对应的推送；我们一期先引导用户进入 app 进行数据的查看，因此不打通钉钉等渠道。提示词内支持各种推送的形式；</td>
+        </tr>
+        <tr>
+          <td>推荐任务模版</td>
+          <td>内置推荐的定时任务，用户可直接使用</td>
+          <td>ChatGPT、Workbuddy、元宝内置了任务库，考虑到我们的任务场景具有很强的数据专业性，因此内置场景的数据订阅场景，可降低用户的使用门槛；</td>
+        </tr>
+        <tr>
+          <td>智能推荐触发</td>
+          <td>用户 7 日内重复查询问 ≥3 次自动推荐</td>
+          <td>主动发现用户周期性查询习惯，引导用户创建定时任务，提升留存</td>
+        </tr>
+      </tbody>
+    </table>
+    <img src="" decoding="async" loading="lazy">
+
+    <p>在最后的设计方案中，我将消息与任务本身区分开，这样删除任务并不会导致消息被清空。同时考虑移动端屏幕尺寸的问题，我将其分为两个tab进行展示，按照使用频率，将消息的查看放在默认tab进行展示；</p>
+    <img src="https://pigpeng-web.oss-cn-hangzhou.aliyuncs.com/images/projects/AI%E7%9A%84%E4%B8%80%E4%BA%9B%E5%B0%9D%E8%AF%95/%E5%AE%9A%E6%97%B6%E4%BB%BB%E5%8A%A1%E7%9A%84%E8%AE%BE%E8%AE%A1%E6%96%B9%E6%A1%88.jpg" decoding="async" loading="lazy">
+
+    <h2>思考过程</h2>
+    <p>要梳理思考过程的展示，首先必须知道模型会输出哪些内容，我们用的claude SDK的框架，主要会输出以下几类内容：</p>
+    <table>
+      <thead>
+        <tr>
+          <th>事件类型</th>
+          <th>说明</th>
+        </tr>
+      </thead>
+      <tbody>
+        <tr>
+          <td><code>text_delta</code></td>
+          <td>文本增量输出</td>
+        </tr>
+        <tr>
+          <td><code>thinking_delta</code></td>
+          <td>思考过程增量输出</td>
+        </tr>
+        <tr>
+          <td><code>tool_use</code></td>
+          <td>工具调用开始</td>
+        </tr>
+        <tr>
+          <td><code>progress</code></td>
+          <td>TodoWrite 任务进度更新</td>
+        </tr>
+      </tbody>
+    </table>
+
+    <p>而为了避免内容过长，又想要保证中间的关键信息不被遮挡，因此我设计了折叠效果，整体按照“文本增量输出（正文）”分段折叠展示：</p>
+    <img src="https://pigpeng-web.oss-cn-hangzhou.aliyuncs.com/images/projects/AI%E7%9A%84%E4%B8%80%E4%BA%9B%E5%B0%9D%E8%AF%95/%E6%80%9D%E8%80%83%E8%BF%87%E7%A8%8B%E6%8A%98%E5%8F%A0.jpg" decoding="async" loading="lazy">
+
+    <h2>移动端AI场景探索</h2>
+    <p>除了基础的对话流程外，我也去探索了针对企业本身的AI功能的一些可能性场景，毕竟如果只有纯对话的体验，那为啥不直接用市面上成熟的产品呢？所以当时想结合业务场景去探索一些方案。最终通过用户访谈探索出了两个方向；</p>
+    <img src="https://pigpeng-web.oss-cn-hangzhou.aliyuncs.com/images/projects/AI%E7%9A%84%E4%B8%80%E4%BA%9B%E5%B0%9D%E8%AF%95/%E7%A7%BB%E5%8A%A8%E7%AB%AF%E5%9C%BA%E6%99%AF%E6%8E%A2%E7%B4%A2.jpg" decoding="async" loading="lazy">
+
 
 
     <h1>前端开发的尝试</h1>
-    <p>主要是讲述通过cursor进行可交付与上线的前端代码开发。</p>
+    <p>主要是讲述通过cursor进行可交付与上线的前端代码开发，在此之中，我也总结了一套自己的习惯，也体会到了自己即是产品、设计、前端三角色合一的快感；</p>
+    <img src="" decoding="async" loading="lazy">
+
+    <h2>1、熟悉整体的项目结构</h2>
+    <p>当碰到一个全新的项目时，可参考这个：梳理整个项目的目录结果，了解页面js、css、接口定义这些重要的文件在哪块区域，以及怎么归类的，并生成一个项目解释.md文件，请在git push里面忽略它；</p>
+    <img src="" decoding="async" loading="lazy">
+
+    <h2>2、制定修改计划</h2>
+    <p>1、书写本次项目大概要做的一些内容，简单描述一下；</p>
+    <p>2、提供本次需求的PRD.md文件，写的越规整与详细越好；</p>
+    <p>3、提供每个页面的mg链接，让其获取MCP；</p>
+    <p>4、若有动态交互的hmtl更好，但需要在提示词里面让他只参考交互，不参考样式，样式按照mg来输出；</p>
+    <p>5、让ai根据上述四块内容，拟定一个修改计划，涉及到背景、流程更改说明、设计稿参考、交互规则、组件引用（若有组件时）、文件变更清单、接口设计清单，开发流程介绍、自测用例；</p>
+    <img src="" decoding="async" loading="lazy">
+
+    <h2>3、让其按照md进行本次操作的执行</h2>
+    <p>这一步便是等待，可以去干其他事情了，等待模型执行中...</p>
+    <img src="" decoding="async" loading="lazy">
+
+    <h2>4、执行完成后</h2>
+    <p>修改代码后，一项项大概检查下是否是符合自己的预期进行修改的；</p>
+    <p>留意修改的文件，有没有超纲，避免影响到其他功能；</p>
+    <img src="" decoding="async" loading="lazy">
+
+    <h2>5、如果缺后端接口，可以直接让ai发送</h2>
+    <p>案例：如果我想要status里面添加这种未读/已读状态，我应该怎么描述，请帮我问下钉钉里面的任志林；cursor会调用钉钉cli，从而将整体想要的问题组织并发给后端；</p>
+    <img src="https://pigpeng-web.oss-cn-hangzhou.aliyuncs.com/images/projects/AI%E7%9A%84%E4%B8%80%E4%BA%9B%E5%B0%9D%E8%AF%95/%E6%89%93%E9%80%9A%E5%92%8C%E9%92%89%E9%92%89.jpg" decoding="async" loading="lazy">
+
+
+    <h2>踩坑指南：代码冲突</h2>
+    <p>因为AI项目的特殊性，很多优化都集中在一个页面，也就是用户主对话页，但当我们多个开发同时进行时，即使更改的点不一样，但最终修改的代码大多数都集中在那几个js里面，因此一部署就会抱冲突错误；</p>
+    <img src="https://pigpeng-web.oss-cn-hangzhou.aliyuncs.com/images/projects/AI%E7%9A%84%E4%B8%80%E4%BA%9B%E5%B0%9D%E8%AF%95/%E8%A7%A3%E5%86%B3%E4%BB%A3%E7%A0%81%E5%86%B2%E7%AA%81.jpg" decoding="async" loading="lazy">
 
 
     <h1>部分AI规范的梳理</h1>
     <p>在早期的时候，其实我们公司内部也想抽离出一套关于AI的设计规范，但后续发现目前AI本身的形态并没有完全定下来，因为当初只梳理了这两块内容，便没有后续了...</p>
-    <img src="" decoding="async" loading="lazy">
+    <img src="https://pigpeng-web.oss-cn-hangzhou.aliyuncs.com/images/projects/AI%E7%9A%84%E4%B8%80%E4%BA%9B%E5%B0%9D%E8%AF%95/%E8%AE%BE%E8%AE%A1%E8%A7%84%E8%8C%83%E7%9A%84%E6%A2%B3%E7%90%86.jpg" decoding="async" loading="lazy">
 
 </div>
 
-
-
-
+<div class="blog-toc-wrap">
+<span class="blog-toc-hint" aria-hidden="true"><svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" aria-hidden="true"><line x1="8" y1="6" x2="21" y2="6"/><line x1="8" y1="12" x2="21" y2="12"/><line x1="8" y1="18" x2="21" y2="18"/><circle cx="4" cy="6" r="1" fill="currentColor" stroke="none"/><circle cx="4" cy="12" r="1" fill="currentColor" stroke="none"/><circle cx="4" cy="18" r="1" fill="currentColor" stroke="none"/></svg></span>
+<aside class="blog-toc" aria-label="页面目录">
+    <p class="blog-toc-title">目录</p>
+    <nav id="blog-toc-nav"></nav>
+</aside>
+</div>
 
 
 
@@ -483,5 +748,55 @@
 
 
   <script src="../js/main.js"></script>
+  <script>
+    (function () {
+      var content = document.querySelector('.blog-content');
+      var nav = document.getElementById('blog-toc-nav');
+      if (!content || !nav) return;
+
+      var headings = content.querySelectorAll('h1, h2, h3');
+      if (!headings.length) return;
+
+      var list = document.createElement('ul');
+      list.className = 'blog-toc-list';
+      var links = [];
+
+      headings.forEach(function (heading, index) {
+        if (!heading.id) heading.id = 'section-' + (index + 1);
+
+        var item = document.createElement('li');
+        item.className = 'toc-' + heading.tagName.toLowerCase();
+
+        var link = document.createElement('a');
+        link.href = '#' + heading.id;
+        link.textContent = heading.textContent.trim();
+        link.title = heading.textContent.trim();
+        item.appendChild(link);
+        list.appendChild(item);
+        links.push({ link: link, heading: heading });
+      });
+
+      nav.appendChild(list);
+
+      function setActive(id) {
+        links.forEach(function (entry) {
+          entry.link.classList.toggle('active', entry.heading.id === id);
+        });
+      }
+
+      var observer = new IntersectionObserver(function (entries) {
+        var visible = entries
+          .filter(function (entry) { return entry.isIntersecting; })
+          .sort(function (a, b) { return a.boundingClientRect.top - b.boundingClientRect.top; });
+        if (visible.length) setActive(visible[0].target.id);
+      }, {
+        rootMargin: '-20% 0px -70% 0px',
+        threshold: 0
+      });
+
+      headings.forEach(function (heading) { observer.observe(heading); });
+      setActive(headings[0].id);
+    })();
+  </script>
 </body>
 </html>
