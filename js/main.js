@@ -6,6 +6,59 @@ document.addEventListener('DOMContentLoaded', function() {
   });
 });
 
+// 首页电话/邮箱图标：点击复制
+document.addEventListener('DOMContentLoaded', function() {
+  function copyText(text) {
+    if (navigator.clipboard && navigator.clipboard.writeText) {
+      return navigator.clipboard.writeText(text);
+    }
+    return new Promise(function(resolve, reject) {
+      var input = document.createElement('textarea');
+      input.value = text;
+      input.setAttribute('readonly', '');
+      input.style.position = 'fixed';
+      input.style.left = '-9999px';
+      document.body.appendChild(input);
+      input.select();
+      try {
+        document.execCommand('copy') ? resolve() : reject();
+      } catch (err) {
+        reject(err);
+      } finally {
+        document.body.removeChild(input);
+      }
+    });
+  }
+
+  document.querySelectorAll('.contact-icon[data-text]').forEach(function(icon) {
+    icon.setAttribute('role', 'button');
+    icon.setAttribute('tabindex', '0');
+    icon.setAttribute('title', '点击复制');
+
+    function handleCopy() {
+      var text = (icon.getAttribute('data-text') || '').trim();
+      if (!text) return;
+      copyText(text).then(function() {
+        icon.classList.add('is-copied');
+        clearTimeout(icon._copyTimer);
+        icon._copyTimer = setTimeout(function() {
+          icon.classList.remove('is-copied');
+        }, 1500);
+      }).catch(function() {
+        // 复制失败时保持静默，避免打扰浏览
+      });
+    }
+
+    icon.addEventListener('click', handleCopy);
+    icon.addEventListener('keydown', function(e) {
+      if (e.key === 'Enter' || e.key === ' ') {
+        e.preventDefault();
+        handleCopy();
+      }
+    });
+  });
+});
+
 // 导航栏滚动效果（滚动时改变样式，可选）
 window.addEventListener('scroll', function() {
   const navbar = document.querySelector('.navbar');

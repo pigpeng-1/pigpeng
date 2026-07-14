@@ -366,6 +366,7 @@ body {
   position: relative;
   display: inline-block;
   margin-left: 12px;
+  cursor: pointer;
 }
 
 .contact-icon::after {
@@ -385,9 +386,14 @@ body {
   transition: opacity 0.2s ease, transform 0.2s ease;
 }
 
-.contact-icon:hover::after {
+.contact-icon:hover::after,
+.contact-icon.is-copied::after {
   opacity: 1;
   transform: translateX(-50%) translateY(-4px);
+}
+
+.contact-icon.is-copied::after {
+  content: '已复制';
 }
 
 /* 社交图标hover效果 */
