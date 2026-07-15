@@ -491,17 +491,24 @@
     <p>我们将所有的细节点都收集到一起，并按照内容进行整理，概括一下大概可以分为以下几个方面；</p>
     <img src="https://pigpeng-web.oss-cn-hangzhou.aliyuncs.com/images/projects/%E8%AE%BE%E5%A4%87%E5%88%86%E6%8B%A3%E7%B3%BB%E7%BB%9F/%E8%AE%B0%E5%BD%95%E7%9A%84%E4%B8%80%E4%BA%9B%E9%97%AE%E9%A2%98.png" decoding="async" loading="lazy">
     
-    <h4>问题一：专业配置过多，用户理解成本高</h4>
-    <p>当初为了收集现场设备更多信息，我们选择让用户填写很多专业参数，但现场的设备与系统上字段维护映射关系对应不上，导致用户配置时无法联想起来；</p>
+    <h4>问题一：线上配置与线下设备对不上，专业参数难理解</h4>
+    <p>系统要求填写大量设备参数，但字段语义偏技术，网点人员很难对应到现场交叉带的实际位置与结构（如顺逆时针、格口编号）。结果是靠猜测填写，错误率高、反复咨询；</p>
+    <img src="https://pigpeng-web.oss-cn-hangzhou.aliyuncs.com/images/projects/%E4%BA%A4%E5%8F%89%E5%B8%A6%E6%A0%BC%E5%8F%A3%E5%B0%9D%E8%AF%95/%E9%97%AE%E9%A2%98%E4%B8%80%E6%A0%BC%E5%8F%A3%E5%8F%B7%E5%AF%B9%E5%BA%94%E4%B8%8D%E4%B8%8A.jpg" decoding="async" loading="lazy">
 
-    <h4>问题二：配置字段过于隐蔽，用户寻找麻烦</h4>
-    <p>我们其实有很多特色功能可供用户使用，但如果这些配置藏在二级抽屉里面，用户的配置率便很低；比如“超重件”这类的配置其实用户本身是需要的，只是找不到地方，从而造成我们的咨询量很高；</p>
+    <h4>问题二：配置字段过于隐蔽，用户找不到</h4>
+    <p>我们其实有很多特色功能可供用户使用，但这些配置藏在二级抽屉里面，比如“超重件”这类的配置其实用户本身是需要的，只是找不到地方，导致配置率低，咨询量被抬高；</p>
+    <img src="https://pigpeng-web.oss-cn-hangzhou.aliyuncs.com/images/projects/%E4%BA%A4%E5%8F%89%E5%B8%A6%E6%A0%BC%E5%8F%A3%E5%B0%9D%E8%AF%95/%E9%97%AE%E9%A2%98%E4%BA%8C%E5%8F%82%E6%95%B0%E7%BB%B4%E6%8A%A4%E9%9A%90%E8%94%BD.jpg" decoding="async" loading="lazy">
 
-    <h4>问题三：关键路径不清晰，未满足用户的高频操作</h4>
-    <p>目前系统未对进出港的方案进一步细分，根据进港场景和出港场景，展示不同的功能模块，针对性设计。比如同行系统存在按照派件员汇总，但目前不支持批量快速调整派件员，而派件员离职率比较高，当一个派件员负责多个格口时，需要重复进行更改，而且容易溜掉，比较麻烦；</p>
+    <h4>问题三：关键场景缺失，未满足用户的高频操作</h4>
+    <p>派件员变更、格口流向调整本是日常操作，但缺少按进出港场景组织的能力，也缺少「按派件员汇总 / 批量替换」这类快捷路径。一人多格口时只能重复改，漏改成本高；</p>
+    <img src="" decoding="async" loading="lazy">
 
     <h4>问题四：系统对用户的引导不够多，全靠用户主动调整</h4>
-    <p>中通中有个异常待办能将闲置格口和无效分拣码，直接展示出来，并且支持格口的快速对调，能够将一个格口的数据移动至另外一个格口上，这样格口的批量对换位置会更加快速；</p>
+    <p>闲置格口、无效分拣码等问题依赖用户自己发现。同行已通过异常待办等主动露出方式。我们这边缺少诊断入口，用户不知道该先修什么，纠错慢；</p>
+    <img src="https://pigpeng-web.oss-cn-hangzhou.aliyuncs.com/images/projects/%E4%BA%A4%E5%8F%89%E5%B8%A6%E6%A0%BC%E5%8F%A3%E5%B0%9D%E8%AF%95/%E9%97%AE%E9%A2%98%E5%9B%9B-%E6%8F%90%E7%A4%BA%E4%BF%A1%E6%81%AF.jpg" decoding="async" loading="lazy">
+
+    <h4>问题五：页面结构未按照真实调整顺序来展示，操作易忽略</h4>
+    <p>当我们调整完后，为了防止误操作，一般需要用户再手动点击下重新启动，但用户调整完后，页面停留在此页面，人就直接走了；我们只有一个个小小的按钮在右下角，因此用户漏掉的概率比较高，导致每次咨询为啥方案调整后未生效；</p>
     <img src="" decoding="async" loading="lazy">
 
     <h3>整体目标：降低配置难度，减少用户咨询量</h3>
@@ -510,13 +517,14 @@
 
 
     <h1>4、注册设备信息：可视化设备</h1>
+    <p><strong>该优化主要是为了解决上述“问题一”，用户填写“专业参数”时无法理解，导致填写错误的问题；</strong></p>
     <p>当我们碰到一些复杂概念难以理解时，线下真实的设备与线上展示需匹配上，让用户配置时 “可见即可得”，其物理位置与线上数据一致，可提升配置准确率；</p>
-    <h3>1、旧版：注册设备需要填写的基础字段</h3>
+    <h3>旧版：注册设备需要填写的基础字段</h3>
     <img src="https://pigpeng-web.oss-cn-hangzhou.aliyuncs.com/images/projects/%E8%AE%BE%E5%A4%87%E5%88%86%E6%8B%A3%E7%B3%BB%E7%BB%9F/1.png" decoding="async" loading="lazy">
     <p>旧版方案使用表格组件进行填写时，用户无法和真实的格口分布对应上；</p>
     <img src="https://pigpeng-web.oss-cn-hangzhou.aliyuncs.com/images/projects/%E8%AE%BE%E5%A4%87%E5%88%86%E6%8B%A3%E7%B3%BB%E7%BB%9F/%E6%A0%BC%E5%8F%A3%E6%97%A0%E6%B3%95%E5%AF%B9%E5%BA%94%E4%B8%8A.png" decoding="async" loading="lazy">
 
-    <h3>2、可视化格口配置</h3>
+    <h3>新版：可视化格口配置</h3>
     <p>新版方案采用3d建模的形式，将现实中的交叉带映射到配置页面中，保证用户在填写时能够与网点实际的那个交叉带一一对应，特别是顺逆时针这种隐晦的配置；</p>
     <img src="https://pigpeng-web.oss-cn-hangzhou.aliyuncs.com/images/projects/%E8%AE%BE%E5%A4%87%E5%88%86%E6%8B%A3%E7%B3%BB%E7%BB%9F/%E6%A0%BC%E5%8F%A3%E6%97%A0%E6%B3%95%E5%AF%B9%E5%BA%94.png" decoding="async" loading="lazy">
 
@@ -531,7 +539,7 @@
     <p>设备配置产品主要面向一线设备管理员，他们需要对设备进行配置，但往往缺乏专业知识，导致配置效率低、错误率高；</p>
     <img src="https://pigpeng-web.oss-cn-hangzhou.aliyuncs.com/images/projects/%E8%AE%BE%E5%A4%87%E5%88%86%E6%8B%A3%E7%B3%BB%E7%BB%9F/%E6%97%A7%E7%89%88%E5%88%86%E6%8B%A3%E6%96%B9%E6%A1%88.png" decoding="async" loading="lazy">
 
-    <h3>调整方案的行为路径</h3>
+    <h3>现实中调整方案的行为路径</h3>
     <p>以实际网点的操作步骤为例，大概分为以下几个行为节点。整体涉及到线上配置调整方案后，线下生效与验证的逻辑，整体的调整思路则按照流程进行，而基于用户的流程则可以一一进行优化；</p>
     <img src="https://pigpeng-web.oss-cn-hangzhou.aliyuncs.com/images/projects/%E8%AE%BE%E5%A4%87%E5%88%86%E6%8B%A3%E7%B3%BB%E7%BB%9F/%E8%B0%83%E6%95%B4%E6%96%B9%E6%A1%88%E8%B7%AF%E5%BE%84.png" decoding="async" loading="lazy">
 
@@ -548,20 +556,23 @@
     <img src="https://pigpeng-web.oss-cn-hangzhou.aliyuncs.com/images/projects/%E8%AE%BE%E5%A4%87%E5%88%86%E6%8B%A3%E7%B3%BB%E7%BB%9F/%E6%93%8D%E4%BD%9C%E6%88%90%E6%9C%AC.png" decoding="async" loading="lazy">
 
     <h3>2.【调整方案前】主动推送诊断提醒</h3>
+    <p><strong>该优化主要是为了解决上述“问题四”，系统对用户的引导不够多，全靠用户主动调整<；/strong></p>
     <p>增加通用的提示模块：进入调整页面时，系统自动推送诊断结果，明确待优化项，辅助网点针对性调整，避免盲目操作；</p>
     <img src="https://pigpeng-web.oss-cn-hangzhou.aliyuncs.com/images/projects/%E8%AE%BE%E5%A4%87%E5%88%86%E6%8B%A3%E7%B3%BB%E7%BB%9F/%E8%B0%83%E6%95%B4%E6%96%B9%E6%A1%88%E5%89%8D.png" decoding="async" loading="lazy">
 
     <h3>3.【调整方案中】平铺更多配置，提供快捷操作</h3>
-    <p>提供快捷方式：针对进出港的场景配置进行提效，对于调整格口流向、派件员配置增加一键替换，满足高频操作场景；</p>
+    <p><strong>该优化主要是为了解决上述“问题三”，关键场景缺失，未满足用户的高频操作；</strong></p>
+    <p>提供快捷方式：针对进出港的场景配置进行提效，对于调整格口流向、派件员配置增加一键替换，满足高频操作场景；派件员离职率比较高，当一个派件员负责多个格口时，就可以一键更改，避免重复操作；</p>
     <img src="https://pigpeng-web.oss-cn-hangzhou.aliyuncs.com/images/projects/%E8%AE%BE%E5%A4%87%E5%88%86%E6%8B%A3%E7%B3%BB%E7%BB%9F/%E8%B0%83%E6%95%B4%E6%96%B9%E6%A1%88%E4%B8%AD.png" decoding="async" loading="lazy">
 
     <p>平铺异常件格口和特殊标签：早期维护特殊格口，需要在二级抽屉里面去找，导致配置率较低；</p>
     <img src="https://pigpeng-web.oss-cn-hangzhou.aliyuncs.com/images/projects/%E8%AE%BE%E5%A4%87%E5%88%86%E6%8B%A3%E7%B3%BB%E7%BB%9F/%E9%9A%90%E8%97%8F%E5%A4%AA%E6%B7%B1.png" decoding="async" loading="lazy">
 
-    <p>将异常件格口和特殊标签直接展示在页面第一层，当网点配置的特殊标签较少时或为空时，展示对应的引导内容，提高空间利用率；</p>
+    <p>将异常件格口和特殊标签直接展示在页面第一层，无论是必填项，还是一些背后的特色功能，都能直接展示在一级页面上，方便用户寻找，也提高对应的配置率；</p>
+    <p><strong>该优化主要是为了解决上述“问题二”，配置字段过于隐蔽，用户找不到</strong></p>
     <img src="https://pigpeng-web.oss-cn-hangzhou.aliyuncs.com/images/projects/%E8%AE%BE%E5%A4%87%E5%88%86%E6%8B%A3%E7%B3%BB%E7%BB%9F/%E4%B8%80%E7%BA%A7%E9%A1%B5%E9%9D%A2%E7%9B%B4%E6%8E%A5%E9%85%8D%E7%BD%AE.png" decoding="async" loading="lazy">
 
-    <p>将异常件格口和特殊标签直接展示在页面第一层，当网点配置的特殊标签较少时或为空时，展示对应的引导内容，提高空间利用率；</p>
+    <p>并且当网点配置的特殊标签较少时或为空时，展示对应的引导内容，提高空间利用率；</p>
     <img src="https://pigpeng-web.oss-cn-hangzhou.aliyuncs.com/images/projects/%E8%AE%BE%E5%A4%87%E5%88%86%E6%8B%A3%E7%B3%BB%E7%BB%9F/%E5%9C%BA%E6%99%AF%E5%BC%95%E5%AF%BC.png" decoding="async" loading="lazy">
 
     <p>对于里面的标签，将“超重件、超时件...”等更加个性化分拣格口的维护，从“下拉选择”改成“平铺展示”，因为早期是下拉选项，用户不去点击则不清楚有哪些标签，每次都会问超重件在哪里设置。</p>
@@ -569,9 +580,11 @@
     <img src="https://pigpeng-web.oss-cn-hangzhou.aliyuncs.com/images/projects/%E8%AE%BE%E5%A4%87%E5%88%86%E6%8B%A3%E7%B3%BB%E7%BB%9F/%E6%A0%87%E7%AD%BE%E7%9A%84%E8%A7%A3%E9%87%8A.png" decoding="async" loading="lazy">
 
     <h3>4.【调整方案后】助力方案验证，保证线下运行</h3>
-    <p>本次发布内容展示：对于影响实操的后台配置类，需要给到本次修改影响到的范围，用户才能“放心”的进行版本发布；</p>
-    <p>对现场影响比较大，我们无法做实时生效的逻辑，并且由于整体修改的内容占页面比例增加，也能一定程度提醒用户点击下发，避免询问修改后为啥没实时生效的问题；</p>
+    <p><strong>该优化主要是为了解决上述“问题五”，页面结构未按照真实调整顺序来展示，操作易忽略；</strong></p>
+    <p>本次发布内容展示：对于影响实操的后台配置类，需要给到本次修改影响到的范围，用户才能“放心”的进行版本发布；因为对现场影响比较大，我们无法做实时生效的逻辑，并且由于整体修改的内容占页面比例增加，也能一定程度提醒用户点击下发；</p>
     <img src="https://pigpeng-web.oss-cn-hangzhou.aliyuncs.com/images/projects/%E8%AE%BE%E5%A4%87%E5%88%86%E6%8B%A3%E7%B3%BB%E7%BB%9F/%E8%B0%83%E6%95%B4%E6%96%B9%E6%A1%88%E5%90%8E.png" decoding="async" loading="lazy">
+    <p>除了扩展此区域外增加提醒外，我也新增了一套提示逻辑，来解决用户改完表格直接离开电脑去干活，导致溜掉保存按钮的点击，最后配置未真正生效的问题；</p>
+    <img src="https://pigpeng-web.oss-cn-hangzhou.aliyuncs.com/images/projects/%E4%BA%A4%E5%8F%89%E5%B8%A6%E6%A0%BC%E5%8F%A3%E5%B0%9D%E8%AF%95/%E8%B0%83%E6%95%B4%E6%96%B9%E6%A1%88%E5%90%8E%E5%BC%B9%E7%AA%97%E6%8F%90%E7%A4%BA.png" decoding="async" loading="lazy">
 
 
 
