@@ -450,9 +450,22 @@ function splitTextToSpans(el, type) {
   return targets;
 }
 
+function getScriptDir(scriptName) {
+  const scripts = document.getElementsByTagName('script');
+  for (let i = 0; i < scripts.length; i++) {
+    const src = scripts[i].src || '';
+    if (src.indexOf(scriptName) !== -1) {
+      return src.replace(/[^/]+$/, '');
+    }
+  }
+  return '';
+}
+
 function loadGsap() {
-  const src = 'https://cdn.jsdelivr.net/npm/gsap@3.12.7/dist/gsap.min.js';
   if (window.gsap) return Promise.resolve(window.gsap);
+
+  // 与 main.js 同目录本地加载，兼容根目录与 项目/文章 子页
+  const src = getScriptDir('main.js') + 'gsap.min.js';
 
   return new Promise((resolve, reject) => {
     const existing = document.querySelector(`script[src="${src}"]`);
