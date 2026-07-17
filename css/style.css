@@ -260,6 +260,13 @@ body {
   flex-wrap: wrap; /* 移动端换行 */
 }
 
+.frame-5 > * {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  margin: 0;
+}
+
 
 .frame-6 {
   position: relative; /* 作为子元素绝对定位的参考 */
@@ -356,6 +363,7 @@ body {
 }
 
 .element-4 {
+  display: block;
   height: 48px; /* Logo高度，根据你的图片调整（推荐30-50px） */
   width: auto; /* 宽度自动，保持图片比例，避免变形 */
   object-fit: contain; /* 确保图片完整显示，不裁剪 */
@@ -364,8 +372,6 @@ body {
 /* 首页顶部三个联系方式图标 hover 文本提示 */
 .contact-icon {
   position: relative;
-  display: inline-block;
-  margin-left: 12px;
   cursor: pointer;
 }
 
@@ -622,19 +628,21 @@ body {
 /* 二维码图片 */
 /* 父容器：横向排列 + 可选居中（按需调整） */
 .qrcode-group {
-  display: flex; /* 横向排列子元素 */
-  align-items: center; /* 垂直居中对齐（避免二维码高低不一致） */
-  /* 如需让两个二维码整体水平居中，加这行：margin: 0 auto; */
-  /* 如需让两个二维码靠右侧，加这行：justify-content: flex-end; */
+  display: flex;
+  align-items: center;
+  gap: 40px;
+  flex-wrap: wrap;
 }
 
 /* 二维码容器：控制大小（父容器只负责布局，图片大小由自身控制） */
 .weixing-img {
-  /* 父容器不需要设宽高，让 img 自己控制 */
+  flex-shrink: 0;
+  line-height: 0;
 }
 
 /* 二维码图片：固定 140x140px，完整显示 */
 .weixing-img img {
+  display: block;
   width: 140px;
   height: 140px;
   object-fit: contain;
@@ -648,8 +656,17 @@ body {
 
 .resume-pdf-link {
   display: block;
+  flex-shrink: 0;
+  line-height: 0;
   cursor: pointer;
   text-decoration: none;
+}
+
+.resume-pdf-link img {
+  display: block;
+  width: 140px;
+  height: 140px;
+  object-fit: cover;
 }
 
 .resume-pdf-link:hover img {
