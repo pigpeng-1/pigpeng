@@ -429,7 +429,7 @@
   <div class="frame-2">
     <div class="frame-3">
         <div class="element">
-            10 min read - 2025年3月～2025年10月
+            10 min read - 2024年11月～2025年9月
         </div>
         <div class="text-wrapper">设备分拣系统</div>
         <div class="element-2">
@@ -452,23 +452,23 @@
 <div class="blog-content">
 
     <h1>1、什么是设备分拣系统</h1>
-    <p>设备配置产品主要是帮助网点将自动化设备接入至公司系统内。但实际对接中多数网点无专业设备管理员，而配置参数多且复杂，专业名词理解门槛高，导致用户无法正确填写，配置效率低、错误率高。</p>
-    <p>这是一个迭代的项目，我在此期间负责整体的交互及UI设计、设备模型的建模，此外和我对接的为两位产品经理。</p>
-    <img src="" decoding="async" loading="lazy">
 
     <h3>现实中的分拣系统</h3>
-
-    <p>当用户将对应的快递编码维护到对应的格口时，而每个格口背后都绑定了对应的地址，只要维护的准确则可让分拣的地址准确无误，而这套系统则是帮助用户将格口、包裹、派送地址所关联起来的一个系统；</p>
+    <p>首先让我们先看下什么是分拣系统，就是我们的快递发货时，需要发往全国各地，这个时候因为是使用传送带进行分拣，所以只有把每个格口配好每一个城市流向，这样机器就会把这个包裹精准投递到这个格口里面；</p>
+    <p>而这个系统的核心，就是把格口、包裹、派送流向关联起来。每一个格口关联一个对应的流向；但配置时，每个现场的交叉带结构复杂、参数又偏专业，多数网点又没有专职设备管理员，所以导致最终配置门槛很高。</p>
     <img src="https://pigpeng-web.oss-cn-hangzhou.aliyuncs.com/images/projects/%E8%AE%BE%E5%A4%87%E5%88%86%E6%8B%A3%E7%B3%BB%E7%BB%9F/%E4%BA%A4%E5%8F%89%E5%B8%A6%E7%9A%84%E8%A7%A3%E9%87%8A.png" decoding="async" loading="lazy">
+
+    <p>这个项目一开始最大的痛点就是：配置参数多、名词难懂，用户对不上现场设备，错误率高。因为我们背后有个咨询平台，那个数据一直居高不下，所以我们决定针对该项目进行体验升级；</p>
+    <p>我们定的目标很简单，一句话概括的话，就是降低配置难度，减少整体的咨询量。后面的设计，基本都围着这一点进行展开。这是一个迭代的项目，我在此期间负责整体的交互及UI设计、设备模型的建模，此外和我对接的为两位产品经理。</p>
 
     
     <h1>2、调研相关</h1>
-    <p>整体项目收集与观察用户反馈主要分为三种方式，线下网点现场访谈、同行产品对比以及用户钉钉反馈群持续收集问题；</p>
+    <p>我们通过一些简单的调研收集方向与问题，先把「网点设备是怎么真实怎么用」摸清楚，主要分为三种方式，线下网点现场访谈、同行产品对比以及用户钉钉反馈群持续收集问题；</p>
     
     <h3>现场访谈调研</h3>
-    <p>现场调研主要是了解设备配置的实际操作流程，以及用户的使用习惯，为后续的设计提供参考。我们找了几个带有大型自动化设备，且配置比较复杂的网点，进行现场调研，了解并获取各同行在运营板块的功能，以设备和现场实操为主，分析优劣点，评估后取长补短；</p>
+    <p>现场调研主要是了解设备配置的实际操作流程，以及用户的使用习惯，为后续的设计提供参考。我们找了几个配置比较复杂的网点进行现场调研，了解并获取各同行在运营板块的功能，以设备和现场实操为主，分析优劣点，评估后取长补短；</p>
     <img src="https://pigpeng-web.oss-cn-hangzhou.aliyuncs.com/images/projects/%E8%AE%BE%E5%A4%87%E5%88%86%E6%8B%A3%E7%B3%BB%E7%BB%9F/%E7%8E%B0%E5%9C%BA%E7%85%A7%E7%89%87.jpg" decoding="async" loading="lazy">
-    <p>我制定了访谈问题的大纲，主要围绕着整体分拣系统进行展开，但也不局限于用户的一些发散讨论，甚至有些关键性的结论都来源于发散性问题。因为是现场访谈，并且总部已打好招呼，所以整体的内容会比较多，持续的时间比较久；</p>
+    <p>因为总部提前打好了招呼，配合意愿都比较高，我制定了访谈问题的大纲，主要围绕着整体分拣系统进行展开，但也不局限于用户的一些发散讨论，甚至有些关键性的结论都来源于发散性问题。因为是现场访谈，并且总部已打好招呼，所以整体的内容会比较多，持续的时间比较久；</p>
     <img src="https://pigpeng-web.oss-cn-hangzhou.aliyuncs.com/images/projects/%E8%AE%BE%E5%A4%87%E5%88%86%E6%8B%A3%E7%B3%BB%E7%BB%9F/%E8%AE%BF%E8%B0%88%E8%84%9A%E6%9C%AC.png" decoding="async" loading="lazy">
     
     <p>我们主要跑了四个网点，对整体的采访流程以及用户操作系统的路径都采用录屏进行了记录。方便后续还原用户的实际操作，去观察其卡点主要在哪些方便。此外因为和现场实操相关，所以除了系统本身的操作外，我们也对现场设备以及实操环境进行记录；</p>
@@ -500,7 +500,7 @@
     <img src="https://pigpeng-web.oss-cn-hangzhou.aliyuncs.com/images/projects/%E4%BA%A4%E5%8F%89%E5%B8%A6%E6%A0%BC%E5%8F%A3%E5%B0%9D%E8%AF%95/%E9%97%AE%E9%A2%98%E4%BA%8C%E5%8F%82%E6%95%B0%E7%BB%B4%E6%8A%A4%E9%9A%90%E8%94%BD.jpg" decoding="async" loading="lazy">
 
     <h4>问题三：关键场景缺失，未满足用户的高频操作</h4>
-    <p>派件员变更、格口流向调整本是日常操作，但缺少按进出港场景组织的能力，也缺少「按派件员汇总 / 批量替换」这类快捷路径。一人多格口时只能重复改，漏改成本高；</p>
+    <p>派件员变更、格口流向调整本是日常操作，但缺少按进出港场景组织的能力，也缺少「按派件员汇总 / 批量替换」这类快捷路径。一人多格口时只能重复改，漏改成本高，我们为熟练用户与高频操作考虑的太少了；</p>
     <img src="https://pigpeng-web.oss-cn-hangzhou.aliyuncs.com/images/projects/%E8%AE%BE%E5%A4%87%E5%88%86%E6%8B%A3%E7%B3%BB%E7%BB%9F/%E9%97%AE%E9%A2%98%E4%B8%89-%E5%85%B3%E9%94%AE%E5%9C%BA%E6%99%AF%E7%BC%BA%E5%A4%B1.jpg" decoding="async" loading="lazy">
 
     <h4>问题四：系统对用户的引导不够多，全靠用户主动调整</h4>
@@ -519,9 +519,9 @@
     <h1>4、注册设备信息：可视化设备</h1>
     <p><strong>该优化主要是为了解决上述“问题一”，用户填写“专业参数”时无法理解，导致填写错误的问题；</strong></p>
     <p>当我们碰到一些复杂概念难以理解时，线下真实的设备与线上展示需匹配上，让用户配置时 “可见即可得”，其物理位置与线上数据一致，可提升配置准确率；</p>
-    <h3>旧版：注册设备需要填写的基础字段</h3>
-    <img src="https://pigpeng-web.oss-cn-hangzhou.aliyuncs.com/images/projects/%E8%AE%BE%E5%A4%87%E5%88%86%E6%8B%A3%E7%B3%BB%E7%BB%9F/1.png" decoding="async" loading="lazy">
-    <p>旧版方案使用表格组件进行填写时，用户无法和真实的格口分布对应上；</p>
+
+    <h3>旧版：格口配置使用表格填写</h3>
+    <p>旧版方案使用表格组件进行填写时，用户无法和真实的格口分布对应上，主要有以下几点原因：</p>
     <img src="https://pigpeng-web.oss-cn-hangzhou.aliyuncs.com/images/projects/%E8%AE%BE%E5%A4%87%E5%88%86%E6%8B%A3%E7%B3%BB%E7%BB%9F/%E6%A0%BC%E5%8F%A3%E6%97%A0%E6%B3%95%E5%AF%B9%E5%BA%94%E4%B8%8A.png" decoding="async" loading="lazy">
 
     <h3>新版：可视化格口配置</h3>
@@ -547,16 +547,16 @@
     <p>分拣方案页面按 “调整前 - 调整中 - 调整后” 逻辑从上到下布局，符合用户操作习惯。接下来，我将按照整体模块及流程讲述一些背后的优化点，以及如何去提升整体的配置效率；</p>
     <img src="https://pigpeng-web.oss-cn-hangzhou.aliyuncs.com/images/projects/%E8%AE%BE%E5%A4%87%E5%88%86%E6%8B%A3%E7%B3%BB%E7%BB%9F/%E9%A1%B5%E9%9D%A2%E6%A1%86%E6%9E%B6.png" decoding="async" loading="lazy">
 
-    <h3>1.【初始化方案】首次新增分拣方案的步骤较多</h3>
+    <h3>1.【初始化方案】首次新增分拣方案的步骤较多，提供合理的默认值</h3>
     <p>除了调整配置外，我们也更改了默认方案配置的逻辑。现有的交互方案中，在首次接入时需要用户手动新增进出港方案，每新增一个方案则需三步。而且在快递行业分为进出港，对应的是不同的方案，用户手动新增时容易搞混；</p>
     <img src="https://pigpeng-web.oss-cn-hangzhou.aliyuncs.com/images/projects/%E8%AE%BE%E5%A4%87%E5%88%86%E6%8B%A3%E7%B3%BB%E7%BB%9F/%E5%88%9D%E5%A7%8B%E5%8C%96%E6%96%B9%E6%A1%88.png" decoding="async" loading="lazy">
-    <p>但我们通过导出后台的数据，大部分网点用户因为体量的限制，一般都只有配置1～2套方案，因此我们之前给多方案卡片占页面较多比重的方案，其实对用户首次添加的帮助不是很大；</p>
+    <p>但我通过导出后台的数据，大部分网点用户因为体量的限制，一般都只有配置1～2套方案，因此之前给多方案卡片占页面较多比重的方案，其实对用户首次添加的帮助不是很大；</p>
     <img src="https://pigpeng-web.oss-cn-hangzhou.aliyuncs.com/images/projects/%E8%AE%BE%E5%A4%87%E5%88%86%E6%8B%A3%E7%B3%BB%E7%BB%9F/%E6%89%80%E5%8D%A0%E6%AF%94%E4%BE%8B.png" decoding="async" loading="lazy">
     <p>去掉手动新增方案的步骤，减少用户配置字段的成本，去掉左侧占比面积较大的方案列表模块，并在用户进入此页面时，默认提供方案可供维护，用户即可专注于方案内容的本身；</p>
     <img src="https://pigpeng-web.oss-cn-hangzhou.aliyuncs.com/images/projects/%E8%AE%BE%E5%A4%87%E5%88%86%E6%8B%A3%E7%B3%BB%E7%BB%9F/%E6%93%8D%E4%BD%9C%E6%88%90%E6%9C%AC.png" decoding="async" loading="lazy">
 
     <h3>2.【调整方案前】主动推送诊断提醒</h3>
-    <p><strong>该优化主要是为了解决上述“问题四”，系统对用户的引导不够多，全靠用户主动调整<；/strong></p>
+    <p><strong>该优化主要是为了解决上述“问题四”，系统对用户的引导不够多，全靠用户主动调整</strong></p>
     <p>增加通用的提示模块：进入调整页面时，系统自动推送诊断结果，明确待优化项，辅助网点针对性调整，避免盲目操作；</p>
     <img src="https://pigpeng-web.oss-cn-hangzhou.aliyuncs.com/images/projects/%E8%AE%BE%E5%A4%87%E5%88%86%E6%8B%A3%E7%B3%BB%E7%BB%9F/%E8%B0%83%E6%95%B4%E6%96%B9%E6%A1%88%E5%89%8D.png" decoding="async" loading="lazy">
 
@@ -565,11 +565,10 @@
     <p>提供快捷方式：针对进出港的场景配置进行提效，对于调整格口流向、派件员配置增加一键替换，满足高频操作场景；派件员离职率比较高，当一个派件员负责多个格口时，就可以一键更改，避免重复操作；</p>
     <img src="https://pigpeng-web.oss-cn-hangzhou.aliyuncs.com/images/projects/%E8%AE%BE%E5%A4%87%E5%88%86%E6%8B%A3%E7%B3%BB%E7%BB%9F/%E8%B0%83%E6%95%B4%E6%96%B9%E6%A1%88%E4%B8%AD.png" decoding="async" loading="lazy">
 
-    <p>平铺异常件格口和特殊标签：早期维护特殊格口，需要在二级抽屉里面去找，导致配置率较低；</p>
+    <p>早期维护特殊格口，需要在二级抽屉里面去找，导致配置率较低</p>
     <img src="https://pigpeng-web.oss-cn-hangzhou.aliyuncs.com/images/projects/%E8%AE%BE%E5%A4%87%E5%88%86%E6%8B%A3%E7%B3%BB%E7%BB%9F/%E9%9A%90%E8%97%8F%E5%A4%AA%E6%B7%B1.png" decoding="async" loading="lazy">
-
-    <p>将异常件格口和特殊标签直接展示在页面第一层，无论是必填项，还是一些背后的特色功能，都能直接展示在一级页面上，方便用户寻找，也提高对应的配置率；</p>
     <p><strong>该优化主要是为了解决上述“问题二”，配置字段过于隐蔽，用户找不到</strong></p>
+    <p>将异常件格口和特殊标签直接展示在页面第一层，无论是必填项，还是一些背后的特色功能，都能直接展示在一级页面上，方便用户寻找，也提高对应的配置率；</p>
     <img src="https://pigpeng-web.oss-cn-hangzhou.aliyuncs.com/images/projects/%E8%AE%BE%E5%A4%87%E5%88%86%E6%8B%A3%E7%B3%BB%E7%BB%9F/%E4%B8%80%E7%BA%A7%E9%A1%B5%E9%9D%A2%E7%9B%B4%E6%8E%A5%E9%85%8D%E7%BD%AE.png" decoding="async" loading="lazy">
 
     <p>并且当网点配置的特殊标签较少时或为空时，展示对应的引导内容，提高空间利用率；</p>
@@ -583,7 +582,7 @@
     <p><strong>该优化主要是为了解决上述“问题五”，页面结构未按照真实调整顺序来展示，操作易忽略；</strong></p>
     <p>本次发布内容展示：对于影响实操的后台配置类，需要给到本次修改影响到的范围，用户才能“放心”的进行版本发布；因为对现场影响比较大，我们无法做实时生效的逻辑，并且由于整体修改的内容占页面比例增加，也能一定程度提醒用户点击下发；</p>
     <img src="https://pigpeng-web.oss-cn-hangzhou.aliyuncs.com/images/projects/%E8%AE%BE%E5%A4%87%E5%88%86%E6%8B%A3%E7%B3%BB%E7%BB%9F/%E8%B0%83%E6%95%B4%E6%96%B9%E6%A1%88%E5%90%8E.png" decoding="async" loading="lazy">
-    <p>除了扩展此区域外增加提醒外，我也新增了一套提示逻辑，来解决用户改完表格直接离开电脑去干活，导致溜掉保存按钮的点击，最后配置未真正生效的问题；</p>
+    <p>除了扩展此区域外增加提醒外，我也新增了一套提示逻辑，来解决用户改完表格直接离开电脑去干别的事情，导致溜掉保存按钮的点击，最后配置未真正生效的问题；</p>
     <img src="https://pigpeng-web.oss-cn-hangzhou.aliyuncs.com/images/projects/%E4%BA%A4%E5%8F%89%E5%B8%A6%E6%A0%BC%E5%8F%A3%E5%B0%9D%E8%AF%95/%E8%B0%83%E6%95%B4%E6%96%B9%E6%A1%88%E5%90%8E%E5%BC%B9%E7%AA%97%E6%8F%90%E7%A4%BA.png" decoding="async" loading="lazy">
 
 
